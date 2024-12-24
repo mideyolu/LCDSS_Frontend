@@ -1,0 +1,150 @@
+export const service = [
+    {
+        id: 1,
+        img: "/form.png",
+        caption: "Form Filling",
+        desc: "Quickly input patient details with our streamlined form interface.",
+    },
+    {
+        id: 2,
+        img: "/AI.png",
+        caption: "AI Image Analyzer",
+        desc: "Utilize advanced AI to analyze CT scan images for precise results.",
+    },
+    {
+        id: 3,
+        img: "/report.png",
+        caption: "Report Generation",
+        desc: "Receive comprehensive generated reports on the dashboard",
+    },
+];
+
+export const faqData = [
+    {
+        question: "What is the AI-Powered Lung Cancer Detection System?",
+        answer: "Our platform uses advanced AI algorithms to assist medical professionals in diagnosing lung cancer more efficiently and accurately.",
+    },
+    {
+        question: "How accurate is the detection system?",
+        answer: "The system has undergone rigorous testing and validation, ensuring high accuracy in detecting lung cancer from medical imaging.",
+    },
+    {
+        question: "What is the data used to train this model?",
+        answer: "The data used to train this model is sourced from Mendeley Hospital's open-source dataset, which is available on Kaggle. It has been anonymized to protect patient privacy, and the dataset has been provided for research and development purposes.",
+    },
+
+    {
+        question: "Who can use this platform?",
+        answer: "This platform is designed for medical professionals, healthcare providers, and researchers who require accurate diagnostic tools.",
+    },
+    {
+        question: "How do I get started?",
+        answer: "Simply click the 'Get Started' button on the homepage or the 'Try it Now' button at the navigation bar to begin the onboarding process.",
+    },
+    {
+        question: "Is my data secure?",
+        answer: "Yes, we prioritize user data privacy and comply with medical data security standards such as HIPAA.",
+    },
+];
+
+export const patientData = [
+    {
+        key: "1",
+        sn: 1,
+        name: "John Doe",
+        age: 29,
+        gender: "Male",
+        email: "john.doe@example.com",
+        status: "Normal",
+    },
+    {
+        key: "2",
+        sn: 2,
+        name: "Jane Smith",
+        age: 34,
+        gender: "Female",
+        email: "jane.smith@example.com",
+        status: "Benign",
+    },
+    {
+        key: "3",
+        sn: 3,
+        name: "Mark Lee",
+        age: 42,
+        gender: "Male",
+        email: "mark.lee@example.com",
+        status: "Normal",
+    },
+    {
+        key: "4",
+        sn: 4,
+        name: "Sophia Brown",
+        age: 27,
+        gender: "Female",
+        email: "sophia.brown@example.com",
+        status: "Malignant",
+    },
+    {
+        key: "5",
+        sn: 5,
+        name: "James Wilson",
+        age: 35,
+        gender: "Male",
+        email: "james.wilson@example.com",
+        status: "Maliganat",
+    },
+    {
+        key: "6",
+        sn: 6,
+        name: "James Michael",
+        age: 30,
+        gender: "Male",
+        email: "james.mike@example.com",
+        status: "Noraml",
+    },
+    {
+        key: "7",
+        sn: 7,
+        name: "James John",
+        age: 30,
+        gender: "Male",
+        email: "james.john@example.com",
+        status: "Noraml",
+    },
+    {
+        key: "8",
+        sn: 8,
+        name: "Sandra Tion",
+        age: 29,
+        gender: "Male",
+        email: "tion.sandra@example.com",
+        status: "Malignant",
+    },
+    {
+        key: "9",
+        sn: 9,
+        name: "James Michael",
+        age: 30,
+        gender: "Male",
+        email: "james.mike@example.com",
+        status: "Normal",
+    },
+    {
+        key: "10",
+        sn: 10,
+        name: "James Michael",
+        age: 29,
+        gender: "Male",
+        email: "james.mike@example.com",
+        status: "Benign",
+    },
+    {
+        key: "11",
+        sn: 11,
+        name: "James Collins",
+        age: 30,
+        gender: "Male",
+        email: "james.collins@example.com",
+        status: "Normal",
+    },
+];
