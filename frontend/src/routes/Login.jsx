@@ -1,49 +1,90 @@
-import React, { useEffect, useState } from "react";
+// const Login = () => {
+
+//     return (
+//         <div className="min-h-screen flex flex-col justify-center md:justify-normal md:flex-row">
+//             <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-8 py-6 sm:mt-12">
+//                 <FormComponent
+//                     title="Login"
+//                     fields={fields}
+//                     onSubmit={handleLogin}
+//                     submitButtonText="Login"
+//                     redirect={{
+//                         text: "Don't Have an Account? Signup Here",
+//                         path: "/signup",
+//                     }}
+//                 />
+//             </div>
+//             <div className="w-full md:w-4/2 flex items-center justify-center">
+//                 <Image
+//                     src={"/onboarding.png"}
+//                     alt="Login Illustration"
+//                     className="w-[100%] max-w-sm md:block hidden"
+//                 />
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default Login;
+
+// // Login.jsx
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../components/FormComponent";
-// import { loginAdmin } from "../../api/api";
+import { login } from "../api/api"; // Import the login function
 import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 import { Image } from "antd";
+import Cookies from "js-cookie";
 
 const Login = () => {
     const navigate = useNavigate();
-
     const [loading, setLoading] = useState(true);
 
     const handleLogin = async (formData) => {
+        setLoading(true);
         try {
-            // const response = await loginAdmin({
-            //     username: formData.username,
-            //     password: formData.password,
-            // });
+            const response = await login({
+                provider_email: formData.provider_email,
+                provider_password: formData.provider_password,
+            });
 
-            // localStorage.setItem("token", response.data.access_token); // Save JWT token
-            // localStorage.setItem("username", formData.username); // Save username
-            // localStorage.setItem("role", "admin"); // Save role as admin
+            Cookies.set("access_token", response.access_token, {
+                expires: 0.5 / 24,
+            }); // 30 minutes
 
-            toast.success("Login Successful!");
-
-            // Wait for 2 seconds before navigating to the dashboard
-            setTimeout(() => {
-                navigate("/dashboard");
-            }, 2000);
+            toast.success("Login successful!");
+            navigate("/dashboard");
         } catch (error) {
-            toast.error("Login Failed: Invalid credentials");
+            if (error.response) {
+                console.error(
+                    "Error occurred:",
+                    JSON.stringify(error.response.data, null, 2),
+                );
+                toast.error(error.response.data.detail || "Login failed!");
+            } else {
+                console.error(
+                    "Error occurred:",
+                    error.message || "Unknown error",
+                );
+                toast.error("Something went wrong!");
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
     const fields = [
         {
-            label: "Username",
-            name: "username",
-            type: "text",
-            placeholder: "Enter your username",
+            label: "Email",
+            name: "provider_email", // Match backend field
+            type: "email",
+            placeholder: "Enter your email",
             required: true,
         },
         {
             label: "Password",
-            name: "password",
+            name: "provider_password", // Match backend field
             type: "password",
             placeholder: "Enter your password",
             required: true,
@@ -69,17 +110,17 @@ const Login = () => {
                     title="Login"
                     fields={fields}
                     onSubmit={handleLogin}
-                    submitButtonText="Login"
+                    submitButtonText={loading ? <Loader /> : "Register"}
                     redirect={{
                         text: "Don't Have an Account? Signup Here",
                         path: "/signup",
                     }}
                 />
             </div>
-            <div className="w-full md:w-4/2 flex items-center justify-center">
+            <div className="w-full md:w-1/2 flex items-center justify-center">
                 <Image
                     src={"/onboarding.png"}
-                    alt="Login Illustration"
+                    alt="Signup Illustration"
                     className="w-[100%] max-w-sm md:block hidden"
                 />
             </div>

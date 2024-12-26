@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "antd";
+import { Image, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { FaUser, FaUserShield } from "react-icons/fa"; // Import icons
@@ -12,7 +12,7 @@ const Onboarding = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 1500);
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -74,10 +74,10 @@ const Onboarding = () => {
 
             {/* Right Section */}
             <div className="hidden md:w-1/2 md:flex items-center justify-center py-6 sm:bg-transparent">
-                <img
+                <Image
                     src="/onboarding.png"
                     alt="Onboarding Illustration"
-                    className="w-[90%] max-w-sm md:block hidden"
+                    className="w-[40%] max-w-sm md:block hidden"
                 />
             </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Input, Typography } from "antd";
+import { Button, Card, Checkbox, Input, Typography } from "antd";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
@@ -10,14 +10,17 @@ const FormComponent = ({
     onSubmit,
     submitButtonText,
     redirect,
+    showTermsAndConditions = false,
 }) => {
     const [loading, setLoading] = useState(false);
+    const [termsAccepted, setTermsAccepted] = useState(false); // State to track checkbox status
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = Object.fromEntries(new FormData(e.target).entries());
 
+        // Check for required fields
         const missingFields = fields.filter(
             (field) => field.required && !formData[field.name],
         );
@@ -31,9 +34,16 @@ const FormComponent = ({
             return;
         }
 
+        if (showTermsAndConditions && !termsAccepted) {
+            toast.error(
+                "You must accept the Terms and Conditions to continue.",
+            );
+            return;
+        }
+
         setLoading(true);
         try {
-            await onSubmit(formData);
+            await onSubmit(formData); // Pass formData to onSubmit (which is handleSignup in Signup)
         } catch (error) {
             toast.error(`Error: ${error.message || "Something went wrong!"}`);
         } finally {
@@ -45,7 +55,6 @@ const FormComponent = ({
         navigate(redirect.path); // Redirect to the specified path
     };
 
-    // Navigate back to the onboarding screen
     const handleBackToOnboarding = () => {
         navigate("/onboarding"); // Replace with the correct path for your onboarding screen
     };
@@ -75,16 +84,30 @@ const FormComponent = ({
                         </div>
                     ))}
                 </div>
-                <Button type="primary" className="mt-6" htmlType="submit">
-                    {loading ? <Loader /> : submitButtonText}
-                </Button>
+
+                <div className="flex flex-col items-start">
+                    {/* Terms and Conditions Checkbox */}
+                    {showTermsAndConditions && (
+                        <Checkbox
+                            className="mt-4"
+                            checked={termsAccepted}
+                            onChange={(e) => setTermsAccepted(e.target.checked)}
+                        >
+                            I agree to the <a href="">Terms and Conditions</a>
+                        </Checkbox>
+                    )}
+
+                    <Button type="primary" className="mt-6" htmlType="submit">
+                        {loading ? <Loader /> : submitButtonText}
+                    </Button>
+                </div>
+
                 <Typography
                     className="mt-4 text-blue-600 text-center cursor-pointer"
                     onClick={handleRedirect}
                 >
                     {redirect.text}
                 </Typography>
-                {" "}
                 <span
                     className="mt-4 text-sm absolute cursor-pointer top-[100%] right-[5%] lg:right-[-30%]"
                     onClick={handleBackToOnboarding}

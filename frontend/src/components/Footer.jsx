@@ -15,8 +15,8 @@ const Footer = () => {
                 rights reserved. <br />
                 <strong className="flex items-center gap-5">
                     Made by Project Group 9{" "}
-                    <Link>
-                        <FaGithub size={18} style={{color: "#000"}} />
+                    <Link  to={"https://github.com/mideyolu/LCDSS"}>
+                        <FaGithub size={18} style={{ color: "#000" }} />
                     </Link>
                 </strong>
             </Text>

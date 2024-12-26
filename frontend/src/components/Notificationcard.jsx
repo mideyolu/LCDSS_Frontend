@@ -12,7 +12,7 @@ const NotificationCard = ({ notifications, onClose }) => {
                 zIndex: 1000,
                 boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
             }}
-            className="w-[40%] right-1 md:w-[30%] lg:w-[25%] md:right-[8%] lg:right-[8%] lg:top-[10%]"
+            className="w-[40%] right-4 md:w-[30%] lg:w-[25%] md:right-[9%] lg:right-[8%] lg:top-[10%]"
             title="Notifications"
             extra={
                 <a onClick={onClose}>

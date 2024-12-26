@@ -33,7 +33,7 @@ const FeaturesSection = () => {
                     >
                         <Card
                             title={item.caption}
-                            className="w-[100%] hover:scale-105 duration-300 ease-in-out"
+                            className="w-[100%] hover:scale-105 cursor-pointer duration-300 ease-in-out"
                             bordered={false}
                         >
                             <Image width={150} src={item.img} />

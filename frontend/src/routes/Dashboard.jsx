@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "antd";
 import SummaryBox from "../components/SummaryBox"; // Import the reusable component
 import PatientTable from "../components/PatientTable";
@@ -7,17 +7,25 @@ import SearchBar from "../components/SearchBar";
 import NotificationCard from "../components/Notificationcard";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Footer from "../components/Footer";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = ({ sidebarCollapsed }) => {
+const Dashboard = ( { sidebarCollapsed } ) => {
+    const navigate = useNavigate()
     const [totalPatient, setTotalPatient] = useState(10);
     const [filteredData, setFilteredData] = useState(patientData);
     const [showNotifications, setShowNotifications] = useState(false);
 
     const summaryData = [
-        { title: "Total Patients", value: totalPatient },
-        { title: "Normal Case", value: 5 },
-        { title: "Benign Case", value: 2 },
-        { title: "Malignant Case", value: 8 },
+        {
+            title: "Total Patients",
+            value: totalPatient,
+            color: "#034694",
+        },
+        { title: "Normal Case", value: 5, color: "#6CB4EE" },
+        { title: "Benign Case", value: 2, color: "#3457D5" },
+        { title: "Malignant Case", value: 8, color: "#6495ED" },
     ];
 
     const toggleNotifications = () => {
@@ -47,6 +55,16 @@ const Dashboard = ({ sidebarCollapsed }) => {
             setFilteredData(patientData); // Reset to full data if search is cleared
         }
     };
+
+    // Check if the user is authenticated
+    useEffect(() => {
+        const token = Cookies.get("access_token"); // Retrieve the access token from cookies
+        if (!token) {
+            // Show a toast and redirect to login if no token is found
+            toast.error("You need to log in to access the dashboard.");
+            navigate("/login");
+        }
+    }, [navigate]);
 
     return (
         <div
@@ -83,6 +101,7 @@ const Dashboard = ({ sidebarCollapsed }) => {
                                 key={index}
                                 title={item.title}
                                 value={item.value}
+                                color={item.color}
                             />
                         ))}
                     </div>

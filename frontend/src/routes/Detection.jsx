@@ -9,7 +9,7 @@ const Detection = ({ sidebarCollapsed }) => {
 
     const handleClose = () => {
         toast.info("You have exited the detection form.", {
-            // position: "top-right",
+        
         });
         setIsFormVisible(false);
         navigate("/dashboard"); // Redirect after closing

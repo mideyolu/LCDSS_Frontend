@@ -26,7 +26,7 @@ export const faqData = [
     },
     {
         question: "How accurate is the detection system?",
-        answer: "The system has undergone rigorous testing and validation, ensuring high accuracy in detecting lung cancer from medical imaging.",
+        answer: "The system has undergone rigorous testing and validation, ensuring high accuracy in detecting lung cancer from medical imaging. We acheived an accuracy of 97% and F1 Score of 93%",
     },
     {
         question: "What is the data used to train this model?",
@@ -100,7 +100,7 @@ export const patientData = [
         age: 30,
         gender: "Male",
         email: "james.mike@example.com",
-        status: "Noraml",
+        status: "Normal",
     },
     {
         key: "7",
@@ -109,7 +109,7 @@ export const patientData = [
         age: 30,
         gender: "Male",
         email: "james.john@example.com",
-        status: "Noraml",
+        status: "Normal",
     },
     {
         key: "8",

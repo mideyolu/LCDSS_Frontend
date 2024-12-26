@@ -38,13 +38,25 @@ const PatientTable = ({ data }) => {
             dataIndex: "status",
             key: "status",
             width: 50,
+            render: (text) => {
+                const statusColors = {
+                    Normal: "#73d13d", // Green for normal status
+                    Benign: "#ffec3d", // Yellow for benign
+                    Malignant: "#f5222d", // Red for malignant
+                };
+                return (
+                    <span style={{ color: statusColors[text] || "" }}>
+                        {text}
+                    </span>
+                );
+            },
         },
     ];
 
     return (
         <Table
             columns={columns}
-            className="bg-gray-100  p-2 rounded-md"
+            className="p-2 rounded-md"
             dataSource={data}
             pagination={{ pageSize: 7 }}
             scroll={{ x: 800 }}

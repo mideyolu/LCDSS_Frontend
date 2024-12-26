@@ -20,13 +20,15 @@ const Navbar = () => {
     };
     return (
         <nav className="flex items-center justify-between">
-            <section className="flex items-center justify-center">
+            <Link to={'/'} className="flex items-center justify-center">
                 <Image src="/logo.jpg" width={50} className="rounded-3xl" />
 
-                <Paragraph className="flex items-center justify-center ml-2">
-                    Res<span className="text-blue-900">pirix</span>
+                <Paragraph className="flex mt-2 items-center justify-center ml-2">
+                    Res
+                    <span className="text-blue-900 font-bold">pirix</span>
                 </Paragraph>
-            </section>
+            </Link>
+
             <section className=" hidden md:flex gap-9">
                 <Link to={"/"}>Home</Link>
                 <Link to={"/faq"}>FAQ</Link>
@@ -63,8 +65,14 @@ const Navbar = () => {
                 >
                     <Link to={"/"}>Home</Link>
                     <Link to={"/faq"}>FAQ</Link>
-                    <Link to={"/login"}>Login</Link>
-                    <Link to={"/signup"}>Signup</Link>
+                    <Button
+                        onClick={reDirect}
+                        className="flex items-start shadow-lg"
+                        variant="solid"
+                        color="primary"
+                    >
+                        Try It Now
+                    </Button>
                 </div>
             )}
         </nav>

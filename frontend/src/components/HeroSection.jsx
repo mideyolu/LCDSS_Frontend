@@ -1,6 +1,7 @@
-import { Button, Typography } from "antd";
+import { Button, Image, Typography } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
 
 const HeroSection = () => {
     const { Title, Paragraph } = Typography;
@@ -28,10 +29,10 @@ const HeroSection = () => {
             </section>
 
             <section className="hidden md:flex md:w-[40%] lg:w-[50%] items-center justify-center">
-                <img
+                <Image
                     src="/home.png"
                     alt="Home.jpg"
-                    className="w-[80%] object-contain"
+                    className="w-[80%] object-contain shadow-sm p-1"
                 />
             </section>
         </section>
