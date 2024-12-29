@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "antd";
-import SummaryBox from "../components/SummaryBox"; // Import the reusable component
+import SummaryBox from "../components/SummaryBox";
 import PatientTable from "../components/PatientTable";
-import { patientData } from "../api/services";
 import SearchBar from "../components/SearchBar";
 import NotificationCard from "../components/Notificationcard";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Footer from "../components/Footer";
-import Cookies from "js-cookie";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
+import { handleSearch } from "../api/services"; // Import the handleSearch function
+import { fetchData } from "../api/services"; // Import the fetchData function
+import useAuth from "../hooks/useAuth";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 
-const Dashboard = ( { sidebarCollapsed } ) => {
-    const navigate = useNavigate()
-    const [totalPatient, setTotalPatient] = useState(10);
-    const [filteredData, setFilteredData] = useState(patientData);
+const Dashboard = ({ sidebarCollapsed }) => {
+    const [filteredData, setFilteredData] = useState([]);
+    const [originalData, setOriginalData] = useState([]);
+    const [summaryData, setSummaryData] = useState([
+        { title: "Total Patients", value: 0, color: "#034694" },
+        { title: "Normal Case", value: 0, color: "#6CB4EE" },
+        { title: "Benign Case", value: 0, color: "#3457D5" },
+        { title: "Malignant Case", value: 0, color: "#6495ED" },
+    ]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [showNotifications, setShowNotifications] = useState(false);
 
-    const summaryData = [
-        {
-            title: "Total Patients",
-            value: totalPatient,
-            color: "#034694",
-        },
-        { title: "Normal Case", value: 5, color: "#6CB4EE" },
-        { title: "Benign Case", value: 2, color: "#3457D5" },
-        { title: "Malignant Case", value: 8, color: "#6495ED" },
-    ];
+    // Use the custom hook for authentication check
+    useAuth();
 
     const toggleNotifications = () => {
         setShowNotifications(!showNotifications);
@@ -41,47 +42,46 @@ const Dashboard = ( { sidebarCollapsed } ) => {
 
     const { Title } = Typography;
 
-    // Handle search functionality
-    const handleSearch = (value) => {
-        if (value) {
-            const searchResult = patientData.filter((patient) =>
-                Object.values(patient)
-                    .join(" ")
-                    .toLowerCase()
-                    .includes(value.toLowerCase()),
-            );
-            setFilteredData(searchResult);
-        } else {
-            setFilteredData(patientData); // Reset to full data if search is cleared
-        }
-    };
-
-    // Check if the user is authenticated
+    // Call the fetchData function inside useEffect
     useEffect(() => {
-        const token = Cookies.get("access_token"); // Retrieve the access token from cookies
-        if (!token) {
-            // Show a toast and redirect to login if no token is found
-            toast.error("You need to log in to access the dashboard.");
-            navigate("/login");
-        }
-    }, [navigate]);
+        fetchData(
+            setSummaryData,
+            setOriginalData,
+            setFilteredData,
+            setLoading,
+            setError,
+        );
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
+
+    if (error) {
+        return <p className="text-red-500">{error}</p>;
+    }
 
     return (
         <div
-            className="min-h-screen py-2 lg:py-4 p-8"
+            className={`min-h-screen py-2 lg:py-4 p-8 ${
+                sidebarCollapsed ? " ml-[60px] md:ml-[70px]" : ""
+            } `}
             style={{
-                marginLeft: sidebarCollapsed ? "35px" : "150px", // Adjust margin based on sidebar state
                 transition: "margin-left 0.3s",
             }}
         >
-            <div className="">
-                <div className="mb-8 text-left md:flex md:items-center md:justify-between">
-                    <Title level={3} color="blue-gray">
+            <div>
+                <div className="mb-8 text-left block md:flex md:items-center md:justify-between">
+                    <Title
+                        level={3}
+                        color="blue-gray"
+                        style={{ fontFamily: "Roboto, sans-serif" }}
+                    >
                         Respirix Healthcare Provider Dashboard
                     </Title>
                     <IoIosNotificationsOutline
                         size={20}
-                        className="cursor-pointer absolute top-10 right-0 md:relative md:top-0 md:right-0"
+                        className="cursor-pointer absolute top-3 right-6 md:relative md:top-0 md:right-0"
                         onClick={toggleNotifications}
                     />
                 </div>
@@ -91,11 +91,9 @@ const Dashboard = ( { sidebarCollapsed } ) => {
                         onClose={() => setShowNotifications(false)}
                     />
                 )}
-                <div className="">
+                <div className="md:flex md:items-center md:justify-between">
                     {/* Summary Box */}
-                    <div
-                        className={` mb-8 w-full grid grid-cols-1 md:grid-cols-2 gap-8`}
-                    >
+                    <div className=" mb-8 w-[80%] md:w-[75%] lg:w-[50%] grid grid-cols-1 md:grid-cols-2 gap-8">
                         {summaryData.map((item, index) => (
                             <SummaryBox
                                 key={index}
@@ -105,31 +103,44 @@ const Dashboard = ( { sidebarCollapsed } ) => {
                             />
                         ))}
                     </div>
+                    <div
+                        className="hidden lg:flex flex-col gap-4 justify-between mt-7 pt-1 ml-5"
+                        style={{ width: "350px", fontSize: "0.55rem" }}
+                    >
+                        <FullCalendar
+                            plugins={[dayGridPlugin]}
+                            initialView="dayGridMonth"
+                            height={200}
+                            className="z-[0]"
+                            contentHeight={"10px"}
+                            aspectRatio={0.7}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div className=" flex-[30%] p-1">
-                <div className=" flex flex-col items-start justify-between md:flex-row md:items-center">
-                    <Title level={3} color="blue-gray" className="mb-2">
-                        Patient Information
-                    </Title>
-
-                    {/* SearchBar */}
-                    <SearchBar
-                        placeholder="Search by name, email, or status"
-                        onSearch={handleSearch}
-                    />
+                <div className=" flex-[30%] p-1 mt-[4rem]">
+                    <div className=" flex flex-col items-start justify-between md:flex-row md:items-center">
+                        <Title level={3} color="blue-gray" className="mb-2">
+                            Patient Information
+                        </Title>
+                        {/* SearchBar */}
+                        <SearchBar
+                            placeholder="Search by name, email, or status"
+                            onSearch={(value) =>
+                                handleSearch(
+                                    value,
+                                    originalData,
+                                    setFilteredData,
+                                )
+                            }
+                        />
+                    </div>
+                    {/* Table */}
+                    <PatientTable data={filteredData} />
                 </div>
-                {/*Table */}
-                <PatientTable data={filteredData} />
-            </div>
-            {/*
-            <div className="">
-                <div className="left">1</div>
-                <div className="right">2</div>
-            </div> */}
 
-            <div className="my-4">
-                <Footer />
+                <div className="my-4">
+                    <Footer />
+                </div>
             </div>
         </div>
     );

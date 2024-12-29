@@ -11,7 +11,8 @@ const FormComponent = ({
     submitButtonText,
     redirect,
     showTermsAndConditions = false,
-}) => {
+} ) => {
+    const {Title} = Typography
     const [loading, setLoading] = useState(false);
     const [termsAccepted, setTermsAccepted] = useState(false); // State to track checkbox status
     const navigate = useNavigate();
@@ -61,9 +62,15 @@ const FormComponent = ({
 
     return (
         <Card bordered={false}>
-            <Typography className="text-center" variant="h4">
+            <Title
+                className="text-center"
+                level={5}
+                style={{
+                    fontFamily: "Robotto, sans-serif",
+                }}
+            >
                 {title}
-            </Typography>
+            </Title>
             <form
                 className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 px-4 py-2 lg:px-8 lg:py-4"
                 onSubmit={handleSubmit}

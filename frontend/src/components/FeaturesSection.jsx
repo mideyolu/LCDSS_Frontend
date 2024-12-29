@@ -18,10 +18,29 @@ const FeaturesSection = () => {
     };
 
     return (
-        <section className="p-3 mb-[3rem]">
-            <Title level={5} className="text-center m-[.5rem] p-[0.5rem]">
-                What We Offer
+        <section className="px-5 py-3 mb-[3rem]  bg-blue-500 rounded-md">
+            <Title
+                className="text-center mb-4"
+                level={5}
+                style={{
+                    color: "white",
+                    // fontSize: "1.5rem",
+                    fontFamily: "Robotto, sans-serif",
+                }}
+            >
+                Built for Lung Cancer Detection
             </Title>
+            <Paragraph
+                className="text-[0.9rem] text-center text-white"
+                style={{
+                    fontFamily: "Robotto, sans-serif",
+                }}
+            >
+                Revolutionize patient management effortlessly. Boost diagnostic
+                accuracy with AI-powered detection and streamline workflows with
+                intuitive, user-friendly tools. Experience faster, smarter lung
+                cancer care.
+            </Paragraph>
             <Row gutter={[16, 16]} justify="center">
                 {service.map((item, id) => (
                     <Col
@@ -29,7 +48,7 @@ const FeaturesSection = () => {
                         xs={24}
                         sm={12}
                         md={12} // Two cards per row on medium screens
-                        lg={8}  // Three cards per row on large screens
+                        lg={8} // Three cards per row on large screens
                     >
                         <Card
                             title={item.caption}

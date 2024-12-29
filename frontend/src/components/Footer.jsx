@@ -3,19 +3,30 @@ import { Layout, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 
-const Footer = () => {
+const Footer = ({ sidebarCollapsed }) => {
     const { Text } = Typography;
     return (
-        <Layout style={{ background: "#fff" }}>
+        <Layout
+            style={{
+                marginLeft: sidebarCollapsed ? "35px" : "0px",
+                transition: "margin-left 0.3s",
+                background: "#fff",
+                fontFamily: "Robotto, sans-serif",
+            }}
+        >
             <Text
-                style={{ color: "gray", fontSize: "14px" }}
-                className="flex items-center justify-between"
+                style={{
+                    color: "gray",
+                    fontSize: "14px",
+                    fontFamily: "Robotto, sans-serif",
+                }}
+                className="flex flex-col text-center md:flex-row items-center justify-between"
             >
                 © {new Date().getFullYear()} Respirix Healthcare Dashboard. All
                 rights reserved. <br />
-                <strong className="flex items-center gap-5">
+                <strong className="flex mt-3 md:mt-0 items-center gap-5">
                     Made by Project Group 9{" "}
-                    <Link  to={"https://github.com/mideyolu/LCDSS"}>
+                    <Link to={"https://github.com/mideyolu/LCDSS"}>
                         <FaGithub size={18} style={{ color: "#000" }} />
                     </Link>
                 </strong>

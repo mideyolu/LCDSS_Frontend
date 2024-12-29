@@ -11,11 +11,11 @@ import Dashboard from "./routes/Dashboard";
 import SideBar from "./components/SideBar";
 import { useState } from "react";
 import Detection from "./routes/Detection";
-import ChartAnalytics from "./routes/ChartAnalytics";
+import Chart from "./routes/Chart";
 
 const App = () => {
     const location = useLocation();
-    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
     const hideNavbarRoutes = [
         "/login",
         "/onboarding",
@@ -33,9 +33,7 @@ const App = () => {
             {/* Sidebar: Conditionally render on specific routes */}
             {showSidebarRoutes.includes(location.pathname) && (
                 <SideBar
-                    onCollapseChange={(collapsed) =>
-                        setSidebarCollapsed(collapsed)
-                    }
+                    onCollapseChange={(prev) => setSidebarCollapsed(prev)}
                 />
             )}
 
@@ -49,8 +47,14 @@ const App = () => {
                     path="/dashboard"
                     element={<Dashboard sidebarCollapsed={sidebarCollapsed} />}
                 />
-                <Route path="/detect" element={<Detection />} />
-                <Route path="/chart-dashboard" element={<ChartAnalytics />} />
+                <Route
+                    path="/detect"
+                    element={<Detection sidebarCollapsed={sidebarCollapsed} />}
+                />
+                <Route
+                    path="/chart-dashboard"
+                    element={<Chart sidebarCollapsed={sidebarCollapsed} />}
+                />
             </Routes>
 
             <ToastContainer
@@ -59,7 +63,9 @@ const App = () => {
                 // hideProgressBar
             />
 
-            {!hideNavbarRoutes.includes(location.pathname) && <Footer />}
+            {!hideNavbarRoutes.includes(location.pathname) && (
+                <Footer sidebarCollapsed={sidebarCollapsed} />
+            )}
         </div>
     );
 };

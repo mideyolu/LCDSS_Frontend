@@ -1,42 +1,30 @@
 import React, { useState } from "react";
+import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import DetectionForm from "../components/DetectionForm";
+import useAuth from "../hooks/useAuth"; // Import the custom hook
 
-const Detection = ({ sidebarCollapsed }) => {
-    const [isFormVisible, setIsFormVisible] = useState(true);
+const Detection = () => {
     const navigate = useNavigate();
+    const [visible, setVisible] = useState(true);
 
-    const handleClose = () => {
-        toast.info("You have exited the detection form.", {
-        
-        });
-        setIsFormVisible(false);
-        navigate("/dashboard"); // Redirect after closing
+    const handleCancel = () => {
+        setVisible(false);
+        navigate("/dashboard"); // Navigate back to home or desired route on close
     };
 
-    const handlePredict = (values) => {
-        console.log("Prediction Data: ", values);
-        toast.success("Prediction request sent successfully!", {
-            position: "top-right",
-        });
-        setIsFormVisible(false);
-        navigate("/dashboard"); // Redirect after prediction
-    };
+    // Use the custom hook for authentication check
+    useAuth(); // This will handle token validation and expiration
 
     return (
-        <div
-            style={{
-                marginLeft: sidebarCollapsed ? "25px" : "150px", // Adjust margin based on sidebar state
-                transition: "margin-left 0.3s",
-            }}
+        <Modal
+            title="Patient Detection Form"
+            visible={visible}
+            onCancel={handleCancel}
+            footer={null} // Remove default footer buttons
         >
-            <DetectionForm
-                visible={isFormVisible}
-                onClose={handleClose}
-                onPredict={handlePredict}
-            />
-        </div>
+            <DetectionForm />
+        </Modal>
     );
 };
 

@@ -47,104 +47,73 @@ export const faqData = [
     },
 ];
 
-export const patientData = [
-    {
-        key: "1",
-        sn: 1,
-        name: "John Doe",
-        age: 29,
-        gender: "Male",
-        email: "john.doe@example.com",
-        status: "Normal",
-    },
-    {
-        key: "2",
-        sn: 2,
-        name: "Jane Smith",
-        age: 34,
-        gender: "Female",
-        email: "jane.smith@example.com",
-        status: "Benign",
-    },
-    {
-        key: "3",
-        sn: 3,
-        name: "Mark Lee",
-        age: 42,
-        gender: "Male",
-        email: "mark.lee@example.com",
-        status: "Normal",
-    },
-    {
-        key: "4",
-        sn: 4,
-        name: "Sophia Brown",
-        age: 27,
-        gender: "Female",
-        email: "sophia.brown@example.com",
-        status: "Malignant",
-    },
-    {
-        key: "5",
-        sn: 5,
-        name: "James Wilson",
-        age: 35,
-        gender: "Male",
-        email: "james.wilson@example.com",
-        status: "Maliganat",
-    },
-    {
-        key: "6",
-        sn: 6,
-        name: "James Michael",
-        age: 30,
-        gender: "Male",
-        email: "james.mike@example.com",
-        status: "Normal",
-    },
-    {
-        key: "7",
-        sn: 7,
-        name: "James John",
-        age: 30,
-        gender: "Male",
-        email: "james.john@example.com",
-        status: "Normal",
-    },
-    {
-        key: "8",
-        sn: 8,
-        name: "Sandra Tion",
-        age: 29,
-        gender: "Male",
-        email: "tion.sandra@example.com",
-        status: "Malignant",
-    },
-    {
-        key: "9",
-        sn: 9,
-        name: "James Michael",
-        age: 30,
-        gender: "Male",
-        email: "james.mike@example.com",
-        status: "Normal",
-    },
-    {
-        key: "10",
-        sn: 10,
-        name: "James Michael",
-        age: 29,
-        gender: "Male",
-        email: "james.mike@example.com",
-        status: "Benign",
-    },
-    {
-        key: "11",
-        sn: 11,
-        name: "James Collins",
-        age: 30,
-        gender: "Male",
-        email: "james.collins@example.com",
-        status: "Normal",
-    },
-];
+//
+export const handleSearch = (value, originalData, setFilteredData) => {
+    if (!value) {
+        setFilteredData(originalData); // Reset to original data when search is empty
+    } else {
+        const searchResult = originalData.filter((patient) =>
+            Object.values(patient)
+                .join(" ")
+                .toLowerCase()
+                .includes(value.toLowerCase()),
+        );
+        setFilteredData(searchResult);
+    }
+};
+
+
+// services.js
+import { dashboardData, patientData } from "../api/api";
+
+export const fetchData = async (setSummaryData, setOriginalData, setFilteredData, setLoading, setError) => {
+    try {
+        // Fetch dashboard data
+        const dashboard = await dashboardData();
+        setSummaryData([
+            {
+                title: "Total Patients",
+                value: dashboard.total_patients,
+                color: "#034694",
+            },
+            {
+                title: "Normal Case",
+                value: dashboard.normal_cases,
+                color: "#6CB4EE",
+            },
+            {
+                title: "Benign Case",
+                value: dashboard.benign_cases,
+                color: "#3457D5",
+            },
+            {
+                title: "Malignant Case",
+                value: dashboard.malignant_cases,
+                color: "#6495ED",
+            },
+        ]);
+
+        // Fetch patient data
+        const patients = await patientData();
+        const formattedData = patients.map((item, index) => ({
+            key: index,
+            sn: index + 1,
+            name: item.patient_name,
+            age: item.patient_age,
+            gender: item.patient_gender,
+            email: item.patient_email,
+            status: item.prediction.endsWith("s") ? item.prediction.slice(0, -1) : item.prediction,
+        }));
+        setOriginalData(formattedData);
+        setFilteredData(formattedData); // Initialize filteredData with original data
+
+        // Simulate delay to stop loader after 1 second
+        setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+    } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to load data.");
+        setLoading(false);
+    }
+};

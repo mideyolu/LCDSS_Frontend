@@ -20,10 +20,15 @@ const Navbar = () => {
     };
     return (
         <nav className="flex items-center justify-between">
-            <Link to={'/'} className="flex items-center justify-center">
+            <Link to={"/"} className="flex items-center justify-center">
                 <Image src="/logo.jpg" width={50} className="rounded-3xl" />
 
-                <Paragraph className="flex mt-2 items-center justify-center ml-2">
+                <Paragraph
+                    className="flex mt-2 items-center justify-center ml-2"
+                    style={{
+                        fontFamily: "Robotto, sans-serif"
+                    }}
+                >
                     Res
                     <span className="text-blue-900 font-bold">pirix</span>
                 </Paragraph>
@@ -60,7 +65,7 @@ const Navbar = () => {
                 <div
                     className={` ${
                         open ? "translate-y-0" : "translate-y-[100%]"
-                    }  transition-all ease-out duration-300 mt-2 rounded-lg z-100 place-items-center gap-3 p-[2rem] flex flex-col bg-gray-100 m-3 items-start absolute right-0 top-10 text-[0.9rem]`}
+                    }  transition-all ease-out duration-300 mt-2 rounded-lg z-100 place-items-center gap-3 p-[2rem] flex flex-col bg-gray-100 m-3 items-start absolute right-0 top-10 text-[0.9rem]  z-[99]`}
                     onClick={menu}
                 >
                     <Link to={"/"}>Home</Link>

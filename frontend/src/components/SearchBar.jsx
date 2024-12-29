@@ -11,6 +11,7 @@ const SearchBar = ({ placeholder, onSearch }) => {
                 allowClear
                 onSearch={onSearch}
                 enterButton
+                required
             />
         </div>
     );

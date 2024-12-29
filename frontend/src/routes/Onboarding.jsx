@@ -40,6 +40,9 @@ const Onboarding = () => {
                     as="h2"
                     variant="h4"
                     className="text-gray-800 font-bold mb-6 text-center md:text-left"
+                    style={{
+                        fontFamily: "Robotto, sans-serif",
+                    }}
                 >
                     Choose Your Option
                 </Typography>

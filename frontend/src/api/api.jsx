@@ -1,45 +1,122 @@
-// api.js
 import axios from "axios";
 
-// Base URL for FastAPI backend
-const API_URL = "http://localhost:8000"; // FastAPI backend is running on localhost:8000
+// Create Axios instance
+const api = axios.create({
+    baseURL: "http://127.0.0.1:8000", // Replace with your backend base URL
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
 
-
-
-export const signup = async (formData) => {
+// Function to set Authorization token
+export const setAuthToken = (token) => {
+    if (token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+        delete api.defaults.headers.common["Authorization"];
+    }
+};
+// Signup API call
+export const signup = async (data) => {
     try {
-        console.log("Sending Signup request with data:", formData); // Add this log for debugging
+        const response = await api.post("/auth/signup", data);
+        return response.data; // { access_token, token_type }
+    } catch (error) {
+        throw (
+            error.response?.data?.detail || "An error occurred during signup."
+        );
+    }
+};
+// Login API call
+export const login = async (data) => {
+    try {
+        const response = await api.post("/auth/login", data);
+        return response.data; // { access_token, token_type }
+    } catch (error) {
+        throw error.response?.data?.detail || "An error occurred during login.";
+    }
+};
+// Register patient
+export const registerPatient = async (patientData) => {
+    try {
+        const response = await api.post("/auth/patients", patientData, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        });
+        console.log("Register Patient Response:", response); // Log response
+        return response.data; // Ensure you return the response data
+    } catch (error) {
+        console.error("Error registering Patient:", error);
+        throw error;
+    }
+};
+// Function to register results
+export const registerResults = async (patientData) => {
+    try {
+        const response = await api.post("/auth/results", patientData, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`, // Add token to header
+            },
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error registering results:", error);
+        throw error;
+    }
+};
+// Function to predict
+export async function predict(file) {
+    try {
+        const formData = new FormData();
+        formData.append("file", file);
+
         const response = await axios.post(
-            `${API_URL}/signup`, // Make sure this matches your FastAPI endpoint
+            `http://127.0.0.1:8000/auth/detect`,
             formData,
             {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${localStorage.getItem(
+                        "access_token",
+                    )}`, // Include token in header
                 },
+                withCredentials: true, // Ensure cookies are sent with the request
             },
         );
-        return response.data; // Return the response data for use in handleLogin
+        return response.data;
     } catch (error) {
-        console.error("API call failed:", error);
-        throw error; // This will propagate the error to the calling function
+        console.error("Error during prediction:", error);
+        throw error;
+    }
+}
+
+export const dashboardData = async () => {
+    try {
+        const response = await api.get("/auth/dashboard", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Error Fetching dashbaord stats ${error}`);
     }
 };
 
-export const login = async (formData) => {
+export const patientData = async () => {
     try {
-        console.log("Sending login request with data:", formData); // Add this log for debugging
-        const response = await axios.post(
-            `${API_URL}/login`, // Make sure this matches your FastAPI endpoint
-            formData,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
+        const response = await api.get("/auth/patients_data", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             },
-        );
-        return response.data; // Return the response data for use in handleLogin
+        });
+        return response.data;
     } catch (error) {
-        console.error("API call failed:", error);
-        throw error; // This will propagate the error to the calling function
+        console.error( `Error Fetching dashbaord stats ${error}` );
+        throw new Error("Failed to fetch patient data");
     }
 };
+
+export default api;

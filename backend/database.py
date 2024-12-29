@@ -1,29 +1,20 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.ext.declarative import declarative_base
+#### app/database.py
+from sqlmodel import create_engine, SQLModel
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from databases import Database
-from config import settings  # Assuming settings are defined in your config
+from config import settings
 
-# Define the SQLAlchemy base class to define ORM models
-Base = declarative_base()
+DATABASE_URL = settings.DATABASE_URL
+engine = create_async_engine(DATABASE_URL, echo=True)
+async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
-# Set up the asynchronous database URL (PostgreSQL in this case)
-DATABASE_URL = settings.DATABASE_URL  # Example: 'postgresql+asyncpg://user:password@localhost/dbname'
+# Function to initialize the database
+async def init_db():
+    async with engine.begin() as conn:
+        #await conn.run_sync(SQLModel.metadata.drop_all)
+        await conn.run_sync(SQLModel.metadata.create_all)
 
-# Create the async engine for communication with the PostgreSQL database
-engine = create_async_engine(DATABASE_URL, echo=True, future=True)
-
-# Create a sessionmaker for SQLAlchemy, using AsyncSession for asynchronous operations
-SessionLocal = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False,  # Ensures session is not expired after commit
-)
-
-# Optional: If you want to use the `databases` package for low-level query handling (e.g., for direct SQL queries)
-database = Database(DATABASE_URL)  # `databases` is typically used for direct async database interaction
-
-# Dependency to get a session for your FastAPI routes
+# Dependency to get the database session
 async def get_db():
-    async with SessionLocal() as db:
-        yield db  # Yielding db session for FastAPI's dependency injection
+    async with async_session() as session:
+        yield session  # Provides the session for a single request

@@ -14,7 +14,6 @@ const Signup = () => {
     const handleSignup = async (formData) => {
         setLoading(true);
         try {
-            console.log("Signup form data:", formData); // Add this for debugging
             const response = await signup({
                 provider_username: formData.provider_username,
                 provider_email: formData.provider_email,

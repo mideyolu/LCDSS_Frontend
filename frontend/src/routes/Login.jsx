@@ -1,33 +1,4 @@
-// const Login = () => {
-
-//     return (
-//         <div className="min-h-screen flex flex-col justify-center md:justify-normal md:flex-row">
-//             <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-8 py-6 sm:mt-12">
-//                 <FormComponent
-//                     title="Login"
-//                     fields={fields}
-//                     onSubmit={handleLogin}
-//                     submitButtonText="Login"
-//                     redirect={{
-//                         text: "Don't Have an Account? Signup Here",
-//                         path: "/signup",
-//                     }}
-//                 />
-//             </div>
-//             <div className="w-full md:w-4/2 flex items-center justify-center">
-//                 <Image
-//                     src={"/onboarding.png"}
-//                     alt="Login Illustration"
-//                     className="w-[100%] max-w-sm md:block hidden"
-//                 />
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Login;
-
-// // Login.jsx
+// Login.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../components/FormComponent";
@@ -49,9 +20,10 @@ const Login = () => {
                 provider_password: formData.provider_password,
             });
 
-            Cookies.set("access_token", response.access_token, {
-                expires: 0.5 / 24,
-            }); // 30 minutes
+            // Save the token to localStorage
+            localStorage.setItem("access_token", response.access_token);
+            localStorage.setItem("id", response.provider_id);
+            localStorage.setItem("username", response.provider_username.split(" ").pop());
 
             toast.success("Login successful!");
             navigate("/dashboard");
@@ -110,7 +82,7 @@ const Login = () => {
                     title="Login"
                     fields={fields}
                     onSubmit={handleLogin}
-                    submitButtonText={loading ? <Loader /> : "Register"}
+                    submitButtonText={loading ? <Loader /> : "Login"}
                     redirect={{
                         text: "Don't Have an Account? Signup Here",
                         path: "/signup",

@@ -19,7 +19,7 @@ const FaqSection = () => {
                 ))}
             </Collapse>
 
-            <section className="text-center my-8">
+            <section className="text-center  mt-[5.4rem]">
                 <Title level={4}>Still Have Questions?</Title>
                 <p>
                     If you didn't find what you were looking for, feel free to

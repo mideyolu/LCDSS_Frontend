@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, Layout, Typography, Button, Image } from "antd";
+import { Menu, Layout, Typography, Image } from "antd";
 import {
     HomeOutlined,
     UserOutlined,
     RadarChartOutlined,
     LogoutOutlined,
-    XOutlined,
-    MenuOutlined,
 } from "@ant-design/icons";
-import Cookies from "js-cookie"; // Import js-cookie
 
 const { Sider } = Layout;
 const { Text } = Typography;
 const { Item } = Menu;
 
-const Sidebar = ({ username, onLogout, onCollapseChange }) => {
+const Sidebar = ({ onLogout, onCollapseChange }) => {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const [selectedKey, setSelectedKey] = useState("1"); // Track selected key
+    const [username, setUsername] = useState(""); // State to store the username
 
-    useEffect(() => {}, []);
+    // Get username from localStorage when the component mounts
+    useEffect(() => {
+        const storedUsername = localStorage.getItem("username");
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+    }, []);
 
     const handleNavigate = (path, key) => {
         navigate(path);
@@ -33,10 +37,11 @@ const Sidebar = ({ username, onLogout, onCollapseChange }) => {
     };
 
     const handleLogout = () => {
-        // Clear cookies
-        Cookies.remove("access_token");
+        localStorage.clear("access_token");
+        localStorage.clear("id");
+        localStorage.clear("username"); // Clear the username as well
 
-        navigate("/");
+        navigate("/onboarding");
     };
 
     return (
@@ -44,34 +49,35 @@ const Sidebar = ({ username, onLogout, onCollapseChange }) => {
             collapsible
             collapsed={collapsed}
             onCollapse={handleCollapse}
-            className="fixed min-h-screen left-0 top-0 z-50"
+            collapsedWidth={"100px"}
+            width={"250px"}
+            className="fixed min-h-screen left-0 top-0 z-[99]"
             style={{
                 backgroundColor: "#0E3386",
-                width: collapsed ? "80px" : "250px", // Adjusted width here
                 transition: "width 0.3s ease-in-out", // Smooth transition for width change
                 color: "#fff",
             }}
         >
             <section className="flex items-center justify-center min-h-[30vh] py-4 px-4">
                 <Image
-                    src="/logo.jpg"
+                    src="/icon.png"
                     alt="Logo"
-                    width={120}
+                    width={230}
                     className={`${
                         collapsed ? "hidden" : "block"
-                    } rounded-full `}
-                    // width={{ width: collapsed ? "30%" : "20%" }}
+                    } rounded-full bg-[#0E3375] shadow-md `}
                 />
             </section>
 
             <section className="text-center mb-[1.2rem] text-white">
                 <Text className="text-white ">
-                    {collapsed ? "" : " Welcome Back"}
+                    {collapsed ? "" : `Welcome Back, Dr. ${username}`}
                 </Text>
             </section>
 
             <Menu
                 mode="inline"
+                className="flex flex-col gap-2 mt-9"
                 selectedKeys={[selectedKey]} // Ensure the selected key updates
                 style={{
                     backgroundColor: "#0E3386",
@@ -147,16 +153,6 @@ const Sidebar = ({ username, onLogout, onCollapseChange }) => {
                     </span>
                 </Item>
             </Menu>
-
-            {/* <div style={{ textAlign: "center", marginTop: "auto" }}>
-                <Button
-                    type="link"
-                    style={{ color: "white" }}
-                    onClick={() => setCollapsed(!collapsed)}
-                >
-                    {collapsed ? <MenuOutlined /> : <XOutlined />}
-                </Button>
-            </div> */}
         </Sider>
     );
 };

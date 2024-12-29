@@ -6,17 +6,21 @@ const { Title, Paragraph } = Typography;
 const SummaryBox = ({ title, value, color }) => {
     return (
         <Card
-            className="flex flex-col w-[100%] text-white h-[150px] items-start justify-center p-4"
-            style={{ backgroundColor: color }}
+            className="flex flex-col w-[90%] md:w-[85%] text-white h-[120px] md:h-[150px] items-start justify-center p-4"
+            style={{
+                fontFamily: "Robotto, sans-serif",
+                backgroundColor: color,
+            }}
         >
             <Title
-                level={4}
+                level={5}
                 style={{
                     marginBottom: "8px",
                     textAlign: "left",
                     fontSize: "1.03rem",
                     whiteSpace: "nowrap",
                     color: "#fff",
+                    fontFamily: "Robotto, sans-serif",
                 }}
             >
                 {title}
@@ -26,6 +30,7 @@ const SummaryBox = ({ title, value, color }) => {
                     fontSize: "1.2rem",
                     fontWeight: "bold",
                     color: "#fff",
+                    fontFamily: "Robotto, sans-serif",
                 }}
             >
                 {value}

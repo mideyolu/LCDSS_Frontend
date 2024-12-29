@@ -2,6 +2,37 @@ import React from "react";
 import { Table } from "antd";
 
 const PatientTable = ({ data }) => {
+    const getStatusColor = (text) => {
+        let statusColor;
+        const caseType = text.toLowerCase().includes("normal")
+            ? "Normal"
+            : text.toLowerCase().includes("benign")
+            ? "Benign"
+            : text.toLowerCase().includes("malignant")
+            ? "Malignant"
+            : "Unknown";
+
+        switch (caseType) {
+            case "Normal":
+                statusColor = "#73d13d"; // Green
+                break;
+            case "Benign":
+                statusColor = "#ffec3d"; // Yellow
+                break;
+            case "Malignant":
+                statusColor = "#f5222d"; // Red
+                break;
+            case "Unknown":
+                statusColor = "#bfbfbf"; // Gray
+                break;
+            default:
+                statusColor = "#000"; // Default color for any undefined status
+                break;
+        }
+
+        return statusColor;
+    };
+
     const columns = [
         {
             title: "S/N",
@@ -31,7 +62,7 @@ const PatientTable = ({ data }) => {
             title: "Email",
             dataIndex: "email",
             key: "email",
-            width: 80,
+            width: 60,
         },
         {
             title: "Status",
@@ -39,16 +70,8 @@ const PatientTable = ({ data }) => {
             key: "status",
             width: 50,
             render: (text) => {
-                const statusColors = {
-                    Normal: "#73d13d", // Green for normal status
-                    Benign: "#ffec3d", // Yellow for benign
-                    Malignant: "#f5222d", // Red for malignant
-                };
-                return (
-                    <span style={{ color: statusColors[text] || "" }}>
-                        {text}
-                    </span>
-                );
+                const statusColor = getStatusColor(text); // Get the status color dynamically
+                return <span style={{ color: statusColor }}>{text}</span>;
             },
         },
     ];
@@ -56,9 +79,8 @@ const PatientTable = ({ data }) => {
     return (
         <Table
             columns={columns}
-            className="p-2 rounded-md"
             dataSource={data}
-            pagination={{ pageSize: 7 }}
+            pagination={{ pageSize: 5 }}
             scroll={{ x: 800 }}
             bordered={false}
         />
