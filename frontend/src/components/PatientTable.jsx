@@ -65,6 +65,12 @@ const PatientTable = ({ data }) => {
             width: 60,
         },
         {
+            title: "Notes",
+            dataIndex: "notes",
+            key: "notes",
+            width: 120,
+        },
+        {
             title: "Status",
             dataIndex: "status",
             key: "status",

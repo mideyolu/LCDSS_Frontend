@@ -1,3 +1,6 @@
+// services.js
+import { chartData, dashboardData, logData, patientData } from "../api/api";
+
 export const service = [
     {
         id: 1,
@@ -19,6 +22,7 @@ export const service = [
     },
 ];
 
+// array for faq data
 export const faqData = [
     {
         question: "What is the AI-Powered Lung Cancer Detection System?",
@@ -47,7 +51,7 @@ export const faqData = [
     },
 ];
 
-//
+// function to handle search
 export const handleSearch = (value, originalData, setFilteredData) => {
     if (!value) {
         setFilteredData(originalData); // Reset to original data when search is empty
@@ -62,11 +66,14 @@ export const handleSearch = (value, originalData, setFilteredData) => {
     }
 };
 
-
-// services.js
-import { dashboardData, patientData } from "../api/api";
-
-export const fetchData = async (setSummaryData, setOriginalData, setFilteredData, setLoading, setError) => {
+// function to fecth data
+export const fetchData = async (
+    setSummaryData,
+    setOriginalData,
+    setFilteredData,
+    setLoading,
+    setError,
+) => {
     try {
         // Fetch dashboard data
         const dashboard = await dashboardData();
@@ -102,7 +109,10 @@ export const fetchData = async (setSummaryData, setOriginalData, setFilteredData
             age: item.patient_age,
             gender: item.patient_gender,
             email: item.patient_email,
-            status: item.prediction.endsWith("s") ? item.prediction.slice(0, -1) : item.prediction,
+            notes: item.patient_notes,
+            status: item.prediction.endsWith("s")
+                ? item.prediction.slice(0, -1)
+                : item.prediction,
         }));
         setOriginalData(formattedData);
         setFilteredData(formattedData); // Initialize filteredData with original data
@@ -114,6 +124,54 @@ export const fetchData = async (setSummaryData, setOriginalData, setFilteredData
     } catch (err) {
         console.error("Error fetching data:", err);
         setError("Failed to load data.");
+        setLoading(false);
+    }
+};
+
+// Function to fetch data for the Bar Chart
+export const fetchBarChartData = async (setData, setLoading, setError) => {
+    try {
+        const response = await chartData(); // Assume this API call fetches chart data
+        setData({
+            labels: ["Normal", "Benign", "Malignant"], // Set chart labels
+            values: [
+                response.total_normal,
+                response.total_benign,
+                response.total_malignant,
+            ], // Map response to values
+        });
+
+        setLoading(false);
+    } catch (error) {
+        console.error("Error fetching bar chart data:", error);
+        setError("Failed to load bar chart data.");
+        setLoading(false);
+    }
+};
+
+// Function to fetch data for the Pie Chart
+export const fetchPieChartData = async (setData, setLoading, setError) => {
+    try {
+        const response = await chartData(); // Assume this API call fetches chart data
+        setData({
+            totalMale: response.total_male,
+            totalFemale: response.total_female,
+        });
+        setLoading(false);
+    } catch (error) {
+        console.error("Error fetching pie chart data:", error);
+        setError("Failed to load pie chart data.");
+        setLoading(false);
+    }
+};
+
+export const fetchLogData = async (setLog, setLoading, setError) => {
+    try {
+        const response = await logData();
+        setLog(response);
+        setLoading(false);
+    } catch (error) {
+        setError("Failed to load logs.");
         setLoading(false);
     }
 };

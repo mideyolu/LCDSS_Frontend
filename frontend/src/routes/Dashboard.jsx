@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography } from "antd";
+import { message, Typography } from "antd";
 import SummaryBox from "../components/SummaryBox";
 import PatientTable from "../components/PatientTable";
 import SearchBar from "../components/SearchBar";
@@ -7,8 +7,7 @@ import NotificationCard from "../components/Notificationcard";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
-import { handleSearch } from "../api/services"; // Import the handleSearch function
-import { fetchData } from "../api/services"; // Import the fetchData function
+import { handleSearch, fetchData, fetchLogData } from "../api/services"; // Import fetchLogData
 import useAuth from "../hooks/useAuth";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -25,24 +24,28 @@ const Dashboard = ({ sidebarCollapsed }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showNotifications, setShowNotifications] = useState(false);
+    const [log, setLog] = useState([]);
 
     // Use the custom hook for authentication check
     useAuth();
+
+    // Fetch log data using modular function
+    const fetchLog = () => {
+        fetchLogData(setLog, setLoading, setError); // Using fetchLogData from services
+    };
+
+    const notifications = log.map((item) => ({
+        message: item.action,
+        timestamp: item.created_at,
+        type: "info",
+    }));
 
     const toggleNotifications = () => {
         setShowNotifications(!showNotifications);
     };
 
-    const notifications = [
-        "New patient admitted",
-        "Report uploaded",
-        "Discharge completed",
-        "Reminder: Weekly meeting",
-    ];
-
     const { Title } = Typography;
 
-    // Call the fetchData function inside useEffect
     useEffect(() => {
         fetchData(
             setSummaryData,
@@ -51,6 +54,7 @@ const Dashboard = ({ sidebarCollapsed }) => {
             setLoading,
             setError,
         );
+        fetchLog(); // Fetch the logs as well
     }, []);
 
     if (loading) {
@@ -64,11 +68,9 @@ const Dashboard = ({ sidebarCollapsed }) => {
     return (
         <div
             className={`min-h-screen py-2 lg:py-4 p-8 ${
-                sidebarCollapsed ? " ml-[60px] md:ml-[70px]" : ""
-            } `}
-            style={{
-                transition: "margin-left 0.3s",
-            }}
+                sidebarCollapsed ? " ml-[40px] md:ml-[70px]" : ""
+            }`}
+            style={{ transition: "margin-left 0.3s" }}
         >
             <div>
                 <div className="mb-8 text-left block md:flex md:items-center md:justify-between">
@@ -79,12 +81,16 @@ const Dashboard = ({ sidebarCollapsed }) => {
                     >
                         Respirix Healthcare Provider Dashboard
                     </Title>
-                    <IoIosNotificationsOutline
-                        size={20}
-                        className="cursor-pointer absolute top-3 right-6 md:relative md:top-0 md:right-0"
-                        onClick={toggleNotifications}
-                    />
+                    <div className="flex items-center">
+                        <IoIosNotificationsOutline
+                            size={20}
+                            className="cursor-pointer absolute top-4 right-6 md:relative md:top-0 md:right-0"
+                            onClick={toggleNotifications}
+                        />
+                        {/* <span className="absolute top-0 right-[6%] md:top-3 lg:top-5 lg:right-[4%]">{log.length}</span> */}
+                    </div>
                 </div>
+
                 {showNotifications && (
                     <NotificationCard
                         notifications={notifications}
@@ -137,7 +143,6 @@ const Dashboard = ({ sidebarCollapsed }) => {
                     {/* Table */}
                     <PatientTable data={filteredData} />
                 </div>
-
                 <div className="my-4">
                     <Footer />
                 </div>

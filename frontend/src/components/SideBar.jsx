@@ -49,12 +49,10 @@ const Sidebar = ({ onLogout, onCollapseChange }) => {
             collapsible
             collapsed={collapsed}
             onCollapse={handleCollapse}
-            collapsedWidth={"100px"}
-            width={"250px"}
-            className="fixed min-h-screen left-0 top-0 z-[99]"
+            collapsedWidth="65px"
+            className="fixed min-h-screen left-0 top-0 z-[99] transition-all duration-300 w-12 md:w-32 lg:w-48"
             style={{
                 backgroundColor: "#0E3386",
-                transition: "width 0.3s ease-in-out", // Smooth transition for width change
                 color: "#fff",
             }}
         >
@@ -71,7 +69,7 @@ const Sidebar = ({ onLogout, onCollapseChange }) => {
 
             <section className="text-center mb-[1.2rem] text-white">
                 <Text className="text-white ">
-                    {collapsed ? "" : `Welcome Back, Dr. ${username}`}
+                    {collapsed ? "" : `Welcome Back, ${username}`}
                 </Text>
             </section>
 

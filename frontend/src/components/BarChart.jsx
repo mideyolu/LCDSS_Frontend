@@ -1,45 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
     BarElement,
-    PointElement,
-    LineElement,
-    Title,
     Tooltip,
+    Title,
     Legend,
 } from "chart.js";
+import { fetchBarChartData } from "../api/services"; // Import the service function
+import Loader from "./Loader";
 
-// Register Chart.js elements
 ChartJS.register(
     CategoryScale,
     LinearScale,
     BarElement,
-    PointElement,
-    LineElement,
-    Title,
     Tooltip,
+    Title,
     Legend,
 );
 
 const BarChart = () => {
-    const data = {
-        labels: ["Category A", "Category B", "Category C"],
+    const [data, setData] = useState({ labels: [], values: [] });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetchBarChartData(setData, setLoading, setError); // Fetch data on mount
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
+
+    if (error) {
+        return <p className="text-red-500">{error}</p>;
+    }
+
+    const chartData = {
+        labels: data.labels,
         datasets: [
             {
-                label: "Database Distribution of Cases", // Add label for the dataset
-                data: [992, 999, 993],
+                label: "Bar Chart Data",
+                data: data.values,
                 backgroundColor: ["#2c3968", "#36A2EB", "#005A9C"],
-                font: {
-                    family: "Roboto, sans-serif",
-                    size: 16,
-                },
             },
         ],
     };
+
 
     const options = {
         barPercentage: 0.6,
@@ -47,13 +56,28 @@ const BarChart = () => {
         scales: {
             y: {
                 beginAtZero: true,
-                max: 1000,
+                max: 10,
             },
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: "Distribution of Cases",
+                font: {
+                    family: "Roboto, sans-serif",
+                    size: 16,
+                },
+            },
+
         },
     };
 
     return (
-        <Bar data={data} options={options} className="h-[150px] md:h-[300px]" />
+        <Bar
+            data={chartData}
+            options={options}
+            className="h-[150px] md:h-[300px]"
+        />
     );
 };
 

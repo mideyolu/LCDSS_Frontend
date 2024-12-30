@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SummaryBox from "../components/SummaryBox";
 import { Typography } from "antd";
 import Footer from "../components/Footer";
 import PieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
 import useAuth from "../hooks/useAuth"; // Import the custom hook
+import Loader from "../components/Loader";
 
 const Chart = ({ sidebarCollapsed }) => {
+    const [loading, setLoading] = useState(true);
     const summaryData = [
         { title: "Cases in Nigeria", value: 1789, color: "#6CB4EE" },
         { title: "Annual Death", value: 1643, color: "#034694" },
@@ -16,6 +18,19 @@ const Chart = ({ sidebarCollapsed }) => {
     useAuth(); // This will handle token validation and expiration
 
     const { Title } = Typography;
+
+    useEffect(() => {
+        // Simulate a loading process (or replace this with actual data fetching)
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1500);
+
+        return () => clearTimeout(timer); // Cleanup on component unmount
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div

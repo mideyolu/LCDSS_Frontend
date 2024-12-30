@@ -1,51 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
+import { fetchPieChartData } from "../api/services"; // Import the service function
+import Loader from "./Loader";
 
-import {
-    Chart as ChartJS,
-    ArcElement, // Import ArcElement for Pie charts
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from "chart.js";
-
-// Register Chart.js elements
-ChartJS.register(
-    ArcElement, // Register ArcElement for Pie charts
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const PieChart = () => {
-    const data = {
+    const [data, setData] = useState({ totalMale: 0, totalFemale: 0 });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetchPieChartData(setData, setLoading, setError); // Fetch data on mount
+    }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
+
+    if (error) {
+        return <p className="text-red-500">{error}</p>;
+    }
+
+    const chartData = {
         labels: ["Male", "Female"],
         datasets: [
             {
                 label: "Gender Distribution",
-                data: [30, 40],
+                data: [data.totalMale, data.totalFemale],
                 backgroundColor: ["#034694", "#36A2EB"],
             },
         ],
     };
 
     const options = {
-        scales: {
-            y: {
-                beginAtZero: true,
-                max: 1000,
-            },
-        },
         plugins: {
             title: {
                 display: true,
@@ -53,7 +42,6 @@ const PieChart = () => {
                 font: {
                     family: "Roboto, sans-serif",
                     size: 16,
-
                 },
             },
             legend: {
@@ -61,16 +49,13 @@ const PieChart = () => {
                     font: {
                         family: "Roboto, sans-serif",
                         size: 16,
-                   
                     },
                 },
             },
         },
     };
 
-    return (
-        <Pie data={data} options={options} className="h-[150px] md:h-[200px]" />
-    );
+    return <Pie data={chartData} options={options} />;
 };
 
 export default PieChart;

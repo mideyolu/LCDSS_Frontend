@@ -59,7 +59,7 @@ export const registerResults = async (patientData) => {
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`, // Add token to header
             },
         });
-        console.log(response.data);
+
         return response.data;
     } catch (error) {
         console.error("Error registering results:", error);
@@ -114,8 +114,37 @@ export const patientData = async () => {
         });
         return response.data;
     } catch (error) {
-        console.error( `Error Fetching dashbaord stats ${error}` );
+        console.error(`Error Fetching dashbaord stats ${error}`);
         throw new Error("Failed to fetch patient data");
+    }
+};
+
+export const chartData = async () => {
+    try {
+        const response = await api.get("/auth/chart_data", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Error Fetching dashbaord stats ${error}`);
+        throw new Error("Failed to fetch patient data");
+    }
+};
+
+export const logData = async () => {
+    try {
+        const response = await api.get("/auth/provider_log", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching provider logs: ${error}`);
+        throw new Error("Failed to fetch provider log data"); // Updated error message
     }
 };
 

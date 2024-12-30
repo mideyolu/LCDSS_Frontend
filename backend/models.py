@@ -14,7 +14,7 @@ class Patient(SQLModel, table=True):
     patient_age: int
     patient_gender: str
     patient_email: str
-    patient_notes: str
+    patient_notes: Optional[str]
 
 class Diagnosis(SQLModel, table=True):
     diagnosis_id: Optional[int] = Field(default=None, primary_key=True)

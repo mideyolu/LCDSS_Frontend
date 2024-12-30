@@ -42,6 +42,14 @@ class ProviderDashboardStats(BaseModel):
     malignant_cases: int
     normal_cases: int
 
+# Schema for getting chart data (Patient data)
+class ChartAnalytics(BaseModel):
+    total_male: int
+    total_female: int
+    total_normal: int
+    total_benign: int
+    total_malignant: int
+
 # Schema for getting Patient data (Patient Data)
 class PatientData(BaseModel):
     patient_name: str
