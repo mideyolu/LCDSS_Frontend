@@ -1,6 +1,6 @@
+import { ArcElement, Chart as ChartJS, Legend, Title, Tooltip } from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import { fetchPieChartData } from "../api/services"; // Import the service function
 import Loader from "./Loader";
 
@@ -28,8 +28,8 @@ const PieChart = () => {
         datasets: [
             {
                 label: "Gender Distribution",
-                data: [data.totalMale, data.totalFemale],
-                backgroundColor: ["#034694", "#36A2EB"],
+                data: [data.totalFemale, data.totalMale],
+                backgroundColor: ["#36A2EB", "#034694"],
             },
         ],
     };
@@ -55,7 +55,13 @@ const PieChart = () => {
         },
     };
 
-    return <Pie data={chartData} options={options} />;
+    return (
+        <Pie
+            data={chartData}
+            options={options}
+            className="h-[150px] md:h-[150px]"
+        />
+    );
 };
 
 export default PieChart;

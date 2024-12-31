@@ -1,11 +1,11 @@
 // Signup.jsx
+import { Image } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormComponent from "../components/FormComponent";
-import { signup } from "../api/api"; // Import the signup API function
 import { toast } from "react-toastify";
+import { signup } from "../api/api"; // Import the signup API function
+import FormComponent from "../components/FormComponent";
 import Loader from "../components/Loader";
-import { Image } from "antd";
 
 const Signup = () => {
     const navigate = useNavigate();

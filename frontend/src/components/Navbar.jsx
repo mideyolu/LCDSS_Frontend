@@ -1,9 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Button, Image, Typography } from "antd";
-import { useNavigate } from "react-router-dom";
 import { MenuOutlined, XOutlined } from "@ant-design/icons";
+import { Button, Image, Typography } from "antd";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const { Paragraph } = Typography;
@@ -26,7 +24,7 @@ const Navbar = () => {
                 <Paragraph
                     className="flex mt-2 items-center justify-center ml-2"
                     style={{
-                        fontFamily: "Robotto, sans-serif"
+                        fontFamily: "Robotto, sans-serif",
                     }}
                 >
                     Res

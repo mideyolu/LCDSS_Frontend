@@ -1,9 +1,9 @@
-import React from "react";
 import { Layout, Typography } from "antd";
-import { Link } from "react-router-dom";
+import React from "react";
 import { FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Footer = ({ sidebarCollapsed }) => {
+const Footer = ({ sidebarCollapsed, className }) => {
     const { Text } = Typography;
     return (
         <Layout
@@ -13,6 +13,7 @@ const Footer = ({ sidebarCollapsed }) => {
                 background: "#fff",
                 fontFamily: "Robotto, sans-serif",
             }}
+            className={`${className}`}
         >
             <Text
                 style={{

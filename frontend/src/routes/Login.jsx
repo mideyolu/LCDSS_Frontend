@@ -1,12 +1,11 @@
 // Login.jsx
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import FormComponent from "../components/FormComponent";
-import { login } from "../api/api"; // Import the login function
-import { toast } from "react-toastify";
-import Loader from "../components/Loader";
 import { Image } from "antd";
-import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { login } from "../api/api"; // Import the login function
+import FormComponent from "../components/FormComponent";
+import Loader from "../components/Loader";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -23,7 +22,10 @@ const Login = () => {
             // Save the token to localStorage
             localStorage.setItem("access_token", response.access_token);
             localStorage.setItem("id", response.provider_id);
-            localStorage.setItem("username", response.provider_username.split(" ").pop());
+            localStorage.setItem(
+                "username",
+                response.provider_username.split(" ").pop(),
+            );
 
             toast.success("Login successful!");
             navigate("/dashboard");

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import SummaryBox from "../components/SummaryBox";
 import { Typography } from "antd";
-import Footer from "../components/Footer";
-import PieChart from "../components/PieChart";
+import React, { useEffect, useState } from "react";
 import BarChart from "../components/BarChart";
-import useAuth from "../hooks/useAuth"; // Import the custom hook
+import Footer from "../components/Footer";
 import Loader from "../components/Loader";
+import PieChart from "../components/PieChart";
+import SummaryBox from "../components/SummaryBox";
+import useAuth from "../hooks/useAuth"; // Import the custom hook
 
 const Chart = ({ sidebarCollapsed }) => {
     const [loading, setLoading] = useState(true);
@@ -35,11 +35,11 @@ const Chart = ({ sidebarCollapsed }) => {
     return (
         <div
             className={`min-h-screen py-2 lg:py-4 p-8 ${
-                sidebarCollapsed ? " ml-[60px] md:ml-[70px]" : ""
-            } `}
-            style={{
-                transition: "margin-left 0.3s",
-            }}
+                sidebarCollapsed
+                    ? "ml-[40px] md:ml-[70px]"
+                    : "md:ml-[200px] lg:ml-[150px]"
+            }`}
+            style={{ transition: "margin-left 0.3s" }}
         >
             <div className="top">
                 <div className="mb-8 text-left block md:flex md:items-center md:justify-between">
@@ -54,7 +54,7 @@ const Chart = ({ sidebarCollapsed }) => {
                     </Title>
                 </div>
                 {/* Summary Box */}
-                <div className="mb-8 w-[55%] grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="mb-8 w-[80%] md:w-[85%] lg:w-[50%]  grid grid-cols-1 md:grid-cols-2 gap-8">
                     {summaryData.map((item, index) => (
                         <SummaryBox
                             key={index}
@@ -66,7 +66,7 @@ const Chart = ({ sidebarCollapsed }) => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between gap-10 flex-col lg:flex-row min-h-[70vh]">
+            <div className="flex items-center justify-between gap-10 flex-col lg:flex-row min-h-[50vh]">
                 <div className="left">
                     <PieChart />
                 </div>
@@ -76,8 +76,8 @@ const Chart = ({ sidebarCollapsed }) => {
                 </div>
             </div>
 
-            <div className="bottom md:mt-[5rem]">
-                <Footer />
+            <div className="my-4">
+                <Footer className="mt-[6rem]" />
             </div>
         </div>
     );

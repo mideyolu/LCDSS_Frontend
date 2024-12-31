@@ -9,11 +9,12 @@ import Signup from "./routes/Signup";
 import Onboarding from "./routes/Onboarding";
 import Dashboard from "./routes/Dashboard";
 import SideBar from "./components/SideBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Detection from "./routes/Detection";
 import Chart from "./routes/Chart";
 
 const App = () => {
+    const [username, setUsername] = useState(""); // State to store the username
     const location = useLocation();
     const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
     const hideNavbarRoutes = [
@@ -26,6 +27,13 @@ const App = () => {
     ];
 
     const showSidebarRoutes = ["/dashboard", "/detect", "/chart-dashboard"];
+
+    useEffect(() => {
+        const storedUsername = localStorage.getItem("username");
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+    }, []);
     return (
         <div className="container mx-auto px-4 py-2 lg:px-8 lg:py-4">
             {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
@@ -33,6 +41,7 @@ const App = () => {
             {/* Sidebar: Conditionally render on specific routes */}
             {showSidebarRoutes.includes(location.pathname) && (
                 <SideBar
+                    username={username}
                     onCollapseChange={(prev) => setSidebarCollapsed(prev)}
                 />
             )}
@@ -45,7 +54,7 @@ const App = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route
                     path="/dashboard"
-                    element={<Dashboard sidebarCollapsed={sidebarCollapsed} />}
+                    element={<Dashboard username={username} sidebarCollapsed={sidebarCollapsed} />}
                 />
                 <Route
                     path="/detect"

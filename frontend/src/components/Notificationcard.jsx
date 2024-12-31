@@ -1,6 +1,6 @@
-import React from "react";
-import { Card, List, Typography } from "antd";
 import { XOutlined } from "@ant-design/icons";
+import { Card, List, Typography } from "antd";
+import React from "react";
 
 const { Text } = Typography;
 

@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Menu, Layout, Typography, Image } from "antd";
 import {
     HomeOutlined,
-    UserOutlined,
-    RadarChartOutlined,
     LogoutOutlined,
+    RadarChartOutlined,
+    UserOutlined,
 } from "@ant-design/icons";
+import { Image, Layout, Menu, Typography } from "antd";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const { Sider } = Layout;
 const { Text } = Typography;
 const { Item } = Menu;
 
-const Sidebar = ({ onLogout, onCollapseChange }) => {
+const Sidebar = ({ onLogout, onCollapseChange, username }) => {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const [selectedKey, setSelectedKey] = useState("1"); // Track selected key
-    const [username, setUsername] = useState(""); // State to store the username
-
-    // Get username from localStorage when the component mounts
-    useEffect(() => {
-        const storedUsername = localStorage.getItem("username");
-        if (storedUsername) {
-            setUsername(storedUsername);
-        }
-    }, []);
 
     const handleNavigate = (path, key) => {
         navigate(path);
@@ -50,7 +41,8 @@ const Sidebar = ({ onLogout, onCollapseChange }) => {
             collapsed={collapsed}
             onCollapse={handleCollapse}
             collapsedWidth="65px"
-            className="fixed min-h-screen left-0 top-0 z-[99] transition-all duration-300 w-12 md:w-32 lg:w-48"
+            width={240}
+            className="fixed min-h-screen left-0 top-0 z-[99] transition-all duration-300"
             style={{
                 backgroundColor: "#0E3386",
                 color: "#fff",
@@ -60,16 +52,25 @@ const Sidebar = ({ onLogout, onCollapseChange }) => {
                 <Image
                     src="/icon.png"
                     alt="Logo"
-                    width={230}
+                    width={430}
                     className={`${
-                        collapsed ? "hidden" : "block"
-                    } rounded-full bg-[#0E3375] shadow-md `}
+                        collapsed ? "hidden" : "block "
+                    } rounded-full bg-[#0E4675] shadow-md `}
                 />
             </section>
 
             <section className="text-center mb-[1.2rem] text-white">
-                <Text className="text-white ">
-                    {collapsed ? "" : `Welcome Back, ${username}`}
+                <Text className="text-white">
+                    {collapsed ? (
+                        ""
+                    ) : (
+                        <div className="">
+                            <span className="block my-4">
+                                Respirix Dashboard
+                            </span>
+                            <span className="block">Welcome Back</span>
+                        </div>
+                    )}
                 </Text>
             </section>
 

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"; // Import jwt-decode to decode the JWT token
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const useAuth = () => {
     const navigate = useNavigate();
@@ -28,10 +28,11 @@ const useAuth = () => {
             // Calculate the remaining time until the token expires
             const remainingTime = decodedToken.exp * 1000 - currentTime * 1000;
 
-    
             // Set a timeout to log the user out after the remaining time
             const expirationTimeout = setTimeout(() => {
                 localStorage.removeItem("access_token");
+                localStorage.removeItem("id");
+                localStorage.removeItem("username");
                 toast.error("Session expired. You need to log in again.");
                 navigate("/login");
             }, remainingTime);
@@ -40,8 +41,6 @@ const useAuth = () => {
             return () => clearTimeout(expirationTimeout);
         }
     }, [navigate]);
-
-    // Return anything else needed from the hook
 };
 
 export default useAuth;

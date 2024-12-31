@@ -1,14 +1,14 @@
+import {
+    BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip,
+} from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Tooltip,
-    Title,
-    Legend,
-} from "chart.js";
 import { fetchBarChartData } from "../api/services"; // Import the service function
 import Loader from "./Loader";
 
@@ -49,7 +49,6 @@ const BarChart = () => {
         ],
     };
 
-
     const options = {
         barPercentage: 0.6,
         categoryPercentage: 0.9,
@@ -68,7 +67,6 @@ const BarChart = () => {
                     size: 16,
                 },
             },
-
         },
     };
 

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { Image, Typography } from "antd";
-import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader";
+import React, { useEffect, useState } from "react";
 import { FaUser, FaUserShield } from "react-icons/fa"; // Import icons
+import { useNavigate } from "react-router-dom";
 import ChoiceCard from "../components/Choicecard";
+import Loader from "../components/Loader";
 
 const Onboarding = () => {
     const navigate = useNavigate();
@@ -68,7 +68,7 @@ const Onboarding = () => {
                 </div>
 
                 <span
-                    className="mt-4 text-sm absolute cursor-pointer left-[55%] top-[80%]"
+                    className="mt-[2.7rem] md:mt-4 text-sm absolute cursor-pointer left-[55%] top-[80%]"
                     onClick={handleBackToHome}
                 >
                     Home

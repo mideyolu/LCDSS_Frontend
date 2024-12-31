@@ -1,5 +1,5 @@
-import React from "react";
 import { Typography } from "antd";
+import React from "react";
 
 const { Title, Paragraph } = Typography;
 
@@ -11,8 +11,8 @@ const ChoiceCard = ({ icon, title, paragraph, onClick, className }) => {
         >
             {icon}
             <Title
-                level={ 5 }
-                style={ {
+                level={5}
+                style={{
                     fontFamily: "Robotto, sans-serif",
                 }}
                 className="text-gray-800 font-semibold text-center"

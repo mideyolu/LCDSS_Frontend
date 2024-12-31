@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { Form, Input, Select, Button, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { predict, registerPatient, registerResults } from "../api/api";
+import { Button, Form, Input, Select, Upload } from "antd";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { predict, registerPatient, registerResults } from "../api/api";
 
 const { Option } = Select;
 
 const DetectionForm = () => {
+    const navigate = useNavigate();
     const provider_id = localStorage.getItem("id");
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
@@ -24,6 +26,7 @@ const DetectionForm = () => {
 
         try {
             setLoading(true);
+            // Step 1: Load the uploaded file
             const file = fileList[0]?.originFileObj;
 
             // Step 2: Predict diagnosis from the uploaded file
@@ -66,6 +69,7 @@ const DetectionForm = () => {
             );
             form.resetFields();
             setFileList([]);
+            navigate("/dashboard");
         } catch (error) {
             console.error("Error during submission:", error);
             toast.error("An error occurred. Please try again.");

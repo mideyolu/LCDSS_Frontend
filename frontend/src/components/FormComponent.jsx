@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import { Button, Card, Checkbox, Input, Typography } from "antd";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Loader from "./Loader";
 
 const FormComponent = ({
@@ -11,8 +11,8 @@ const FormComponent = ({
     submitButtonText,
     redirect,
     showTermsAndConditions = false,
-} ) => {
-    const {Title} = Typography
+}) => {
+    const { Title } = Typography;
     const [loading, setLoading] = useState(false);
     const [termsAccepted, setTermsAccepted] = useState(false); // State to track checkbox status
     const navigate = useNavigate();
