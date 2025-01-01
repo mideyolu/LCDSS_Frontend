@@ -12,8 +12,9 @@ const { Sider } = Layout;
 const { Text } = Typography;
 const { Item } = Menu;
 
-const Sidebar = ({ onLogout, onCollapseChange, username }) => {
+const Sidebar = ({ onLogout, onCollapseChange, username, email }) => {
     const navigate = useNavigate();
+
     const [collapsed, setCollapsed] = useState(false);
     const [selectedKey, setSelectedKey] = useState("1"); // Track selected key
 
@@ -31,6 +32,7 @@ const Sidebar = ({ onLogout, onCollapseChange, username }) => {
         localStorage.clear("access_token");
         localStorage.clear("id");
         localStorage.clear("username"); // Clear the username as well
+        localStorage.clear("email"); // Clear the username as well
 
         navigate("/onboarding");
     };
@@ -67,6 +69,10 @@ const Sidebar = ({ onLogout, onCollapseChange, username }) => {
                         <div className="">
                             <span className="block my-4">
                                 Respirix Dashboard
+                            </span>
+                            {/* <span>{username}</span> */}
+                            <span className="mb-4 bg-[#0E4675] py-1 flex items-center justify-center">
+                                {email}
                             </span>
                             <span className="block">Welcome Back</span>
                         </div>

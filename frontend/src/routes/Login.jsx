@@ -7,7 +7,7 @@ import { login } from "../api/api"; // Import the login function
 import FormComponent from "../components/FormComponent";
 import Loader from "../components/Loader";
 
-const Login = () => {
+const Login = ({setUsername, setEmail}) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
@@ -26,6 +26,11 @@ const Login = () => {
                 "username",
                 response.provider_username.split(" ").pop(),
             );
+            localStorage.setItem("email", response.provider_email);
+
+            // Update parent component state dynamically
+            setUsername(response.provider_username.split(" ").pop());
+            setEmail(response.provider_email);
 
             toast.success("Login successful!");
             navigate("/dashboard");

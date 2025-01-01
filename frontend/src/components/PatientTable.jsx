@@ -44,13 +44,13 @@ const PatientTable = ({ data }) => {
             title: "Name",
             dataIndex: "name",
             key: "name",
-            width: 120,
+            width: 160,
         },
         {
             title: "Age",
             dataIndex: "age",
             key: "age",
-            width: 30,
+            width: 10,
         },
         {
             title: "Gender",
@@ -62,7 +62,7 @@ const PatientTable = ({ data }) => {
             title: "Email",
             dataIndex: "email",
             key: "email",
-            width: 60,
+            width: 160,
         },
         {
             title: "Notes",

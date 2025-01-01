@@ -110,7 +110,7 @@ const Dashboard = ({ sidebarCollapsed, username }) => {
                         color="blue-gray"
                         style={{ fontFamily: "Roboto, sans-serif" }}
                     >
-                        {greeting}, {username}
+                        {greeting}, {username ||"."}
                     </Title>
                     <div className="flex items-center">
                         <IoIosNotificationsOutline

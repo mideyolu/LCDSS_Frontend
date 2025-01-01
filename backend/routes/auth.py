@@ -68,8 +68,20 @@ async def login(provider: ProviderLogin, db: AsyncSession = Depends(get_db)):
         "access_token": token,
         "token_type": "bearer",
         "provider_id": user.provider_id,
-        "provider_username": user.provider_username
+        "provider_username": user.provider_username,
+        "provider_email": user.provider_email,
     }
+    return response
+
+@router.post("/logout")
+async def logout(provider_id: int = Depends(get_current_provider), db: AsyncSession = Depends(get_db)):
+    if not provider_id:
+        raise HTTPException(status_code=401, detail="Invalid provider")
+
+    # Log the logout action
+    await create_log(action="Provider logout", provider_id=provider_id, db=db)
+
+    response = {"message": "Successfully logged out"}
     return response
 
 # **Detect Route**

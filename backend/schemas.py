@@ -20,6 +20,7 @@ class LoginToken(BaseModel):
     token_type: str
     provider_id: int
     provider_username: str
+    provider_email: str
 
 # Schema for creating a new Patient (receiving data from the frontend)
 class PatientCreate(BaseModel):

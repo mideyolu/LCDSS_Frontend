@@ -2,9 +2,15 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import init_db, async_session
+from database import init_db, async_session, engine
 from routes import auth
 from contextlib import asynccontextmanager
+
+async def close_db_connections():
+    """Closes all database connections gracefully."""
+    # Disposing the sessionmaker
+    await engine.dispose()
+
 
 
 @asynccontextmanager
@@ -19,11 +25,6 @@ async def lifespan(app: FastAPI):
         await close_db_connections()
         print("Application shutdown: Database connections closed")
 
-async def close_db_connections():
-    """Closes all database connections gracefully."""
-    # Disposing the sessionmaker
-    await async_session.close_all()
-
 
 app = FastAPI(lifespan=lifespan)
 
@@ -35,6 +36,5 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all HTTP methods (GET, POST, PUT, DELETE, OPTIONS, etc.)
     allow_headers=["*"],  # Allows all headers
 )
-
 
 app.include_router(auth.router, tags=["Authentication"], prefix="/auth")

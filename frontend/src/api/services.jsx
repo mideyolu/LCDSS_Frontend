@@ -117,10 +117,10 @@ export const fetchData = async (
         setOriginalData(formattedData);
         setFilteredData(formattedData); // Initialize filteredData with original data
 
-        // Simulate delay to stop loader after 1 second
+        // Simulate delay to stop loader after 2 second
         setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 2000);
     } catch (err) {
         console.error("Error fetching data:", err);
         setError("Failed to load data.");
