@@ -14,12 +14,20 @@ from io import BytesIO
 import numpy as np
 from typing import List
 
+
 router = APIRouter()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Load the pre-trained TensorFlow model once
-model = tf.keras.models.load_model('Ismail-Lung-Model.h5')
+model = 'models/Ismail-Lung-Model.tflite'
+interpreter = tf.lite.Interpreter(model_path=model)
+interpreter.allocate_tensors()
+
+# Get input and output tensor details
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
 
 # Categories for model predictions
 categories = ['Benign cases', 'Malignant cases', 'Normal cases']
@@ -86,36 +94,36 @@ async def logout(provider_id: int = Depends(get_current_provider), db: AsyncSess
 
 # **Detect Route**
 @router.post("/detect")
-async def detect(file: UploadFile,db: AsyncSession = Depends(get_db),provider_id: int = Depends(get_current_provider)):
+async def detect(file: UploadFile, db: AsyncSession = Depends(get_db),provider_id: int = Depends(get_current_provider)):
 
     if not provider_id:
         raise HTTPException(status_code=401, detail="Invalid provider")
 
     try:
+        # Read and preprocess the image
         content = await file.read()
-
-        # Convert the image to grayscale
         image = Image.open(BytesIO(content)).convert('L').resize((unit_size, unit_size))
+        input_data = np.expand_dims(np.array(image) / 255.0, axis=(0, -1)).astype(np.float32)
 
-        # Convert to numpy array and normalize (scaling to [0, 1])
-        image = np.array(image) / 255.0
+        # Set the input tensor
+        interpreter.set_tensor(input_details[0]['index'], input_data)
 
-        # Add the batch dimension and channel dimension (1 channel for grayscale)
-        image = np.expand_dims(image, axis=-1)  # Shape becomes (256, 256, 1)
-        image = np.expand_dims(image, axis=0)   # Shape becomes (1, 256, 256, 1)
+        # Run inference
+        interpreter.invoke()
 
-        # Make predictions
-        predictions = model.predict(image)
-        prediction = np.argmax(predictions, axis=-1)[0]
+        # Get the output tensor
+        output_data = interpreter.get_tensor(output_details[0]['index'])
+        prediction = np.argmax(output_data, axis=-1)[0]
 
+        # Return the predicted category
         category = categories[prediction]
-
         return {"predicted_category": category}
 
     except Exception as e:
         # Log and return an error if something goes wrong
         print(f"Error processing image or predicting: {str(e)}")
         raise HTTPException(status_code=500, detail="Error processing image or predicting")
+
 
 # **Register Patient Route**
 @router.post('/patients')
