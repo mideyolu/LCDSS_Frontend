@@ -86,7 +86,7 @@ const PatientTable = ({ data }) => {
         <Table
             columns={columns}
             dataSource={data}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 4 }}
             scroll={{ x: 800 }}
             bordered={false}
         />

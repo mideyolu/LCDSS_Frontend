@@ -35,10 +35,15 @@ const FeaturesSection = () => {
                     fontFamily: "Robotto, sans-serif",
                 }}
             >
-                Revolutionize patient management effortlessly. Boost diagnostic
-                accuracy with AI-powered detection and streamline workflows with
-                intuitive, user-friendly tools. Experience faster, smarter lung
-                cancer care.
+                <span className=" block">
+                    Revolutionize patient management effortlessly. Boost
+                    diagnostic accuracy with AI-powered detection and streamline
+                    workflows with intuitive, user-friendly tools.
+                </span>
+
+                <span className="block">
+                    Experience faster, smarter lung cancer care.
+                </span>
             </Paragraph>
             <Row gutter={[16, 16]} justify="center">
                 {service.map((item, id) => (

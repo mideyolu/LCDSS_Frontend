@@ -67,9 +67,12 @@ const DetectionForm = () => {
             toast.success(
                 "Patient data and diagnosis registered successfully!",
             );
-            form.resetFields();
-            setFileList([]);
-            navigate("/dashboard");
+
+            setTimeout(() => {
+                form.resetFields();
+                setFileList([]);
+                navigate("/dashboard");
+            }, 1500);
         } catch (error) {
             console.error("Error during submission:", error);
             toast.error("An error occurred. Please try again.");

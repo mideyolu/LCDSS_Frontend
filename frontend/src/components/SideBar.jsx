@@ -4,7 +4,7 @@ import {
     RadarChartOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import { Image, Layout, Menu, Typography } from "antd";
+import { Button, Image, Layout, Menu, Typography } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +43,7 @@ const Sidebar = ({ onLogout, onCollapseChange, username, email }) => {
             collapsed={collapsed}
             onCollapse={handleCollapse}
             collapsedWidth="65px"
-            width={240}
+            width={270}
             className="fixed min-h-screen left-0 top-0 z-[99] transition-all duration-300"
             style={{
                 backgroundColor: "#0E3386",
@@ -112,16 +112,18 @@ const Sidebar = ({ onLogout, onCollapseChange, username, email }) => {
                     onClick={() => handleNavigate("/detect", "2")}
                     style={{
                         backgroundColor:
-                            selectedKey === "2" ? "black" : "transparent", // Change background for selected item
+                            selectedKey === "2" ? "transparent" : "transparent", // Change background for selected item
                     }}
                 >
-                    <span
-                        style={{
-                            color: selectedKey === "2" ? "white" : "white",
-                        }}
-                    >
-                        Add Patient
-                    </span>
+                    <Button>
+                        <span
+                            style={{
+                                color: selectedKey === "2" ? "" : "",
+                            }}
+                        >
+                            Add Patient
+                        </span>
+                    </Button>
                 </Item>
                 <Item
                     key="3"

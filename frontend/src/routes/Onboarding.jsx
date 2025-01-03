@@ -78,7 +78,7 @@ const Onboarding = () => {
             {/* Right Section */}
             <div className="hidden md:w-1/2 md:flex items-center justify-center py-6 sm:bg-transparent">
                 <Image
-                    src="/onboarding.png"
+                    src="/onboarding1.png"
                     alt="Onboarding Illustration"
                     className="w-[40%] max-w-sm md:block hidden"
                 />

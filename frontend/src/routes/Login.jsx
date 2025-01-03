@@ -98,7 +98,7 @@ const Login = ({setUsername, setEmail}) => {
             </div>
             <div className="w-full md:w-1/2 flex items-center justify-center">
                 <Image
-                    src={"/onboarding.png"}
+                    src={"/login.png"}
                     alt="Signup Illustration"
                     className="w-[100%] max-w-sm md:block hidden"
                 />

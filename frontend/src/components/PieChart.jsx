@@ -28,7 +28,7 @@ const PieChart = () => {
         datasets: [
             {
                 label: "Gender Distribution",
-                data: [data.totalFemale, data.totalMale],
+                data: [data.totalMale, data.totalFemale],
                 backgroundColor: ["#36A2EB", "#034694"],
             },
         ],

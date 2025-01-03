@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 
 const Signup = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handleSignup = async (formData) => {
         setLoading(true);
@@ -95,9 +95,10 @@ const Signup = () => {
                     showTermsAndConditions={true} // Pass the flag here
                 />
             </div>
+
             <div className="w-full md:w-1/2 flex items-center justify-center">
                 <Image
-                    src={"/onboarding.png"}
+                    src={"/signup.png"}
                     alt="Signup Illustration"
                     className="w-[100%] max-w-sm md:block hidden"
                 />

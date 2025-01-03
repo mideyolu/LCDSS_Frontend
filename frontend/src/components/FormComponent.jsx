@@ -1,6 +1,7 @@
+import { XOutlined } from "@ant-design/icons";
 import { Button, Card, Checkbox, Input, Typography } from "antd";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "./Loader";
 
@@ -12,10 +13,16 @@ const FormComponent = ({
     redirect,
     showTermsAndConditions = false,
 }) => {
-    const { Title } = Typography;
+    const { Title, Paragraph } = Typography;
     const [loading, setLoading] = useState(false);
     const [termsAccepted, setTermsAccepted] = useState(false); // State to track checkbox status
     const navigate = useNavigate();
+
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -100,8 +107,29 @@ const FormComponent = ({
                             checked={termsAccepted}
                             onChange={(e) => setTermsAccepted(e.target.checked)}
                         >
-                            I agree to the <a href="">Terms and Conditions</a>
+                            I agree to the{" "}
+                            <Link href="" onClick={handleClick}>
+                                Terms and Conditions
+                            </Link>
                         </Checkbox>
+                    )}
+
+                    {open && (
+                        <Card className="w-[60%] absolute top-[40%] right-[20%] z-40">
+                            <Title level={5}>Please Note</Title>
+
+                            <XOutlined
+                                className="p-3 absolute top-0 right-0 hover:text-blue-600"
+                                onClick={handleClick}
+                            />
+
+                            <Paragraph>
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                </ul>
+                            </Paragraph>
+                        </Card>
                     )}
 
                     <Button type="primary" className="mt-6" htmlType="submit">
