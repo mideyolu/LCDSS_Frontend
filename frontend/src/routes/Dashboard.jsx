@@ -4,7 +4,7 @@ import { Button, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { fetchData, fetchLogData, handleSearch } from "../api/services";
+import { fetchLogData } from "../api/services";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import NotificationCard from "../components/Notificationcard";
@@ -12,6 +12,8 @@ import PatientTable from "../components/PatientTable";
 import SearchBar from "../components/SearchBar";
 import SummaryBox from "../components/SummaryBox";
 import useAuth from "../hooks/useAuth";
+import { fetchData } from "../services/dashboard";
+import { handleSearch } from "../utils/search";
 
 const Dashboard = ({ sidebarCollapsed, username }) => {
     const [filteredData, setFilteredData] = useState([]);

@@ -1,7 +1,7 @@
 import { Button, Collapse, Typography } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import { faqData } from "../api/services";
+import { faqData } from "../utils/faq";
 
 const FaqSection = () => {
     const { Panel } = Collapse;

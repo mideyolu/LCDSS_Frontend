@@ -2,7 +2,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select, Upload } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleSubmitDetection } from "../api/services";
+import { handleSubmitDetection } from "../services/detection";
 
 const { Option } = Select;
 

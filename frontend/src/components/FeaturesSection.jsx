@@ -1,6 +1,7 @@
 import { Card, Col, Image, Row, Typography } from "antd";
 import React from "react";
-import { service } from "../api/services";
+import { service } from "../utils/service";
+
 
 const FeaturesSection = () => {
     const { Title, Paragraph } = Typography;
