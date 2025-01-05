@@ -1,7 +1,7 @@
 import { ArcElement, Chart as ChartJS, Legend, Title, Tooltip } from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
-import { fetchPieChartData } from "../api/services"; // Import the service function
+import { fetchPieChartData } from "../services/chart"; // Import the service function
 import Loader from "./Loader";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);

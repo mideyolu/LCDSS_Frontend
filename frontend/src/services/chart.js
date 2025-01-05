@@ -1,4 +1,3 @@
-// services.js
 import { chartData } from "../api/api";
 
 // Function to fetch data for the Bar Chart

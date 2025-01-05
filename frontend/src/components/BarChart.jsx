@@ -9,7 +9,7 @@ import {
 } from "chart.js";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { fetchBarChartData } from "../api/services"; // Import the service function
+import { fetchBarChartData } from "../services/chart"; // Import the service function
 import Loader from "./Loader";
 
 ChartJS.register(
