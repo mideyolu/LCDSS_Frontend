@@ -21,7 +21,7 @@ ChartJS.register(
     Legend,
 );
 
-const BarChart = () => {
+const BarChart = ({ sidebarCollapsed }) => {
     const [data, setData] = useState({ labels: [], values: [] });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -74,7 +74,7 @@ const BarChart = () => {
         <Bar
             data={chartData}
             options={options}
-            className="h-[150px] md:h-[300px]"
+            className="h-[250px] flex items-center justify-center md:h-[300px] md:block"
         />
     );
 };

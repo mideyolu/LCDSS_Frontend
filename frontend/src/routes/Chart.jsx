@@ -71,7 +71,7 @@ const Chart = ({ sidebarCollapsed }) => {
                     <PieChart />
                 </div>
 
-                <div className="right">
+                <div>
                     <BarChart />
                 </div>
             </div>

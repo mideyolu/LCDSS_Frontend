@@ -44,7 +44,7 @@ const Sidebar = ({ onLogout, onCollapseChange, username, email }) => {
             onCollapse={handleCollapse}
             collapsedWidth="65px"
             width={270}
-            className="fixed min-h-screen left-0 top-0 z-[99] transition-all duration-300"
+            className="fixed min-h-[120vh] left-0 top-0 z-[99] transition-all duration-300"
             style={{
                 backgroundColor: "#0E3386",
                 color: "#fff",

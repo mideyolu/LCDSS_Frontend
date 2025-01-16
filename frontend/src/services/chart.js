@@ -26,8 +26,8 @@ export const fetchPieChartData = async (setData, setLoading, setError) => {
     try {
         const response = await chartData(); // Assume this API call fetches chart data
         setData({
-            totalMale: response.total_male,
             totalFemale: response.total_female,
+            totalMale: response.total_male,
         });
         setLoading(false);
     } catch (error) {

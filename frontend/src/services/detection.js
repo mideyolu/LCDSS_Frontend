@@ -1,5 +1,5 @@
-import { toast } from "react-toastify";
-import { predict, registerPatient, registerResults } from "../api/api";
+// import { toast } from "react-toastify";
+// import { predict, registerPatient, registerResults } from "../api/api";
 
 
 // export const handleSubmitDetection = async ({
@@ -23,9 +23,12 @@ import { predict, registerPatient, registerResults } from "../api/api";
 //         const file = fileList[0]?.originFileObj;
 
 //         // Step 2: Predict diagnosis from the uploaded file
-//         const startTime = performance.now(); // Start timer
+//         const startTime =performance={}.now(); // Start time for inference
 //         const predictionResponse = await predict(file);
 //         const prediction = predictionResponse?.predicted_category;
+
+//         const endTime = performance.now(); // End time for inference
+//         const inferenceTime = (endTime - startTime); // Calculate time in seconds
 
 //         if (!prediction) {
 //             toast.error("Prediction result is missing. Please try again.");
@@ -58,7 +61,7 @@ import { predict, registerPatient, registerResults } from "../api/api";
 //         };
 
 //         await registerResults(diagnosisPayload);
-//         toast.success("Patient data and diagnosis registered successfully!");
+//         toast.success(`Successfully! ${inferenceTime}`);
 
 //         setTimeout(() => {
 //             form.resetFields();
@@ -74,6 +77,9 @@ import { predict, registerPatient, registerResults } from "../api/api";
 // };
 
 
+
+import { toast } from "react-toastify";
+import { predict, registerPatient, registerResults } from "../api/api";
 
 export const handleSubmitDetection = async ({
     values,
@@ -96,17 +102,37 @@ export const handleSubmitDetection = async ({
         const file = fileList[0]?.originFileObj;
 
         // Step 2: Predict diagnosis from the uploaded file
-        const startTime = performance.now(); // Start timer
-        const predictionResponse = await predict(file);
-        const endTime = performance.now(); // End timer
-        const inferenceTime = ((endTime - startTime) / 1000).toFixed(2); // Calculate inference time in seconds
+        const startTime = performance.now(); // Start time for inference using performance.now()
 
+        const predictionResponse = await predict(file);
         const prediction = predictionResponse?.predicted_category;
+
+        const endTime = performance.now(); // End time for inference using performance.now()
+        let inferenceTime = endTime - startTime; // Time in milliseconds with high precision
 
         if (!prediction) {
             toast.error("Prediction result is missing. Please try again.");
             return;
         }
+
+        // Convert time to a readable format (milliseconds, seconds, or minutes)
+        let timeUnit = "ms"; // Default unit is milliseconds
+        let formattedTime = inferenceTime.toFixed(2); // Default to milliseconds
+
+        if (inferenceTime >= 1000) {
+            // Convert to seconds if time exceeds 1000 milliseconds
+            formattedTime = (inferenceTime / 1000).toFixed(2);
+            timeUnit = "s"; // seconds
+        }
+
+        if (inferenceTime >= 60000) {
+            // Convert to minutes if time exceeds 60000 milliseconds (1 minute)
+            formattedTime = (inferenceTime / 60000).toFixed(2);
+            timeUnit = "min"; // minutes
+        }
+
+        // Show the inference time toast with dynamic time unit
+        toast.info(`Inference completed in ${formattedTime} ${timeUnit}.`);
 
         // Step 3: Register Patient
         const patientPayload = {
@@ -134,12 +160,7 @@ export const handleSubmitDetection = async ({
         };
 
         await registerResults(diagnosisPayload);
-
-        // Include inference time in the success toast
-        toast.success(
-            `Patient data and diagnosis registered successfully! Inference time: ${inferenceTime}s`,
-        );
-
+        toast.success(`Successfully!..`);
 
         setTimeout(() => {
             form.resetFields();
