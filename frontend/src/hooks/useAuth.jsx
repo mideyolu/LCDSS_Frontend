@@ -10,7 +10,7 @@ const useAuth = () => {
         const token = localStorage.getItem("access_token");
 
         if (!token) {
-            toast.error("You need to log in to access the dashboard.");
+            toast.error("You need to log in to access the dashboard..");
             navigate("/login");
             return;
         }
