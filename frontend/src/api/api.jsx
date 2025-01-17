@@ -91,7 +91,6 @@ export async function predict(file) {
         throw error;
     }
 }
-
 export const dashboardData = async () => {
     try {
         const response = await api.get("/auth/dashboard", {
@@ -104,7 +103,6 @@ export const dashboardData = async () => {
         console.error(`Error Fetching dashbaord stats ${error}`);
     }
 };
-
 export const patientData = async () => {
     try {
         const response = await api.get("/auth/patients_data", {

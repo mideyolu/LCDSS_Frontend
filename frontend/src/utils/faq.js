@@ -6,7 +6,7 @@ export const faqData = [
     },
     {
         question: "How accurate is the detection system?",
-        answer: "The system has undergone rigorous testing and validation, ensuring high accuracy in detecting lung cancer from medical imaging. We acheived an accuracy of 97% and F1 Score of 93%",
+        answer: "The system has undergone rigorous testing and validation, ensuring high accuracy in detecting lung cancer from medical imaging. We acheived an accuracy and F1 Score of 98.6%",
     },
     {
         question: "What is the data used to train this model?",
