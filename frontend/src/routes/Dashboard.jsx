@@ -131,14 +131,26 @@ const Dashboard = ({ sidebarCollapsed, username }) => {
                 )}
                 <div className="md:flex md:items-center md:justify-between">
                     <div className="mb-8 w-[80%] md:w-[85%] lg:w-[50%]  grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {summaryData.map((item, index) => (
-                            <SummaryBox
-                                key={index}
-                                title={item.title}
-                                value={item.value}
-                                color={item.color}
-                            />
-                        ))}
+                        {summaryData &&
+                        summaryData.some((item) => item.value > 0) ? (
+                            summaryData.map((item, index) => (
+                                <SummaryBox
+                                    key={index}
+                                    title={item.title}
+                                    value={item.value}
+                                    color={item.color}
+                                />
+                            ))
+                        ) : (
+                            <div className="flex items-center min-h-[50vh]">
+                                <Typography.Title
+                                    level={4}
+                                    style={{ color: "red" }}
+                                >
+                                    No Data Available
+                                </Typography.Title>
+                            </div>
+                        )}
                     </div>
                     <div
                         className="hidden lg:flex flex-col gap-4 justify-between mt-7 pt-1 ml-5"

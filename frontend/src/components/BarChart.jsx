@@ -74,7 +74,7 @@ const BarChart = ({ sidebarCollapsed }) => {
         <Bar
             data={chartData}
             options={options}
-            className="h-[250px] flex items-center justify-center md:h-[300px] md:block"
+            className="flex items-center justify-center sm:h-[120px] sm:w-[100px] md:w-auto md:h-[300px] md:block"
         />
     );
 };

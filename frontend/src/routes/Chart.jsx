@@ -6,9 +6,14 @@ import Loader from "../components/Loader";
 import PieChart from "../components/PieChart";
 import SummaryBox from "../components/SummaryBox";
 import useAuth from "../hooks/useAuth"; // Import the custom hook
+import { fetchBarChartData, fetchPieChartData } from "../services/chart"; // Import fetch functions
 
 const Chart = ({ sidebarCollapsed }) => {
     const [loading, setLoading] = useState(true);
+    const [barChartData, setBarChartData] = useState(null);
+    const [pieChartData, setPieChartData] = useState(null);
+    const [error, setError] = useState(null);
+
     const summaryData = [
         { title: "Cases in Nigeria", value: 1789, color: "#6CB4EE" },
         { title: "Annual Death", value: 1643, color: "#034694" },
@@ -20,17 +25,43 @@ const Chart = ({ sidebarCollapsed }) => {
     const { Title } = Typography;
 
     useEffect(() => {
-        // Simulate a loading process (or replace this with actual data fetching)
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 1500);
+        const fetchData = async () => {
+            try {
+                await fetchBarChartData(setBarChartData, setLoading, setError);
+                await fetchPieChartData(setPieChartData, setLoading, setError);
+            } catch (e) {
+                setError("Failed to load chart data.");
+                setLoading(false);
+            }
+        };
 
-        return () => clearTimeout(timer); // Cleanup on component unmount
+        fetchData();
     }, []);
 
     if (loading) {
         return <Loader />;
     }
+
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen">
+                <Typography.Title level={3} style={{ color: "red" }}>
+                    {error}
+                </Typography.Title>
+            </div>
+        );
+    }
+
+    const isBarChartDataAvailable =
+        barChartData &&
+        barChartData.values &&
+        barChartData.values.some((value) => value > 0);
+
+    const isPieChartDataAvailable =
+        pieChartData &&
+        (pieChartData.totalFemale > 0 || pieChartData.totalMale > 0);
+
+    const hasData = isBarChartDataAvailable || isPieChartDataAvailable;
 
     return (
         <div
@@ -54,7 +85,8 @@ const Chart = ({ sidebarCollapsed }) => {
                     </Title>
                 </div>
                 {/* Summary Box */}
-                <div className="mb-8 w-[80%] md:w-[85%] lg:w-[50%]  grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <div className="mb-8 w-[80%] md:w-[85%] lg:w-[50%] grid grid-cols-1 md:grid-cols-2 gap-8">
                     {summaryData.map((item, index) => (
                         <SummaryBox
                             key={index}
@@ -66,15 +98,26 @@ const Chart = ({ sidebarCollapsed }) => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between gap-10 flex-col lg:flex-row min-h-[50vh]">
-                <div className="left">
-                    <PieChart />
+            {hasData ? (
+                <div className="flex items-center justify-between gap-10 flex-col lg:flex-row min-h-[50vh]">
+                    {isPieChartDataAvailable && (
+                        <div className="left">
+                            <PieChart data={pieChartData} />
+                        </div>
+                    )}
+                    {isBarChartDataAvailable && (
+                        <div>
+                            <BarChart data={barChartData} />
+                        </div>
+                    )}
                 </div>
-
-                <div>
-                    <BarChart />
+            ) : (
+                <div className="flex items-center justify-center min-h-[50vh]">
+                    <Typography.Title level={4} style={{ color: "red" }}>
+                        No Data Available
+                    </Typography.Title>
                 </div>
-            </div>
+            )}
 
             <div className="my-4">
                 <Footer className="mt-[6rem]" />
