@@ -1,10 +1,10 @@
 #### app/main.py
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import init_db, async_session, engine
 from routes import auth
 from contextlib import asynccontextmanager
+from log import schedule_log_cleanup
 
 async def close_db_connections():
     """Closes all database connections gracefully."""
@@ -18,6 +18,9 @@ async def lifespan(app: FastAPI):
     # Startup logic
     await init_db()
     print("Application startup: Database initialized")
+
+    # schedule log cleanup
+    schedule_log_cleanup()
     try:
         yield
     finally:

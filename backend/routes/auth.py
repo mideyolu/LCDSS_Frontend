@@ -14,6 +14,9 @@ from io import BytesIO
 import numpy as np
 from typing import List
 
+import os
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 
 router = APIRouter()
 
