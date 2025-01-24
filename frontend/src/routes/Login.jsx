@@ -61,8 +61,8 @@ const Login = () => {
     ];
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row">
-            <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-6">
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="lg:flex-[55%]">
                 <FormComponent
                     title="Login"
                     fields={fields}
@@ -74,11 +74,12 @@ const Login = () => {
                     }}
                 />
             </div>
-            <div className="w-full md:w-1/2 flex justify-center">
+            <div className="lg:flex-[45%] w-[100%]">
+
                 <Image
                     src="/login.png"
                     alt="Login Illustration"
-                    className="w-full max-w-sm hidden md:block"
+                    className="hidden md:block"
                 />
             </div>
         </div>

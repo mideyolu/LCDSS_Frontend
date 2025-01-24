@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { logout } from "../api/api";
-
+import { handleLogout } from "../utils/logout"; 
 import { Image, Layout, Menu, Typography } from "antd";
 import { menuItems } from "../utils/menuItems";
 
@@ -34,17 +32,6 @@ const Sidebar = ({ onCollapseChange, fullname, email }) => {
     const handleCollapse = (value) => {
         setCollapsed(value);
         onCollapseChange(value);
-    };
-
-    const handleLogout = async () => {
-        try {
-            const response = await logout();
-            toast.success(`${response}`);
-            navigate("/onboarding");
-        } catch (error) {
-            console.error("Logout failed:", error);
-            toast.error("An error occurred while logging out.");
-        }
     };
 
     return (
@@ -98,7 +85,7 @@ const Sidebar = ({ onCollapseChange, fullname, email }) => {
                     backgroundColor: "#0E3386",
                     color: "white",
                 }}
-                items={menuItems(handleNavigate, handleLogout)} // Pass handlers to menuItems
+                items={menuItems(handleNavigate, () => handleLogout(navigate))} // Pass the modified handleLogout
             />
         </Sider>
     );

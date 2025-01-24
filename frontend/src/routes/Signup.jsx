@@ -166,8 +166,8 @@ const Signup = () => {
     ];
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row">
-            <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-6">
+        <div className="flex items-center justify-center min-h-screen">
+            <div className="lg:flex-[55%]">
                 <FormComponent
                     title="Signup"
                     fields={fields}
@@ -179,7 +179,7 @@ const Signup = () => {
                     }}
                 />
             </div>
-            <div className="w-full md:w-1/2 flex justify-center">
+            <div className="lg:flex-[45%] w-[100%]">
                 <Image
                     src="/signup.png"
                     alt="Signup Illustration"

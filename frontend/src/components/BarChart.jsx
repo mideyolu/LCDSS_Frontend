@@ -1,34 +1,11 @@
-import {
-    BarElement,
-    CategoryScale,
-    Chart as ChartJS,
-    Legend,
-    LinearScale,
-    Title,
-    Tooltip,
-} from "chart.js";
-import React, { useEffect, useState } from "react";
+// BarChart.jsx
+import React from "react";
 import { Bar } from "react-chartjs-2";
-import { fetchBarChartData } from "../services/chart"; // Import the service function
 import Loader from "./Loader";
+import useChartData from "../hooks/useChartData"; // Import the custom hook
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Tooltip,
-    Title,
-    Legend,
-);
-
-const BarChart = ({ sidebarCollapsed }) => {
-    const [data, setData] = useState({ labels: [], values: [] });
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        fetchBarChartData(setData, setLoading, setError); // Fetch data on mount
-    }, []);
+const BarChart = () => {
+    const { data, loading, error } = useChartData("bar");
 
     if (loading) {
         return <Loader />;

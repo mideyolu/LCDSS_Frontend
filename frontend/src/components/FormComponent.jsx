@@ -1,12 +1,12 @@
 import { Button, Card, Checkbox, Form, Input, Typography } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Loader from "./Loader";
 import { handlePasswordChange, handleSubmit } from "../utils/formhandlers"; // Import functions
 import {
     areAllRequirementsMet,
     initialValidationState,
 } from "../utils/password";
+import Loader from "./Loader";
 import PasswordValidation from "./PasswordValidation"; // Import PasswordValidation
 
 const FormComponent = ({
@@ -36,13 +36,16 @@ const FormComponent = ({
     };
 
     return (
-        <Card bordered={false}>
+        <Card
+            bordered={false}
+            className="w-full lg:w-[60%] md:px-4 md:py-2 lg:px-8 lg:py-4"
+        >
             <Title className="text-center" level={5}>
                 {title}
             </Title>
             <Form
                 form={form}
-                className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 px-4 py-2 lg:px-8 lg:py-4"
+                className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
                 onFinish={(values) =>
                     handleSubmit(
                         values,
@@ -71,6 +74,7 @@ const FormComponent = ({
                                 type={field.type}
                                 placeholder={field.placeholder}
                                 size="large"
+                                className="w-[100%] md:w-[90%]"
                                 onChange={(e) =>
                                     field.name === "provider_password"
                                         ? handlePasswordChange(
@@ -116,7 +120,7 @@ const FormComponent = ({
                 <Form.Item>
                     <Button
                         type="primary"
-                        className="mt-6"
+                        className="mt-6 p-[1.3rem] text-center"
                         htmlType="submit"
                         loading={loading}
                         disabled={!areAllRequirementsMet(validation)}
@@ -134,7 +138,7 @@ const FormComponent = ({
                 </Typography>
 
                 <span
-                    className="mt-4 text-sm absolute cursor-pointer top-[100%] right-[5%] lg:right-[-30%]"
+                    className="mt-4 text-sm absolute cursor-pointer top-[100%] right-[5%] lg:top-[90%] lg:right-[-70%]"
                     onClick={handleBackToOnboarding}
                 >
                     Back

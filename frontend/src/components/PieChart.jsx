@@ -1,19 +1,11 @@
-import { ArcElement, Chart as ChartJS, Legend, Title, Tooltip } from "chart.js";
-import React, { useEffect, useState } from "react";
+// PieChart.jsx
+import React from "react";
 import { Pie } from "react-chartjs-2";
-import { fetchPieChartData } from "../services/chart"; // Import the service function
 import Loader from "./Loader";
-
-ChartJS.register(ArcElement, Tooltip, Legend, Title);
+import useChartData from "../hooks/useChartData"; // Import the custom hook
 
 const PieChart = () => {
-    const [data, setData] = useState({ totalMale: 0, totalFemale: 0 });
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        fetchPieChartData(setData, setLoading, setError); // Fetch data on mount
-    }, []);
+    const { data, loading, error } = useChartData("pie");
 
     if (loading) {
         return <Loader />;
