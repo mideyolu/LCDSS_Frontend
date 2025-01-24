@@ -1,15 +1,16 @@
-// Login.jsx
 import { Image } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login } from "../api/api"; // Import the login function
+import { login } from "../api/api";
 import FormComponent from "../components/FormComponent";
 import Loader from "../components/Loader";
+import { userInfo } from "../hooks/userInfo"; // Import your custom hook
 
-const Login = ({setUsername, setEmail}) => {
+const Login = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+    const { setFullname, setUsername, setEmail } = userInfo(); // Use the hook
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = async (formData) => {
         setLoading(true);
@@ -19,35 +20,24 @@ const Login = ({setUsername, setEmail}) => {
                 provider_password: formData.provider_password,
             });
 
-            // Save the token to localStorage
             localStorage.setItem("access_token", response.access_token);
             localStorage.setItem("id", response.provider_id);
+            localStorage.setItem("fullname", response.provider_username);
+            localStorage.setItem("email", response.provider_email);
             localStorage.setItem(
                 "username",
                 response.provider_username.split(" ").pop(),
             );
-            localStorage.setItem("email", response.provider_email);
 
-            // Update parent component state dynamically
+            setFullname(response.provider_username); // Set user info using the hook
             setUsername(response.provider_username.split(" ").pop());
             setEmail(response.provider_email);
 
             toast.success("Login successful!");
             navigate("/dashboard");
         } catch (error) {
-            if (error.response) {
-                console.error(
-                    "Error occurred:",
-                    JSON.stringify(error.response.data, null, 2),
-                );
-                toast.error(error.response.data.detail || "Login failed!");
-            } else {
-                console.error(
-                    "Error occurred:",
-                    error.message || "Unknown error",
-                );
-                toast.error("Something went wrong!");
-            }
+            console.error("Error:", error);
+            toast.error(error.response?.data?.detail || "Login failed!");
         } finally {
             setLoading(false);
         }
@@ -56,35 +46,23 @@ const Login = ({setUsername, setEmail}) => {
     const fields = [
         {
             label: "Email",
-            name: "provider_email", // Match backend field
+            name: "provider_email",
             type: "email",
             placeholder: "Enter your email",
             required: true,
         },
         {
             label: "Password",
-            name: "provider_password", // Match backend field
+            name: "provider_password",
             type: "password",
             placeholder: "Enter your password",
             required: true,
         },
     ];
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (loading) {
-        return <Loader />;
-    }
-
     return (
-        <div className="min-h-screen flex flex-col justify-center md:justify-normal md:flex-row">
-            <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-8 py-6 sm:mt-12">
+        <div className="min-h-screen flex flex-col md:flex-row">
+            <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-6">
                 <FormComponent
                     title="Login"
                     fields={fields}
@@ -96,11 +74,11 @@ const Login = ({setUsername, setEmail}) => {
                     }}
                 />
             </div>
-            <div className="w-full md:w-1/2 flex items-center justify-center">
+            <div className="w-full md:w-1/2 flex justify-center">
                 <Image
-                    src={"/login.png"}
-                    alt="Signup Illustration"
-                    className="w-[100%] max-w-sm md:block hidden"
+                    src="/login.png"
+                    alt="Login Illustration"
+                    className="w-full max-w-sm hidden md:block"
                 />
             </div>
         </div>

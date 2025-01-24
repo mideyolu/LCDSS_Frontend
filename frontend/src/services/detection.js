@@ -51,6 +51,7 @@ export const handleSubmitDetection = async ({
             timeUnit = "min"; // minutes
         }
 
+        console.log(`Inference completed in ${formattedTime} ${timeUnit}.`);
 
         // Show the inference time toast with dynamic time unit
         toast.info(`Inference completed in ${formattedTime} ${timeUnit}.`);

@@ -1,6 +1,6 @@
 import dayGridPlugin from "@fullcalendar/daygrid";
 import FullCalendar from "@fullcalendar/react";
-import { Button, Typography } from "antd";
+import { Button, Empty, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -11,11 +11,13 @@ import PatientTable from "../components/PatientTable";
 import SearchBar from "../components/SearchBar";
 import SummaryBox from "../components/SummaryBox";
 import useAuth from "../hooks/useAuth";
+import { userInfo } from "../hooks/userInfo";
 import { fetchData } from "../services/dashboard";
 import { fetchLogData } from "../services/log";
 import { handleSearch } from "../utils/search";
 
-const Dashboard = ({ sidebarCollapsed, username }) => {
+const Dashboard = ({ sidebarCollapsed }) => {
+    const { username } = userInfo();
     const [filteredData, setFilteredData] = useState([]);
     const [originalData, setOriginalData] = useState([]);
     const [greeting, setGreeting] = useState("Good Morning"); // State for dynamic greeting
@@ -142,14 +144,10 @@ const Dashboard = ({ sidebarCollapsed, username }) => {
                                 />
                             ))
                         ) : (
-                            <div className="flex items-center min-h-[50vh]">
-                                <Typography.Title
-                                    level={4}
-                                    style={{ color: "red" }}
-                                >
-                                    No Data Available
-                                </Typography.Title>
-                            </div>
+                            <Empty
+                                className="flex flex-col items-center justify-center min-h-[30vh]"
+                                style={{ width: "190px" }}
+                            ></Empty>
                         )}
                     </div>
                     <div
@@ -169,7 +167,7 @@ const Dashboard = ({ sidebarCollapsed, username }) => {
                 <div className="flex-[30%] p-1 mt-[4rem]">
                     <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
                         <Title level={3} color="blue-gray" className="mb-2">
-                            Patient Information
+                            Information
                         </Title>
 
                         <SearchBar

@@ -146,4 +146,27 @@ export const logData = async () => {
     }
 };
 
+export const logout = async () => {
+    try {
+        const response = await api.post("/auth/logout", null, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        });
+        // Clear the stored token and data
+        localStorage.clear("access_token");
+        localStorage.clear("id");
+        localStorage.clear("username");
+        localStorage.clear("email");
+        setAuthToken( null ); // Remove token from headers
+ 
+        return response.data.message;
+    } catch (error) {
+        console.error("Error during logout:", error);
+        throw (
+            error.response?.data?.detail || "An error occurred during logout."
+        );
+    }
+};
+
 export default api;

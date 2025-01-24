@@ -1,10 +1,10 @@
-#### app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import init_db, async_session, engine
 from routes import auth
 from contextlib import asynccontextmanager
-from log import schedule_log_cleanup
+from log import delete_old_logs
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 async def close_db_connections():
     """Closes all database connections gracefully."""
@@ -19,13 +19,25 @@ async def lifespan(app: FastAPI):
     await init_db()
     print("Application startup: Database initialized")
 
-    # schedule log cleanup
-    schedule_log_cleanup()
+    # Start periodic log cleanup
+    scheduler = AsyncIOScheduler()
+
+    @scheduler.scheduled_job("interval", hours=1)
+    async def cleanup_logs():
+        print("Running scheduled log cleanup...")
+        async with async_session() as session:
+            deleted_count = await delete_old_logs(session)
+            print(f"Deleted {deleted_count} old logs.")
+
+    scheduler.start()
+    await cleanup_logs()  # Ensure initial cleanup on startup
+
     try:
         yield
     finally:
         # Shutdown logic
         await close_db_connections()
+        scheduler.shutdown()
         print("Application shutdown: Database connections closed")
 
 

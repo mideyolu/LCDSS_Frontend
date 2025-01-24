@@ -18,3 +18,14 @@ export const service = [
         desc: "Receive comprehensive generated reports on the dashboard",
     },
 ];
+
+
+export const csvHeaders = [
+    { label: "S/N", key: "sn" },
+    { label: "Name", key: "name" },
+    { label: "Age", key: "age" },
+    { label: "Gender", key: "gender" },
+    { label: "Email", key: "email" },
+    { label: "Notes", key: "notes" },
+    { label: "Status", key: "status" },
+];

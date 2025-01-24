@@ -1,4 +1,4 @@
-import { Typography } from "antd";
+import { Empty, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import BarChart from "../components/BarChart";
 import Footer from "../components/Footer";
@@ -27,6 +27,7 @@ const Chart = ({ sidebarCollapsed }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
                 await fetchBarChartData(setBarChartData, setLoading, setError);
                 await fetchPieChartData(setPieChartData, setLoading, setError);
             } catch (e) {
@@ -84,8 +85,8 @@ const Chart = ({ sidebarCollapsed }) => {
                         Chart Analytics Dashboard
                     </Title>
                 </div>
-                {/* Summary Box */}
 
+                {/* Summary Box */}
                 <div className="mb-8 w-[80%] md:w-[85%] lg:w-[50%] grid grid-cols-1 md:grid-cols-2 gap-8">
                     {summaryData.map((item, index) => (
                         <SummaryBox
@@ -112,11 +113,10 @@ const Chart = ({ sidebarCollapsed }) => {
                     )}
                 </div>
             ) : (
-                <div className="flex items-center justify-center min-h-[50vh]">
-                    <Typography.Title level={4} style={{ color: "red" }}>
-                        No Data Available
-                    </Typography.Title>
-                </div>
+                <Empty
+                    className="flex flex-col items-center justify-center min-h-[30vh]"
+                    style={{ width: "190px" }}
+                ></Empty>
             )}
 
             <div className="my-4">

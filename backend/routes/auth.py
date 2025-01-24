@@ -67,7 +67,10 @@ async def login(provider: ProviderLogin, db: AsyncSession = Depends(get_db)):
     result = await db.execute(query)
     user = result.scalars().first()
 
-    if not user or not pwd_context.verify(provider.provider_password, user.provider_password):
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not Found")
+
+    if not pwd_context.verify(provider.provider_password, user.provider_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     await create_log(action="Provider login", provider_id=user.provider_id, db=db)
@@ -126,7 +129,6 @@ async def detect(file: UploadFile, db: AsyncSession = Depends(get_db),provider_i
         # Log and return an error if something goes wrong
         print(f"Error processing image or predicting: {str(e)}")
         raise HTTPException(status_code=500, detail="Error processing image or predicting")
-
 
 # **Register Patient Route**
 @router.post('/patients')
@@ -329,7 +331,6 @@ async def get_chart_data(db: AsyncSession = Depends(get_db), provider_id: int = 
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to retrieve stats data: {str(e)}")
-
 
 # **Get Provider Log Data**
 @router.get("/provider_log", response_model=List[LogData])

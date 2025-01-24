@@ -32,7 +32,7 @@ async def create_log(action: str, provider_id: int, db: AsyncSession):
     """Creates a log entry for an action."""
     log_entry = Log(
         action=action,
-        created_at=datetime.utcnow().isoformat(),
+        created_at=datetime.utcnow(),
         provider_id=provider_id
     )
     db.add(log_entry)

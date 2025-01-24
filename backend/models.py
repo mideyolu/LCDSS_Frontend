@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Field
 from typing import Optional
+from datetime import datetime
 
 class Provider(SQLModel, table=True):
     provider_id: Optional[int] = Field(default=None, primary_key=True)
@@ -25,5 +26,5 @@ class Diagnosis(SQLModel, table=True):
 class Log(SQLModel, table=True):
     log_id: Optional[int] = Field(default=None, primary_key=True)
     action: str
-    created_at: str
+    created_at: datetime
     provider_id: int = Field(foreign_key="provider.provider_id")
