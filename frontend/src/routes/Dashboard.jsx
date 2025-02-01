@@ -1,6 +1,4 @@
-import dayGridPlugin from "@fullcalendar/daygrid";
-import FullCalendar from "@fullcalendar/react";
-import { Button, Empty, Typography } from "antd";
+import { Button, Calendar, Empty, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -8,7 +6,7 @@ import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import NotificationCard from "../components/Notificationcard";
 import PatientTable from "../components/PatientTable";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/Searchbar/SearchBar";
 import SummaryBox from "../components/SummaryBox";
 import useAuth from "../hooks/useAuth";
 import { userInfo } from "../hooks/userInfo";
@@ -20,7 +18,7 @@ const Dashboard = ({ sidebarCollapsed }) => {
     const { username } = userInfo();
     const [filteredData, setFilteredData] = useState([]);
     const [originalData, setOriginalData] = useState([]);
-    const [greeting, setGreeting] = useState("Good Morning"); // State for dynamic greeting
+    const [greeting, setGreeting] = useState("Good Morning");
     const [summaryData, setSummaryData] = useState([
         { title: "Total Patients", value: 0, color: "#034694" },
         { title: "Normal Case", value: 0, color: "#6CB4EE" },
@@ -31,11 +29,12 @@ const Dashboard = ({ sidebarCollapsed }) => {
     const [error, setError] = useState(null);
     const [showNotifications, setShowNotifications] = useState(false);
     const [log, setLog] = useState([]);
+    const [value, setValue] = useState(new Date());
 
-    // Use the custom hook for authentication check
+    // Custom hook for authentication check
     useAuth();
 
-    // Fetch log data using modular function
+    // Function to fetch log data
     const fetchLog = () => {
         fetchLogData(setLog, setLoading, setError);
     };
@@ -46,10 +45,12 @@ const Dashboard = ({ sidebarCollapsed }) => {
         type: "info",
     }));
 
+    // Toggle notifications visibility
     const toggleNotifications = () => {
         setShowNotifications(!showNotifications);
     };
 
+    // Update greeting message based on time of day
     const updateGreeting = () => {
         const hours = new Date().getHours();
         if (hours < 12) {
@@ -61,9 +62,8 @@ const Dashboard = ({ sidebarCollapsed }) => {
         }
     };
 
-    const { Title } = Typography;
-
     useEffect(() => {
+        // Fetch initial data
         fetchData(
             setSummaryData,
             setOriginalData,
@@ -72,11 +72,11 @@ const Dashboard = ({ sidebarCollapsed }) => {
             setError,
         );
         fetchLog();
+        updateGreeting(); // Update greeting message on mount
 
-        updateGreeting(); // Update greeting when the component mounts
-
-        const intervalId = setInterval(updateGreeting, 60 * 1000); // Update every minute
-        return () => clearInterval(intervalId); // Cleanup interval on unmount
+        // Update greeting every minute
+        const intervalId = setInterval(updateGreeting, 60 * 1000);
+        return () => clearInterval(intervalId); // Cleanup on unmount
     }, []);
 
     if (loading) {
@@ -87,7 +87,21 @@ const Dashboard = ({ sidebarCollapsed }) => {
         return <p className="text-red-500">{error}</p>;
     }
 
-    // CSV Headers
+    // Custom date cell render for the calendar
+    const dateCellRender = (value) => {
+        const date = value.format("YYYY-MM-DD");
+        const events = notifications.filter(
+            (event) => event.timestamp === date,
+        );
+        return events.length > 0 ? (
+            <div className="custom-event">
+                <IoIosNotificationsOutline size={16} />
+                <span>{events.length} Event</span>
+            </div>
+        ) : null;
+    };
+
+    // CSV headers for patient data export
     const csvHeaders = [
         { label: "S/N", key: "sn" },
         { label: "Name", key: "name" },
@@ -100,7 +114,7 @@ const Dashboard = ({ sidebarCollapsed }) => {
 
     return (
         <div
-            className={`min-h-screen py-2 lg:py-4 p-8 ${
+            className={`min-h-screen py-2 lg:py-4 p-8 transition-all duration-300 ${
                 sidebarCollapsed
                     ? "ml-[40px] md:ml-[70px]"
                     : "md:ml-[200px] lg:ml-[150px]"
@@ -108,14 +122,15 @@ const Dashboard = ({ sidebarCollapsed }) => {
             style={{ transition: "margin-left 0.3s" }}
         >
             <div>
+                {/* Header section */}
                 <div className="mb-8 text-left block md:flex md:items-center md:justify-between">
-                    <Title
+                    <Typography.Title
                         level={3}
                         color="blue-gray"
                         style={{ fontFamily: "Roboto, sans-serif" }}
                     >
                         {greeting}, {username || "."}
-                    </Title>
+                    </Typography.Title>
                     <div className="flex items-center">
                         <IoIosNotificationsOutline
                             size={20}
@@ -125,16 +140,18 @@ const Dashboard = ({ sidebarCollapsed }) => {
                     </div>
                 </div>
 
+                {/* Notification card */}
                 {showNotifications && (
                     <NotificationCard
                         notifications={notifications}
                         onClose={() => setShowNotifications(false)}
                     />
                 )}
-                <div className="md:flex md:items-center md:justify-between">
-                    <div className="mb-8 w-[80%] md:w-[85%] lg:w-[50%]  grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {summaryData &&
-                        summaryData.some((item) => item.value > 0) ? (
+
+                {/* Summary Boxes and Calendar */}
+                <div className="md:flex text-white md:items-center md:justify-between">
+                    <div className="mb-8 w-[80%] text-white md:w-[85%] lg:w-[50%] grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {summaryData.some((item) => item.value > 0) ? (
                             summaryData.map((item, index) => (
                                 <SummaryBox
                                     key={index}
@@ -147,29 +164,27 @@ const Dashboard = ({ sidebarCollapsed }) => {
                             <Empty
                                 className="flex flex-col items-center justify-center min-h-[30vh]"
                                 style={{ width: "190px" }}
-                            ></Empty>
+                            />
                         )}
                     </div>
-                    <div
-                        className="hidden lg:flex flex-col gap-4 justify-between mt-7 pt-1 ml-5"
-                        style={{ width: "350px", fontSize: "0.55rem" }}
-                    >
-                        <FullCalendar
-                            plugins={[dayGridPlugin]}
-                            initialView="dayGridMonth"
-                            height={200}
-                            className="z-[0]"
-                            contentHeight={"10px"}
-                            aspectRatio={0.7}
+                    <div className="hidden w-[350px] text-[0.55rem] lg:flex flex-col gap-4 justify-between mt-7 pt-1">
+                        <Calendar
+                            className="mt-[-2rem] w-full max-w-[500px] h-[350px] overflow-hidden"
+                            CellRender={dateCellRender}
                         />
                     </div>
                 </div>
+
+                {/* Patient Table and Export Section */}
                 <div className="flex-[30%] p-1 mt-[4rem]">
                     <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
-                        <Title level={3} color="blue-gray" className="mb-2">
+                        <Typography.Title
+                            level={3}
+                            color="blue-gray"
+                            className="mb-2"
+                        >
                             Information
-                        </Title>
-
+                        </Typography.Title>
                         <SearchBar
                             placeholder="Search by name, email, or status"
                             onSearch={(value) =>
@@ -184,8 +199,8 @@ const Dashboard = ({ sidebarCollapsed }) => {
                     <PatientTable data={filteredData} />
 
                     {/* Export Button */}
-                    <div className="mb-4 ">
-                        <Button type="primary" className="">
+                    <div className="mb-4">
+                        <Button type="primary">
                             <CSVLink
                                 data={filteredData}
                                 headers={csvHeaders}
@@ -197,6 +212,8 @@ const Dashboard = ({ sidebarCollapsed }) => {
                         </Button>
                     </div>
                 </div>
+
+                {/* Footer */}
                 <div className="my-4">
                     <Footer className="mt-[6rem]" />
                 </div>

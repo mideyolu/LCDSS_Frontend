@@ -1,10 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import init_db, async_session, engine
-from routes import auth
+from routes import route
 from contextlib import asynccontextmanager
 from log import delete_old_logs
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+import os
+
+# Disable OneDNN optimizations (move this to your application's entry point, e.g., main.py)
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 
 async def close_db_connections():
     """Closes all database connections gracefully."""
@@ -27,7 +32,7 @@ async def lifespan(app: FastAPI):
         print("Running scheduled log cleanup...")
         async with async_session() as session:
             deleted_count = await delete_old_logs(session)
-            print(f"Deleted {deleted_count} old logs.")
+
 
     scheduler.start()
     await cleanup_logs()  # Ensure initial cleanup on startup
@@ -52,4 +57,4 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-app.include_router(auth.router, tags=["Authentication"], prefix="/auth")
+app.include_router(route.router, tags=["Authentication"], prefix="/auth")

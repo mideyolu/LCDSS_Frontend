@@ -8,31 +8,19 @@ const SummaryBox = ({ title, value, color }) => {
         <Card
             className="flex flex-col w-full text-white h-[120px] md:h-[150px] items-start justify-center p-4"
             style={{
-                fontFamily: "Robotto, sans-serif",
                 backgroundColor: color,
             }}
         >
             <Title
                 level={5}
+                className="mb-[8px] text-center text-[1.03rem] whitespace-nowrap text-[#ffffff]"
                 style={{
-                    marginBottom: "8px",
-                    textAlign: "center",
-                    fontSize: "1.03rem",
-                    whiteSpace: "nowrap",
                     color: "#fff",
-                    fontFamily: "Robotto, sans-serif",
                 }}
             >
                 {title}
             </Title>
-            <Paragraph
-                style={{
-                    fontSize: "1.2rem",
-                    fontWeight: "bold",
-                    color: "#fff",
-                    fontFamily: "Robotto, sans-serif",
-                }}
-            >
+            <Paragraph className="text-[1.2rem] font-bold text-white">
                 {value}
             </Paragraph>
         </Card>

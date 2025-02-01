@@ -1,8 +1,8 @@
-// BarChart.jsx
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import { Empty } from "antd";
+import useChartData from "../hooks/useChartData";
 import Loader from "./Loader";
-import useChartData from "../hooks/useChartData"; // Import the custom hook
 
 const BarChart = () => {
     const { data, loading, error } = useChartData("bar");
@@ -13,6 +13,18 @@ const BarChart = () => {
 
     if (error) {
         return <p className="text-red-500">{error}</p>;
+    }
+
+    // Check if data is empty, has no values, or if all values are zero
+    if (
+        !data ||
+        !data.labels ||
+        !data.values ||
+        data.labels.length === 0 ||
+        data.values.length === 0 ||
+        data.values.every((value) => value === 0) // Check if all values are 0
+    ) {
+        return <Empty description="No data available for the Bar Chart" />;
     }
 
     const chartData = {

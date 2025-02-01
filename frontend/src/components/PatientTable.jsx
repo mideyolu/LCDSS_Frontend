@@ -84,10 +84,11 @@ const PatientTable = ({ data }) => {
 
     return (
         <Table
+            className="whitespace-nowrap"
             columns={columns}
             dataSource={data}
             pagination={{ pageSize: 5 }}
-            scroll={{ x: 800 }}
+            scroll={{ x: 700 }}
             bordered={false}
         />
     );

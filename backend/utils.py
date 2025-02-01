@@ -1,23 +1,28 @@
 #### app/utils.py
 
-from jose import jwt
-from jose import JWTError, jwt
+from fastapi import Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, func
+from jose import jwt, JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 from models import Log
 from datetime import datetime, timedelta
 from config import settings
-from PIL import Image
-from io import BytesIO
-import numpy as np
-import tensorflow as tf
-from fastapi import Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.future import select
 from models import Provider
 from database import get_db
 from typing import Optional
+from passlib.context import CryptContext
 
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
+
+def get_password_hash(password: str) -> str:
+    return pwd_context.hash(password)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
@@ -37,6 +42,15 @@ async def create_log(action: str, provider_id: int, db: AsyncSession):
     )
     db.add(log_entry)
     await db.commit()
+
+async def create_log_safe(action: str, provider_id: int, db: AsyncSession):
+    """
+    Helper function to safely create logs without crashing the application.
+    """
+    try:
+        await create_log(action=action, provider_id=provider_id, db=db)
+    except Exception as e:
+        print(f"Failed to create log: {str(e)}")
 
 
 async def get_current_provider(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
@@ -61,8 +75,6 @@ async def get_current_provider(token: str = Depends(oauth2_scheme), db: AsyncSes
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid authentication credentials")
 
-
-
 # Verify access token
 def verify_access_token(token: str) -> Optional[dict]:
     try:
@@ -71,3 +83,16 @@ def verify_access_token(token: str) -> Optional[dict]:
         return payload  # Decoded token payload
     except JWTError:
         return None
+
+
+async def get_record(db: AsyncSession, model, **filters):
+    """Retrieve a single record from the database based on filters."""
+    query = select(model).filter_by(**filters)
+    result = await db.execute(query)
+    return result.scalars().first()
+
+async def get_count(db: AsyncSession, model, **filters):
+    """Count the number of records in a model based on filters."""
+    query = select(func.count()).select_from(model).filter_by(**filters)
+    result = await db.execute(query)
+    return result.scalar() or 0

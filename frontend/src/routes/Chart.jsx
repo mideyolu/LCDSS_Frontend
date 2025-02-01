@@ -1,9 +1,8 @@
 // Chart.jsx
+import { Typography } from "antd";
 import React, { useState } from "react";
-import { Empty, Typography } from "antd";
 import BarChart from "../components/BarChart";
 import Footer from "../components/Footer";
-import Loader from "../components/Loader";
 import PieChart from "../components/PieChart";
 import SummaryBox from "../components/SummaryBox";
 import useAuth from "../hooks/useAuth"; // Import the custom hook
@@ -24,7 +23,9 @@ const Chart = ({ sidebarCollapsed }) => {
     return (
         <div
             className={`min-h-screen py-2 lg:py-4 p-8 ${
-                sidebarCollapsed ? "ml-[40px] md:ml-[70px]" : "md:ml-[200px] lg:ml-[150px]"
+                sidebarCollapsed
+                    ? "ml-[40px] md:ml-[70px]"
+                    : "md:ml-[200px] lg:ml-[150px]"
             }`}
             style={{ transition: "margin-left 0.3s" }}
         >

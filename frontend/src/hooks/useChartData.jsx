@@ -1,6 +1,5 @@
-// src/hooks/useChartData.jsx
 import { useState, useEffect } from "react";
-import { fetchBarChartData, fetchPieChartData } from "../services/chart"; // Import functions
+import { fetchBarChartData, fetchPieChartData } from "../services/chart";
 
 const useChartData = (chartType) => {
     const [data, setData] = useState(null);
@@ -9,15 +8,26 @@ const useChartData = (chartType) => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
-                setLoading(true);
+                let fetchedData;
+
                 if (chartType === "bar") {
-                    await fetchBarChartData(setData, setLoading, setError);
+                    fetchedData = await fetchBarChartData();
                 } else if (chartType === "pie") {
-                    await fetchPieChartData(setData, setLoading, setError);
+                    fetchedData = await fetchPieChartData();
                 }
-            } catch (e) {
-                setError("Failed to load chart data.");
+
+                if (!fetchedData) {
+                    throw new Error("No data available.");
+                }
+
+                setData(fetchedData);
+                setError(null); // Clear any previous error
+            } catch (err) {
+                setError(err.message);
+                setData(null); // Clear any previous data
+            } finally {
                 setLoading(false);
             }
         };

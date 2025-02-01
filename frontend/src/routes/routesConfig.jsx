@@ -1,11 +1,11 @@
-import HomePage from "./HomePage";
-import FAQ from "./FAQ";
-import Onboarding from "./Onboarding";
-import Login from "./Login";
-import Signup from "./Signup";
+import Chart from "./Chart";
 import Dashboard from "./Dashboard";
 import Detection from "./Detection";
-import Chart from "./Chart";
+import FAQ from "./FAQ";
+import HomePage from "./HomePage";
+import Login from "./Login";
+import Onboarding from "./Onboarding";
+import Signup from "./Signup";
 
 export const routesConfig = [
     { path: "/", element: <HomePage /> },

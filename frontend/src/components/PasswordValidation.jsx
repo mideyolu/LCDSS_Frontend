@@ -1,7 +1,7 @@
 // PasswordValidation.js
-import React from "react";
 import { CheckOutlined, LoadingOutlined, XOutlined } from "@ant-design/icons";
 import { Typography } from "antd";
+import React from "react";
 
 const PasswordValidation = ({
     validation,
@@ -87,7 +87,6 @@ const PasswordValidation = ({
 
             {showSuccess && (
                 <div className="flex items-center mt-2 text-green-500">
-                    <CheckOutlined className="mr-2" />
                     Password Requirements met ✅
                 </div>
             )}
