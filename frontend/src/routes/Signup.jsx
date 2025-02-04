@@ -1,4 +1,3 @@
-// src/routes/Signup.js
 
 import { Image } from "antd";
 import React, { useState } from "react";

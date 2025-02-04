@@ -14,8 +14,8 @@ const Detection = () => {
         navigate("/dashboard");
     };
 
-    // Use the custom hook for authentication check
-    useAuth();
+    // // Use the custom hook for authentication check
+    // useAuth();
 
     return (
         <Modal
