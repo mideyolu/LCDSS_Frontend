@@ -38,13 +38,13 @@ const PatientTable = ({ data }) => {
             title: "S/N",
             dataIndex: "sn",
             key: "sn",
-            width: 10,
+            width: 5,
         },
         {
             title: "Name",
             dataIndex: "name",
             key: "name",
-            width: 160,
+            width: 90,
         },
         {
             title: "Age",
@@ -56,20 +56,20 @@ const PatientTable = ({ data }) => {
             title: "Gender",
             dataIndex: "gender",
             key: "gender",
-            width: 30,
+            width: 10,
         },
         {
             title: "Email",
             dataIndex: "email",
             key: "email",
-            width: 160,
+            width: 10,
         },
-        {
-            title: "Notes",
-            dataIndex: "notes",
-            key: "notes",
-            width: 120,
-        },
+        // {
+        //     title: "Notes",
+        //     dataIndex: "notes",
+        //     key: "notes",
+        //     width: 120,
+        // },
         {
             title: "Status",
             dataIndex: "status",
@@ -84,7 +84,7 @@ const PatientTable = ({ data }) => {
 
     return (
         <Table
-            className="whitespace-nowrap"
+            className="whitespace-pre"
             columns={columns}
             dataSource={data}
             pagination={{ pageSize: 5 }}

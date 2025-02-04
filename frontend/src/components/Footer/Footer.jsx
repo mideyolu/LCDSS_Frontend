@@ -3,15 +3,12 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Footer = ({ sidebarCollapsed, className }) => {
+const Footer = ({ className }) => {
     const { Text } = Typography;
     return (
         <Layout
             style={{
-                marginLeft: sidebarCollapsed ? "35px" : "0px",
-                transition: "margin-left 0.3s",
                 background: "#fff",
-                fontFamily: "Robotto, sans-serif",
             }}
             className={`${className}`}
         >

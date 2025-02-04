@@ -2,7 +2,8 @@ import { Modal } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DetectionForm from "../components/DetectionForm";
-import useAuth from "../hooks/useAuth"; // Import the custom hook
+import useAuth from "../hooks/useAuth";
+import { handleSubmitDetection } from "../services/detection";
 
 const Detection = () => {
     const navigate = useNavigate();
@@ -10,20 +11,21 @@ const Detection = () => {
 
     const handleCancel = () => {
         setVisible(false);
-        navigate("/dashboard"); // Navigate back to home or desired route on close
+        navigate("/dashboard");
     };
 
     // Use the custom hook for authentication check
-    useAuth(); // This will handle token validation and expiration
+    useAuth();
 
     return (
         <Modal
             title="Patient Detection Form"
-            visible={visible}
+            open={true}
             onCancel={handleCancel}
-            footer={null} // Remove default footer buttons
+            footer={null}
         >
-            <DetectionForm />
+            {/* Pass the submission handler as the onSubmit prop */}
+            <DetectionForm onSubmit={handleSubmitDetection} />
         </Modal>
     );
 };

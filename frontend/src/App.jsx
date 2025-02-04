@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import SideBar from "./components/SideBar/SideBar";
+import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
+import SideBar from "./components/Sidebar/SideBar";
 import { userInfo } from "./hooks/userInfo";
-import Chart from "./routes/Chart";
 import Dashboard from "./routes/Dashboard";
 import { routesConfig } from "./routes/routesConfig";
 
@@ -21,9 +20,8 @@ const App = () => {
         "/signup",
         "/dashboard",
         "/detect",
-        "/chart-dashboard", // Include chart-dashboard in this list if needed
     ];
-    const showSidebarRoutes = ["/dashboard", "/detect", "/chart-dashboard"];
+    const showSidebarRoutes = ["/dashboard", "/detect"];
 
     return (
         <div className="container mx-auto px-4 py-2 lg:px-8 lg:py-4">
@@ -52,8 +50,6 @@ const App = () => {
                                 <Dashboard
                                     sidebarCollapsed={sidebarCollapsed}
                                 />
-                            ) : route.path === "/chart-dashboard" ? (
-                                <Chart sidebarCollapsed={sidebarCollapsed} />
                             ) : (
                                 route.element
                             )

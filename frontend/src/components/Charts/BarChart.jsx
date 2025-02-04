@@ -1,8 +1,8 @@
+import { Empty } from "antd";
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { Empty } from "antd";
-import useChartData from "../hooks/useChartData";
-import Loader from "./Loader";
+import useChartData from "../../hooks/useChartData";
+import Loader from "../Loader/Loader";
 
 const BarChart = () => {
     const { data, loading, error } = useChartData("bar");

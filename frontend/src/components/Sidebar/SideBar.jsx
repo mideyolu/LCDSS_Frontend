@@ -12,7 +12,6 @@ const { Text } = Typography;
 const PATH_TO_KEY_MAP = {
     "/dashboard": "1",
     "/detect": "2",
-    "/chart-dashboard": "3",
 };
 
 const SIDER_STYLE = {

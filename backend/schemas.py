@@ -11,9 +11,8 @@ class ProviderLogin(BaseModel):
     provider_email: EmailStr
     provider_password: str
 
-class Token(BaseModel):
-    access_token: str
-    token_type: str
+class Response(BaseModel):
+    message: str
 
 class LoginToken(BaseModel):
     access_token: str
@@ -65,3 +64,8 @@ class LogData(BaseModel):
     total_log : int
     action: str
     created_at: datetime
+
+
+class ChangePasswordSchema(BaseModel):
+    email: EmailStr
+    new_password: str

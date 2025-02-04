@@ -1,13 +1,13 @@
 import { Button, Card, Checkbox, Form, Input, Typography } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { handlePasswordChange, handleSubmit } from "../utils/formhandlers"; // Import functions
+import { handlePasswordChange, handleSubmit } from "../../utils/formhandlers"; // Import functions
 import {
     areAllRequirementsMet,
     initialValidationState,
-} from "../utils/password";
-import Loader from "./Loader";
-import PasswordValidation from "./PasswordValidation"; // Import PasswordValidation
+} from "../../utils/password";
+import Loader from "../Loader/Loader";
+import PasswordValidation from "../PasswordValidation"; // Import PasswordValidation
 
 const FormComponent = ({
     title,

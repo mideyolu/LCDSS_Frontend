@@ -1,8 +1,8 @@
 import { Empty } from "antd"; // Import Empty component from Ant Design
 import React from "react";
 import { Pie } from "react-chartjs-2";
-import useChartData from "../hooks/useChartData"; // Import the custom hook
-import Loader from "./Loader";
+import useChartData from "../../hooks/useChartData";
+import Loader from "../Loader/Loader";
 
 const PieChart = () => {
     const { data, loading, error } = useChartData("pie");
@@ -14,8 +14,6 @@ const PieChart = () => {
     if (error) {
         return <p className="text-red-500">{error}</p>;
     }
-
-    console.log(data);
 
     // Check if data is empty or invalid
     if (!data || (data.totalMale === 0 && data.totalFemale === 0)) {

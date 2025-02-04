@@ -2,10 +2,12 @@ import { Button, Calendar, Empty, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import Footer from "../components/Footer";
-import Loader from "../components/Loader";
-import NotificationCard from "../components/Notificationcard";
-import PatientTable from "../components/PatientTable";
+import NotificationCard from "../components/Card/Notificationcard";
+import BarChart from "../components/Charts/BarChart";
+import PieChart from "../components/Charts/PieChart";
+import Footer from "../components/Footer/Footer";
+import Loader from "../components/Loader/Loader";
+import PatientTable from "../components/Table/PatientTable";
 import SearchBar from "../components/Searchbar/SearchBar";
 import SummaryBox from "../components/SummaryBox";
 import useAuth from "../hooks/useAuth";
@@ -199,7 +201,7 @@ const Dashboard = ({ sidebarCollapsed }) => {
                     <PatientTable data={filteredData} />
 
                     {/* Export Button */}
-                    <div className="mb-4">
+                    <div className="my-4">
                         <Button type="primary">
                             <CSVLink
                                 data={filteredData}
@@ -210,6 +212,15 @@ const Dashboard = ({ sidebarCollapsed }) => {
                                 Export Data
                             </CSVLink>
                         </Button>
+                    </div>
+
+                    <div className=" mt-3 md:mt-0 flex items-center justify-between gap-10 flex-col lg:flex-row min-h-[50vh]">
+                        <div className="left">
+                            <PieChart />
+                        </div>
+                        <div>
+                            <BarChart />
+                        </div>
                     </div>
                 </div>
 

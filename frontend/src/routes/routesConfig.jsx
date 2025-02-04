@@ -1,4 +1,3 @@
-import Chart from "./Chart";
 import Dashboard from "./Dashboard";
 import Detection from "./Detection";
 import FAQ from "./FAQ";
@@ -15,5 +14,4 @@ export const routesConfig = [
     { path: "/signup", element: <Signup /> },
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/detect", element: <Detection /> },
-    { path: "/chart-dashboard", element: <Chart /> },
 ];

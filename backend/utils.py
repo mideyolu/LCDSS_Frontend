@@ -35,23 +35,17 @@ def create_access_token(data: dict):
 
 async def create_log(action: str, provider_id: int, db: AsyncSession):
     """Creates a log entry for an action."""
-    log_entry = Log(
-        action=action,
-        created_at=datetime.utcnow(),
-        provider_id=provider_id
-    )
-    db.add(log_entry)
-    await db.commit()
-
-async def create_log_safe(action: str, provider_id: int, db: AsyncSession):
-    """
-    Helper function to safely create logs without crashing the application.
-    """
     try:
-        await create_log(action=action, provider_id=provider_id, db=db)
+
+            log_entry = Log(
+                action=action,
+                created_at=datetime.utcnow(),
+                provider_id=provider_id
+            )
+            db.add(log_entry)
+            await db.commit()
     except Exception as e:
         print(f"Failed to create log: {str(e)}")
-
 
 async def get_current_provider(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)):
     try:

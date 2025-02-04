@@ -23,13 +23,6 @@ export const menuItems = (handleNavigate, handleLogout) => [
     },
     {
         key: "3",
-        icon: <RadarChartOutlined />,
-        label: "Chart Analytics",
-        onClick: () => handleNavigate("/chart-dashboard", "3"),
-        style: { color: "white" }, // Ensuring the text is white
-    },
-    {
-        key: "4",
         icon: <LogoutOutlined />,
         label: "Logout",
         onClick: handleLogout,

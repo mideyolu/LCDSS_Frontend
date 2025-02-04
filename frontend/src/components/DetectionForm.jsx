@@ -1,12 +1,12 @@
+
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select, Upload } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleSubmitDetection } from "../services/detection";
 
 const { Option } = Select;
 
-const DetectionForm = () => {
+const DetectionForm = ({ onSubmit }) => {
     const navigate = useNavigate();
     const provider_id = localStorage.getItem("id");
     const [form] = Form.useForm();
@@ -17,8 +17,9 @@ const DetectionForm = () => {
         setFileList(fileList);
     };
 
+    // The onFinish handler uses the injected onSubmit prop.
     const handleSubmit = async (values) => {
-        await handleSubmitDetection({
+        await onSubmit({
             values,
             fileList,
             provider_id,
@@ -33,6 +34,7 @@ const DetectionForm = () => {
         <div>
             <Form
                 form={form}
+                role="form"
                 layout="vertical"
                 onFinish={handleSubmit}
                 initialValues={{
@@ -115,8 +117,9 @@ const DetectionForm = () => {
                     <Upload
                         multiple={false}
                         fileList={fileList}
-                        beforeUpload={() => false} // Prevent automatic upload
+                        beforeUpload={() => false}
                         onChange={handleFileChange}
+                        data-testid="file-upload"
                     >
                         <Button icon={<UploadOutlined />}>Upload File</Button>
                     </Upload>

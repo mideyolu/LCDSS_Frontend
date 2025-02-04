@@ -1,6 +1,51 @@
 import { toast } from "react-toastify";
 import { predict, registerPatient, registerResults } from "../api/api";
 
+// Handle patient registration
+const registerNewPatient = async (values) => {
+    const patientPayload = {
+        patient_name: values.patient_name,
+        patient_age: values.patient_age,
+        patient_gender: values.patient_gender,
+        patient_email: values.patient_email,
+        patient_notes: values.patient_notes,
+    };
+
+    const patientResponse = await registerPatient(patientPayload);
+    if (!patientResponse || !patientResponse.patient_id) {
+        throw new Error("Patient registration failed.");
+    }
+
+    return patientResponse.patient_id;
+};
+
+// Handle file upload and prediction
+const processFileUpload = async (file) => {
+    const startTime = performance.now();
+    const predictionResponse = await predict(file);
+    const prediction = predictionResponse?.predicted_category;
+    const endTime = performance.now();
+    const inferenceTime = endTime - startTime;
+
+    if (!prediction) {
+        throw new Error("Prediction result is missing.");
+    }
+
+    return { prediction, inferenceTime };
+};
+
+// Handle diagnosis registration
+const registerDiagnosis = async (provider_id, patientId, prediction) => {
+    const diagnosisPayload = {
+        provider_id,
+        patient_id: patientId,
+        prediction,
+    };
+
+    await registerResults(diagnosisPayload);
+};
+
+// Main function (simplified)
 export const handleSubmitDetection = async ({
     values,
     fileList,
@@ -18,71 +63,32 @@ export const handleSubmitDetection = async ({
     try {
         setLoading(true);
 
-        // Step 1: Load the uploaded file
         const file = fileList[0]?.originFileObj;
 
-        // Step 2: Predict diagnosis from the uploaded file
-        const startTime = performance.now(); // Start time for inference using performance.now()
+        // Step 1: Process file (upload and prediction)
+        const { prediction, inferenceTime } = await processFileUpload(file);
 
-        const predictionResponse = await predict(file);
-        const prediction = predictionResponse?.predicted_category;
-
-        const endTime = performance.now(); // End time for inference using performance.now()
-        let inferenceTime = endTime - startTime; // Time in milliseconds with high precision
-
-        if (!prediction) {
-            toast.error("Prediction result is missing. Please try again.");
-            return;
-        }
-
-        // Convert time to a readable format (milliseconds, seconds, or minutes)
-        let timeUnit = "ms"; // Default unit is milliseconds
-        let formattedTime = inferenceTime.toFixed(2); // Default to milliseconds
-
+        // Step 2: Show prediction time
+        let timeUnit = "ms";
+        let formattedTime = inferenceTime.toFixed(2);
         if (inferenceTime >= 1000) {
-            // Convert to seconds if time exceeds 1000 milliseconds
             formattedTime = (inferenceTime / 1000).toFixed(2);
-            timeUnit = "s"; // seconds
+            timeUnit = "s";
         }
-
         if (inferenceTime >= 60000) {
-            // Convert to minutes if time exceeds 60000 milliseconds (1 minute)
             formattedTime = (inferenceTime / 60000).toFixed(2);
-            timeUnit = "min"; // minutes
+            timeUnit = "min";
         }
 
-        console.log(`Inference completed in ${formattedTime} ${timeUnit}.`);
-
-        // Show the inference time toast with dynamic time unit
         toast.info(`Inference completed in ${formattedTime} ${timeUnit}.`);
 
-        // Step 3: Register Patient
-        const patientPayload = {
-            patient_name: values.patient_name,
-            patient_age: values.patient_age,
-            patient_gender: values.patient_gender,
-            patient_email: values.patient_email,
-            patient_notes: values.patient_notes,
-        };
+        // Step 3: Register patient
+        const patientId = await registerNewPatient(values);
 
-        const patientResponse = await registerPatient(patientPayload);
-        if (!patientResponse || !patientResponse.patient_id) {
-            throw new Error(
-                "Patient registration failed. No patient_id returned.",
-            );
-        }
+        // Step 4: Register diagnosis
+        await registerDiagnosis(provider_id, patientId, prediction);
 
-        const patientId = patientResponse.patient_id;
-
-        // Step 4: Register Diagnosis
-        const diagnosisPayload = {
-            provider_id: provider_id, // Replace with actual provider ID
-            patient_id: patientId,
-            prediction,
-        };
-
-        await registerResults(diagnosisPayload);
-        toast.success(`Successfully!..`);
+        toast.success("Successfully!");
 
         setTimeout(() => {
             form.resetFields();

@@ -2,8 +2,8 @@ import { Image, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { FaUser, FaUserShield } from "react-icons/fa"; // Import icons
 import { useNavigate } from "react-router-dom";
-import ChoiceCard from "../components/Choicecard";
-import Loader from "../components/Loader";
+import ChoiceCard from "../components/Card/ChoiceCard";
+import Loader from "../components/Loader/Loader";
 
 const Onboarding = () => {
     const navigate = useNavigate();
