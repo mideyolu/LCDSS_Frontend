@@ -122,7 +122,6 @@ const FormComponent = ({
                         type="primary"
                         className="mt-6 p-[1.3rem] text-center"
                         htmlType="submit"
-                        loading={loading}
                         disabled={!areAllRequirementsMet(validation)}
                     >
                         {loading ? <Loader /> : submitButtonText}

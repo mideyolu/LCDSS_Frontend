@@ -4,18 +4,20 @@ import { useNavigate } from "react-router-dom";
 import DetectionForm from "../components/DetectionForm";
 import useAuth from "../hooks/useAuth";
 import { handleSubmitDetection } from "../services/detection";
+import { toast } from "react-toastify";
 
 const Detection = () => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(true);
 
     const handleCancel = () => {
-        setVisible(false);
+        setVisible( false );
+        toast.info('Detection Form Closed')
         navigate("/dashboard");
     };
 
-    // // Use the custom hook for authentication check
-    // useAuth();
+    // Use the custom hook for authentication check
+    useAuth();
 
     return (
         <Modal

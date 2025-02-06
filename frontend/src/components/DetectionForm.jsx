@@ -1,8 +1,8 @@
-
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select, Upload } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader/Loader";
 
 const { Option } = Select;
 
@@ -19,6 +19,7 @@ const DetectionForm = ({ onSubmit }) => {
 
     // The onFinish handler uses the injected onSubmit prop.
     const handleSubmit = async (values) => {
+        setLoading(true);
         await onSubmit({
             values,
             fileList,
@@ -126,8 +127,8 @@ const DetectionForm = ({ onSubmit }) => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={loading}>
-                        Submit
+                    <Button type="primary" htmlType="submit">
+                        { loading ? <Loader/> : "Submit" }
                     </Button>
                 </Form.Item>
             </Form>
