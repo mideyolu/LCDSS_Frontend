@@ -36,16 +36,15 @@ const Onboarding = () => {
         <div className="onboarding min-h-screen flex md:flex-row">
             {/* Left Section */}
             <div className="left w-full md:w-1/2 flex flex-col justify-center px-8 py-6">
-                <Typography
-                    as="h2"
-                    variant="h4"
+                <Typography.Title
+                    level={4}
                     className="text-gray-800 font-bold mb-6 text-center md:text-left"
                     style={{
-                        fontFamily: "Robotto, sans-serif",
+                        fontFamily: "Robotto",
                     }}
                 >
                     Choose Your Option
-                </Typography>
+                </Typography.Title>
 
                 <div className="cursor-pointer grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {/* Using ChoiceCard component */}

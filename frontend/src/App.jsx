@@ -4,9 +4,10 @@ import { ToastContainer } from "react-toastify";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import SideBar from "./components/Sidebar/SideBar";
+import { routesConfig } from "./config/routesConfig";
 import { userInfo } from "./hooks/userInfo";
 import Dashboard from "./routes/Dashboard";
-import { routesConfig } from "./routes/routesConfig";
+import NotFound from "./routes/NotFound";
 
 const App = () => {
     const { fullname, username, email } = userInfo();
@@ -23,21 +24,27 @@ const App = () => {
     ];
     const showSidebarRoutes = ["/dashboard", "/detect"];
 
+    const isNotFoundPage = !routesConfig.some(
+        (route) => route.path === location.pathname,
+    );
+
     return (
         <div className="container mx-auto px-4 py-2 lg:px-8 lg:py-4">
             {/* Navbar */}
-            {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+            {!hideNavbarRoutes.includes(location.pathname) &&
+                !isNotFoundPage && <Navbar />}
 
             {/* Sidebar */}
-            {showSidebarRoutes.includes(location.pathname) && (
-                <SideBar
-                    fullname={fullname}
-                    username={username}
-                    email={email}
-                    collapsed={sidebarCollapsed}
-                    setCollapsed={setSidebarCollapsed}
-                />
-            )}
+            {showSidebarRoutes.includes(location.pathname) &&
+                !isNotFoundPage && (
+                    <SideBar
+                        fullname={fullname}
+                        username={username}
+                        email={email}
+                        collapsed={sidebarCollapsed}
+                        setCollapsed={setSidebarCollapsed}
+                    />
+                )}
 
             {/* Routes */}
             <Routes>
@@ -56,13 +63,16 @@ const App = () => {
                         }
                     />
                 ))}
+                {/* 404 Not Found Route */}
+                <Route path="*" element={<NotFound />} />
             </Routes>
 
             {/* Footer */}
             <ToastContainer position="top-right" autoClose={1500} />
-            {!hideNavbarRoutes.includes(location.pathname) && (
-                <Footer sidebarCollapsed={sidebarCollapsed} />
-            )}
+            {!hideNavbarRoutes.includes(location.pathname) &&
+                !isNotFoundPage && (
+                    <Footer sidebarCollapsed={sidebarCollapsed} />
+                )}
         </div>
     );
 };

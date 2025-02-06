@@ -11,7 +11,7 @@ const NotificationCard = ({ notifications, onClose }) => {
                 position: "absolute",
                 zIndex: 80,
                 boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                fontFamily: "Roboto, sans-serif",
+                fontFamily: "Robtto",
             }}
             className="w-[55%] top-[5%] right-4 sm:w-[35%] md:w-[30%] lg:w-[25%] md:right-[9%] lg:right-[5%] lg:top-[10%]"
             title="Notifications"
@@ -23,15 +23,19 @@ const NotificationCard = ({ notifications, onClose }) => {
         >
             <List
                 style={{
-                    fontFamily: "Roboto, sans-serif",
+                    fontFamily: "Robotto",
                 }}
                 dataSource={notifications}
                 renderItem={(item) => (
                     <List.Item>
-                        <Text>{item.message}</Text>{" "}
+                        <Text style={{ fontFamily: "Robtto" }}>
+                            {item.message}
+                        </Text>{" "}
                         {/* Access the 'message' property */}
                         <br />
-                        <Text type="secondary">{item.timestamp}</Text>{" "}
+                        <Text style={{ fontFamily: "Robtto" }} type="secondary">
+                            {item.timestamp}
+                        </Text>{" "}
                         {/* Access the 'timestamp' property */}
                     </List.Item>
                 )}

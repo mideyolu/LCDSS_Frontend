@@ -17,14 +17,19 @@ const Navbar = () => {
         setOpen((prev) => !prev);
     };
     return (
-        <nav className="flex items-center justify-between">
+        <nav
+            className="flex items-center justify-between"
+            style={{
+                fontFamily: "Robotto",
+            }}
+        >
             <Link to={"/"} className="flex items-center justify-center">
                 <Image src="/logo.jpg" width={50} className="rounded-3xl" />
 
                 <Paragraph
                     className="flex mt-2 items-center justify-center ml-2"
                     style={{
-                        fontFamily: "Robotto, sans-serif",
+                        fontFamily: "Robotto",
                     }}
                 >
                     Res
@@ -36,7 +41,12 @@ const Navbar = () => {
                 <Link to={"/"}>Home</Link>
                 <Link to={"/faq"}>FAQ</Link>
             </section>
-            <section className="right">
+            <section
+                className="right"
+                style={{
+                    fontFamily: "Robotto",
+                }}
+            >
                 <Button
                     onClick={reDirect}
                     className="my-[1.5rem] py-[0.5rem] shadow-lg h-[2.5rem] hidden md:block"
@@ -61,6 +71,9 @@ const Navbar = () => {
 
             {open && (
                 <div
+                    style={{
+                        fontFamily: "Robotto",
+                    }}
                     className={` ${
                         open ? "translate-y-0" : "translate-y-[100%]"
                     }  transition-all ease-out duration-300 mt-2 rounded-lg z-100 place-items-center gap-3 p-[2rem] flex flex-col bg-gray-100 m-3 items-start absolute right-0 top-10 text-[0.9rem]  z-[99]`}
@@ -70,7 +83,7 @@ const Navbar = () => {
                     <Link to={"/faq"}>FAQ</Link>
                     <Button
                         onClick={reDirect}
-                        className="flex items-start shadow-lg"
+                        className="my-[1.5rem] py-[0.5rem] shadow-lg h-[2.5rem]"
                         variant="solid"
                         color="primary"
                     >

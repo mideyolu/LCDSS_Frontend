@@ -13,6 +13,9 @@ const SearchBar = ({ placeholder = "Search...", onSearch }) => {
     return (
         <div className="mb-4">
             <Search
+                style={{
+                    fontFamily: "Robotto",
+                }}
                 {...SEARCH_PROPS}
                 placeholder={placeholder}
                 onSearch={onSearch}

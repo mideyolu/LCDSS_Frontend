@@ -52,7 +52,7 @@ const BarChart = () => {
                 display: true,
                 text: "Distribution of Cases",
                 font: {
-                    family: "Roboto, sans-serif",
+                    family: "Roboto",
                     size: 16,
                 },
             },
@@ -61,6 +61,7 @@ const BarChart = () => {
 
     return (
         <Bar
+            style={{ fontFamily: "Roboto" }}
             data={chartData}
             options={options}
             className="flex items-center justify-center sm:h-[120px] sm:w-[100px] md:w-auto md:h-[300px] md:block"

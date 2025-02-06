@@ -15,9 +15,23 @@ const PasswordValidation = ({
             {/* Password Validation Messages */}
             {!showSuccess && (
                 <div className="text-left mt-2">
-                    <Paragraph>Requirements:</Paragraph>
-                    <ul className="list-disc pl-5">
+                    <Paragraph
+                        style={{
+                            fontFamily: "Robotto",
+                        }}
+                    >
+                        Requirements:
+                    </Paragraph>
+                    <ul
+                        className="list-disc pl-5"
+                        style={{
+                            fontFamily: "Robotto",
+                        }}
+                    >
                         <li
+                            style={{
+                                fontFamily: "Robotto",
+                            }}
                             className={`${
                                 validation.hasUppercase
                                     ? "text-green-500"
@@ -79,14 +93,24 @@ const PasswordValidation = ({
 
             {/* Loader and Success Message */}
             {allRequirementsMet && !showSuccess && (
-                <div className="flex items-center mt-2 text-blue-500">
+                <div
+                    style={{
+                        fontFamily: "Robotto",
+                    }}
+                    className="flex items-center mt-2 text-blue-500"
+                >
                     <LoadingOutlined className="mr-2" />
                     Checking requirements...
                 </div>
             )}
 
             {showSuccess && (
-                <div className="flex items-center mt-2 text-green-500">
+                <div
+                    style={{
+                        fontFamily: "Robotto",
+                    }}
+                    className="flex items-center mt-2 text-green-500"
+                >
                     Password Requirements met ✅
                 </div>
             )}

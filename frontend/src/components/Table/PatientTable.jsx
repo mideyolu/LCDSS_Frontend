@@ -90,6 +90,7 @@ const PatientTable = ({ data }) => {
             pagination={{ pageSize: 5 }}
             scroll={{ x: 700 }}
             bordered={false}
+            style={{ fontFamily: "Roboto" }}
         />
     );
 };

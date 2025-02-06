@@ -36,18 +36,6 @@ const PieChart = () => {
             title: {
                 display: true,
                 text: "Distribution of Gender",
-                font: {
-                    family: "Roboto, sans-serif",
-                    size: 16,
-                },
-            },
-            legend: {
-                labels: {
-                    font: {
-                        family: "Roboto, sans-serif",
-                        size: 16,
-                    },
-                },
             },
         },
     };
@@ -56,6 +44,9 @@ const PieChart = () => {
         <Pie
             data={chartData}
             options={options}
+            style={{
+                fontFamily: "Robotto",
+            }}
             className="h-[150px] md:h-[150px]"
         />
     );

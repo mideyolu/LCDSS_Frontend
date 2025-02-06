@@ -131,6 +131,9 @@ const FormComponent = ({
 
                 {/* Redirect Link */}
                 <Typography
+                    style={{
+                        fontFamily: "Robotto",
+                    }}
                     className="mt-4 text-blue-600 text-center cursor-pointer"
                     onClick={handleRedirect}
                 >
