@@ -15,7 +15,7 @@ export const service = [
         id: 3,
         img: "/report.png",
         caption: "Report Generation",
-        desc: "Receive comprehensive generated reports on the dashboard",
+        desc: "Receive comprehensive generated reports on the dashboard.",
     },
 ];
 

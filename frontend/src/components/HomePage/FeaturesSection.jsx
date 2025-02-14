@@ -9,12 +9,12 @@ const FeaturesSection = () => {
     // Helper function to calculate margin based on id
     const getParagraphStyle = (id) => {
         if (id === 1) {
-            return { marginTop: "50px" }; // Specific margin for id 1
+            return { marginTop: "50px" }; // Specific margin for id 1 (second element)
         }
         if (id === 2) {
-            return { marginTop: "30px" }; // Specific margin for id 2
+            return { marginTop: "50px" }; // Specific margin for id 2
         }
-        return { marginTop: "0px" }; // Default margin
+        return { marginTop: "30px" }; // Default margin
     };
 
     // Animation variants for cards
@@ -69,7 +69,7 @@ const FeaturesSection = () => {
                                 custom={direction}
                                 initial="hidden"
                                 whileInView="visible"
-                                viewport={{ amount: 0.3 }} // Triggers animation every time the element enters the viewport
+                                viewport={{ amount: 0.3 }} // Triggers animation when the element enters the viewport
                                 variants={cardVariants}
                             >
                                 <Card
@@ -77,15 +77,22 @@ const FeaturesSection = () => {
                                         fontFamily: "Robotto",
                                     }}
                                     title={item.caption}
-                                    className="w-[100%] hover:scale-105 cursor-pointer duration-300 ease-in-out"
+                                    className="w-[100%] hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
                                     bordered={false}
                                 >
-                                    <Image width={150} src={item.img} />
+                                    <div className="flex items-center justify-center">
+                                        <Image
+                                            width={id === 1 ? 190 : 150} // Increase width for second image
+                                            height={id === 1 ? 100 : "auto"} // Increase height for second image
+                                            src={item.img}
+                                        />
+                                    </div>
+
                                     <Paragraph
-                                        style={
-                                            (getParagraphStyle(id),
-                                            { fontFamily: "Robotto" })
-                                        }
+                                        style={{
+                                            ...getParagraphStyle(id), // Combine margin style with the next style
+                                            fontFamily: "Robotto",
+                                        }}
                                         className="text-[0.9rem] md:text-[1.05rem]"
                                     >
                                         {item.desc}

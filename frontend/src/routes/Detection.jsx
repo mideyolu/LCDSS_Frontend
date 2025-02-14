@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DetectionForm from "../components/DetectionForm";
-import useAuth from "../hooks/useAuth";
+//import useAuth from "../hooks/useAuth";
 import { handleSubmitDetection } from "../services/detection";
 import { toast } from "react-toastify";
 
@@ -17,7 +17,7 @@ const Detection = () => {
     };
 
     // Use the custom hook for authentication check
-    useAuth();
+    //useAuth();
 
     return (
         <Modal

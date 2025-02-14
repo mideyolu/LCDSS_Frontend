@@ -1,13 +1,13 @@
 import { Button, Card, Checkbox, Form, Input, Typography } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { handlePasswordChange, handleSubmit } from "../../utils/formhandlers"; // Import functions
+import { handlePasswordChange, handleSubmit } from "../../utils/formhandlers"; 
 import {
     areAllRequirementsMet,
     initialValidationState,
 } from "../../utils/password";
 import Loader from "../Loader/Loader";
-import PasswordValidation from "../PasswordValidation"; // Import PasswordValidation
+import PasswordValidation from "../PasswordValidation";
 
 const FormComponent = ({
     title,
@@ -122,6 +122,9 @@ const FormComponent = ({
                         type="primary"
                         className="mt-6 p-[1.3rem] text-center"
                         htmlType="submit"
+                        style={{
+                            fontFamily: "Robotto",
+                        }}
                         disabled={!areAllRequirementsMet(validation)}
                     >
                         {loading ? <Loader /> : submitButtonText}

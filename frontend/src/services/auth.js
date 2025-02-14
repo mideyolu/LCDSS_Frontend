@@ -1,7 +1,7 @@
 // src/services/auth.js
 
-import { login, signup } from "../api/api";
 import { toast } from "react-toastify";
+import { login, signup } from "../api/api";
 
 // --------------------
 // Login Functions
@@ -43,8 +43,7 @@ export const handleLogin = async (
         toast.success("Login successful!");
         navigate("/dashboard");
     } catch (error) {
-        console.error("Login Error:", error);
-        toast.error(error.response?.data?.detail || "Login failed!");
+        toast.error(`${error ? error : "Signup failed!"}`);
     } finally {
         setLoading(false);
     }
@@ -68,7 +67,9 @@ export const handleSignup = async (formData, setLoading, navigate) => {
         setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
         console.error("Signup Error:", error);
-        toast.error(error.response?.data?.detail || "Signup failed!");
+        toast.error(
+            `${error ? error.response?.data?.detail : "Signup failed!"}`,
+        );
     } finally {
         setLoading(false);
     }

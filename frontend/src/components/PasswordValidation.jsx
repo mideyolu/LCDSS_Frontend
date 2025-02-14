@@ -27,12 +27,18 @@ const PasswordValidation = ({
             {/* Password Validation Messages */}
             {!showSuccess && firstUnmetRequirement && (
                 <div className="text-left mt-2">
-                    <Paragraph style={{ fontFamily: "Roboto" }}>
+                    <Paragraph
+                        style={{
+                            fontFamily: "Robotto",
+                        }}
+                    >
                         Requirements:
                     </Paragraph>
                     <ul
                         className="list-disc pl-5"
-                        style={{ fontFamily: "Roboto" }}
+                        style={{
+                            fontFamily: "Robotto",
+                        }}
                     >
                         <li className="text-red-500">
                             {firstUnmetRequirement.text}
