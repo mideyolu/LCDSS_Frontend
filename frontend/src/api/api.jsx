@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create Axios instance
 const api = axios.create({
-    baseURL: "http://127.0.0.1:8000", // Replace with your backend base URL
+    baseURL: import.meta.env.VITE_API_BASE_URL, // Load from .env file
     headers: {
         "Content-Type": "application/json",
     },
@@ -74,14 +74,14 @@ export async function predict(file) {
         formData.append("file", file);
 
         const response = await axios.post(
-            `http://127.0.0.1:8000/auth/detect`,
+            `${import.meta.env.VITE_API_BASE_URL}/auth/detect`,
             formData,
             {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${localStorage.getItem(
                         "access_token",
-                    )}`, // Include token in header
+                    )}`, 
                 },
                 withCredentials: true, // Ensure cookies are sent with the request
             },
