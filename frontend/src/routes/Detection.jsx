@@ -1,23 +1,23 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DetectionForm from "../components/DetectionForm";
-//import useAuth from "../hooks/useAuth";
-import { handleSubmitDetection } from "../services/detection";
 import { toast } from "react-toastify";
+import DetectionForm from "../components/Form/DetectionForm";
+import useAuth from "../hooks/useAuth";
+import { handleSubmitDetection } from "../services/detection";
 
 const Detection = () => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(true);
 
     const handleCancel = () => {
-        setVisible( false );
-        toast.info('Detection Form Closed')
+        setVisible(false);
+        toast.info("Detection Form Closed");
         navigate("/dashboard");
     };
 
     // Use the custom hook for authentication check
-    //useAuth();
+    useAuth();
 
     return (
         <Modal

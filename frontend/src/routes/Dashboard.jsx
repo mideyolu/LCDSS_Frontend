@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchData } from "../services/dashboard";
 import { fetchLogData } from "../services/log";
-
 import ChartsSection from "../components/Dashboard/ChartsSection";
 import DashboardHeader from "../components/Dashboard/DashboardHeader";
 import PatientDataSection from "../components/Dashboard/PatientDataSection";

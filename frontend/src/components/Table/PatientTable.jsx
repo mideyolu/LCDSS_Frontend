@@ -1,7 +1,8 @@
 import { Table } from "antd";
 import React from "react";
+import Loader from "../Loader/Loader";
 
-const PatientTable = ({ data }) => {
+const PatientTable = ({ data, loading }) => {
     const getStatusColor = (text) => {
         let statusColor;
         const caseType = text.toLowerCase().includes("normal")
@@ -38,45 +39,39 @@ const PatientTable = ({ data }) => {
             title: "S/N",
             dataIndex: "sn",
             key: "sn",
-            width: 5,
+            width: 50,
         },
         {
             title: "Name",
             dataIndex: "name",
             key: "name",
-            width: 90,
+            width: 150,
         },
         {
             title: "Age",
             dataIndex: "age",
             key: "age",
-            width: 10,
+            width: 80,
         },
         {
             title: "Gender",
             dataIndex: "gender",
             key: "gender",
-            width: 10,
+            width: 80,
         },
         {
             title: "Email",
             dataIndex: "email",
             key: "email",
-            width: 10,
+            width: 200,
         },
-        // {
-        //     title: "Notes",
-        //     dataIndex: "notes",
-        //     key: "notes",
-        //     width: 120,
-        // },
         {
             title: "Status",
             dataIndex: "status",
             key: "status",
-            width: 50,
+            width: 120,
             render: (text) => {
-                const statusColor = getStatusColor(text); // Get the status color dynamically
+                const statusColor = getStatusColor(text);
                 return <span style={{ color: statusColor }}>{text}</span>;
             },
         },
@@ -90,6 +85,7 @@ const PatientTable = ({ data }) => {
             pagination={{ pageSize: 5 }}
             scroll={{ x: 700 }}
             bordered={false}
+            loading={loading ? { indicator: <Loader /> } : false}
             style={{ fontFamily: "Roboto" }}
         />
     );
