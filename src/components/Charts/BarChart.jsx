@@ -15,14 +15,13 @@ const BarChart = () => {
         return <p className="text-red-500">{error}</p>;
     }
 
-    // Check if data is empty, has no values, or if all values are zero
     if (
         !data ||
         !data.labels ||
         !data.values ||
         data.labels.length === 0 ||
         data.values.length === 0 ||
-        data.values.every((value) => value === 0) // Check if all values are 0
+        data.values.every((value) => value === 0)
     ) {
         return <Empty description="No data available for the Bar Chart" />;
     }
@@ -39,6 +38,8 @@ const BarChart = () => {
     };
 
     const options = {
+        responsive: true,
+        maintainAspectRatio: false,
         barPercentage: 0.6,
         categoryPercentage: 0.9,
         scales: {
@@ -60,12 +61,9 @@ const BarChart = () => {
     };
 
     return (
-        <Bar
-            style={{ fontFamily: "Roboto" }}
-            data={chartData}
-            options={options}
-            className="flex items-center justify-center sm:h-[120px] sm:w-[100px] md:w-auto md:h-[300px] md:block"
-        />
+        <div className="w-full flex items-center justify-center h-[200px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px]">
+            <Bar data={chartData} options={options} />
+        </div>
     );
 };
 
