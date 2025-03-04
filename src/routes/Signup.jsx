@@ -1,5 +1,4 @@
-
-import { Image } from "antd";
+import { Image, Skeleton } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../components/Form/FormComponent";
@@ -9,6 +8,7 @@ import { handleSignup } from "../services/auth"; // Import the auth function
 const Signup = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [imageLoading, setImageLoading] = useState(true); // Track image loading
 
     const formFields = [
         {
@@ -50,11 +50,23 @@ const Signup = () => {
                     }}
                 />
             </div>
-            <div className="lg:flex-[45%] w-full">
+
+            {/* Image with Skeleton Loader */}
+            <div className="lg:flex-[45%] w-full hidden md:block">
+                {imageLoading && (
+                    <Skeleton.Image
+                        active
+                        className="w-full max-w-sm h-[300px]"
+                    />
+                )}
                 <Image
                     src="/signup.png"
                     alt="Signup Illustration"
-                    className="w-full max-w-sm hidden md:block"
+                    preview={false}
+                    className={`${
+                        imageLoading ? "hidden" : "block"
+                    } w-full max-w-sm`}
+                    onLoad={() => setImageLoading(false)} // Hide Skeleton when image loads
                 />
             </div>
         </div>

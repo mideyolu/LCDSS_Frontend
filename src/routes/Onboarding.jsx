@@ -1,4 +1,4 @@
-import { Image, Typography } from "antd";
+import { Image, Typography, Skeleton } from "antd";
 import React, { useEffect, useState } from "react";
 import { FaUser, FaUserShield } from "react-icons/fa"; // Import icons
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import Loader from "../components/Loader/Loader";
 const Onboarding = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [imageLoading, setImageLoading] = useState(true); // Track image loading
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -74,12 +75,22 @@ const Onboarding = () => {
                 </span>
             </div>
 
-            {/* Right Section */}
+            {/* Right Section with Skeleton Loader */}
             <div className="hidden md:w-1/2 md:flex items-center justify-center py-6 sm:bg-transparent">
+                {imageLoading && (
+                    <Skeleton.Image
+                        active
+                        className="w-[40%] max-w-sm h-[250px]"
+                    />
+                )}
                 <Image
                     src="/onboarding1.png"
                     alt="Onboarding Illustration"
-                    className="w-[40%] max-w-sm md:block hidden"
+                    preview={false}
+                    className={`${
+                        imageLoading ? "hidden" : "block"
+                    } w-[40%] max-w-sm`}
+                    onLoad={() => setImageLoading(false)} // Hide Skeleton when image loads
                 />
             </div>
         </div>
