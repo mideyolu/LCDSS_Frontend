@@ -84,7 +84,8 @@ const FeaturesSection = () => {
                                         <Image
                                             width={id === 1 ? 190 : 150} // Increase width for second image
                                             height={id === 1 ? 100 : "auto"} // Increase height for second image
-                                            src={item.img}
+                                            src={ item.img }
+                                            preview={false}
                                         />
                                     </div>
 

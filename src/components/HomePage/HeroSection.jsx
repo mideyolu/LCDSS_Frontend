@@ -50,6 +50,7 @@ const HeroSection = () => {
                     src="/home.png"
                     alt="Home.jpg"
                     className="w-[80%] object-contain shadow-sm p-1"
+                    preview={false}
                 />
             </section>
         </section>
