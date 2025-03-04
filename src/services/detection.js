@@ -80,7 +80,7 @@ export const handleSubmitDetection = async ({
             timeUnit = "min";
         }
 
-        toast.info(`Inference completed in ${formattedTime} ${timeUnit}.`);
+        //toast.info(`Inference completed in ${formattedTime} ${timeUnit}.`);
 
         // Step 3: Register patient
         const patientId = await registerNewPatient(values);
@@ -88,7 +88,7 @@ export const handleSubmitDetection = async ({
         // Step 4: Register diagnosis
         await registerDiagnosis(provider_id, patientId, prediction);
 
-        toast.success("Successfully!");
+        toast.success("Successful!");
 
         setTimeout(() => {
             form.resetFields();
