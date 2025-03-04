@@ -12,7 +12,7 @@ const HeroSection = () => {
     };
 
     return (
-        <section className=" min-h-[90vh] md:min-h-screen flex items-center justify-center md:justify-between">
+        <section className=" min-h-[90vh] md:min-h-screen flex items-center justify-center md:justify-between mx-[1.2rem]">
             <section className="mt-2">
                 <Title
                     level={1}

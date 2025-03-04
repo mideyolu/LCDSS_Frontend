@@ -33,7 +33,7 @@ const FeaturesSection = () => {
     };
 
     return (
-        <section className="px-5 py-3 mb-[3rem] bg-blue-500 rounded-2xl">
+        <section className="px-5 py-3 mb-[3rem] bg-blue-500 rounded-2xl mx-[1.2rem]">
             <Title
                 className="text-center mb-4"
                 level={5}
