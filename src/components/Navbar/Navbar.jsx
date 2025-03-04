@@ -24,7 +24,7 @@ const Navbar = () => {
             }}
         >
             <Link to={"/"} className="flex items-center justify-center">
-                <Image src="/logo.jpg" width={50} className="rounded-3xl" />
+                <Image src="/logo.jpg" width={50} className="rounded-3xl" preview={false} />
 
                 <Paragraph
                     className="flex mt-2 items-center justify-center ml-2"
@@ -76,7 +76,7 @@ const Navbar = () => {
                     }}
                     className={` ${
                         open ? "translate-y-0" : "translate-y-[100%]"
-                    }  transition-all ease-out duration-300 mt-2 rounded-lg z-100 place-items-center gap-3 p-[2rem] flex flex-col bg-gray-100 m-3 items-start absolute right-0 top-10 text-[0.9rem]  z-[99]`}
+                    }  transition-all ease-out duration-300 mt-2 rounded-lg z-100 place-items-center gap-3 p-[2rem] flex flex-col bg-gray-100 m-3 items-start absolute right-0 top-10 text-[0.9rem] block md:hidden  z-[99]`}
                     onClick={menu}
                 >
                     <Link to={"/"}>Home</Link>
