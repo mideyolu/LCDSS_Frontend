@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormComponent from "../components/Form/FormComponent";
 import Loader from "../components/Loader/Loader";
-import { userInfo } from "../hooks/userInfo"; // Import the hook
-import { handleLogin } from "../services/auth"; // Import auth functions
+import { handleLogin } from "../services/auth";
+import { userInfo } from "../hooks/userInfo"; // Ensure this hook returns setFullname, setUsername, and setEmail
 
 const Login = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [imageLoading, setImageLoading] = useState(true); // Track image loading
-    const { setFullname, setUsername, setEmail } = userInfo(); // Use the hook inside the component
+    const [imageLoading, setImageLoading] = useState(true);
+    const { setFullname, setUsername, setEmail } = userInfo();
 
     const formFields = [
         {
@@ -50,10 +50,13 @@ const Login = () => {
                         text: "Don't Have an Account? Signup Here",
                         path: "/signup",
                     }}
+                    changePasswordRedirect={{
+                        text: "Change Password",
+                        path: "/change-password",
+                    }}
                 />
             </div>
 
-            {/* Image with Skeleton Loader */}
             <div className="lg:flex-[45%] w-full hidden md:block">
                 {imageLoading && (
                     <Skeleton.Image active className="w-full h-[300px]" />
@@ -63,7 +66,7 @@ const Login = () => {
                     alt="Login Illustration"
                     preview={false}
                     className={`${imageLoading ? "hidden" : "block"} w-full`}
-                    onLoad={() => setImageLoading(false)} // Hide Skeleton when image loads
+                    onLoad={() => setImageLoading(false)}
                 />
             </div>
         </div>

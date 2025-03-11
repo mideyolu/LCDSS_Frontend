@@ -1,7 +1,7 @@
 import { Button, Card, Checkbox, Form, Input, Typography } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { handlePasswordChange, handleSubmit } from "../../utils/formhandlers"; 
+import { handlePasswordChange, handleSubmit } from "../../utils/formhandlers";
 import {
     areAllRequirementsMet,
     initialValidationState,
@@ -15,6 +15,7 @@ const FormComponent = ({
     onSubmit,
     submitButtonText,
     redirect,
+    changePasswordRedirect,
     showTermsAndConditions = false,
 }) => {
     const { Title } = Typography;
@@ -31,8 +32,14 @@ const FormComponent = ({
         navigate(redirect.path);
     };
 
+    const handleChangePasswordRedirect = () => {
+        if (changePasswordRedirect) {
+            navigate(changePasswordRedirect.path);
+        }
+    };
+
     const handleBackToOnboarding = () => {
-        navigate("/onboarding"); // Replace with the correct path for your onboarding screen
+        navigate("/onboarding");
     };
 
     return (
@@ -70,23 +77,42 @@ const FormComponent = ({
                                 },
                             ]}
                         >
-                            <Input
-                                type={field.type}
-                                placeholder={field.placeholder}
-                                size="large"
-                                className="w-[100%] md:w-[90%]"
-                                onChange={(e) =>
-                                    field.name === "provider_password"
-                                        ? handlePasswordChange(
-                                              e.target.value,
-                                              setPassword,
-                                              setValidation,
-                                              setAllRequirementsMet,
-                                              setShowSuccess,
-                                          )
-                                        : null
-                                }
-                            />
+                            {field.type === "password" ? (
+                                <Input.Password
+                                    placeholder={field.placeholder}
+                                    size="large"
+                                    className="w-[100%] md:w-[90%]"
+                                    onChange={(e) =>
+                                        field.name === "provider_password"
+                                            ? handlePasswordChange(
+                                                  e.target.value,
+                                                  setPassword,
+                                                  setValidation,
+                                                  setAllRequirementsMet,
+                                                  setShowSuccess,
+                                              )
+                                            : null
+                                    }
+                                />
+                            ) : (
+                                <Input
+                                    type={field.type}
+                                    placeholder={field.placeholder}
+                                    size="large"
+                                    className="w-[100%] md:w-[90%]"
+                                    onChange={(e) =>
+                                        field.name === "provider_password"
+                                            ? handlePasswordChange(
+                                                  e.target.value,
+                                                  setPassword,
+                                                  setValidation,
+                                                  setAllRequirementsMet,
+                                                  setShowSuccess,
+                                              )
+                                            : null
+                                    }
+                                />
+                            )}
                         </Form.Item>
                     ))}
 
@@ -111,7 +137,7 @@ const FormComponent = ({
                             onChange={(e) => setTermsAccepted(e.target.checked)}
                         >
                             I agree to the{" "}
-                            <Link href="/terms">Terms and Conditions</Link>
+                            <Link to="/terms">Terms and Conditions</Link>
                         </Checkbox>
                     </Form.Item>
                 )}
@@ -122,25 +148,32 @@ const FormComponent = ({
                         type="primary"
                         className="mt-6 p-[1.3rem] text-center"
                         htmlType="submit"
-                        style={{
-                            fontFamily: "Robotto",
-                        }}
+                        style={{ fontFamily: "Robotto" }}
                         disabled={!areAllRequirementsMet(validation)}
                     >
                         {loading ? <Loader /> : submitButtonText}
                     </Button>
                 </Form.Item>
 
-                {/* Redirect Link */}
+                {/* Main Redirect Link */}
                 <Typography
-                    style={{
-                        fontFamily: "Robotto",
-                    }}
+                    style={{ fontFamily: "Robotto" }}
                     className="mt-4 text-blue-600 text-center cursor-pointer"
                     onClick={handleRedirect}
                 >
                     {redirect.text}
                 </Typography>
+
+                {/* Change Password Redirect Link (only visible if prop provided) */}
+                {changePasswordRedirect && (
+                    <Typography
+                        style={{ fontFamily: "Robotto" }}
+                        className="mt-4 text-blue-600 text-center cursor-pointer"
+                        onClick={handleChangePasswordRedirect}
+                    >
+                        {changePasswordRedirect.text}
+                    </Typography>
+                )}
 
                 <span
                     className="mt-4 text-sm absolute cursor-pointer top-[100%] right-[5%] lg:top-[90%] lg:right-[-70%]"

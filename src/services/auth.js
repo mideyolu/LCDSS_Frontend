@@ -64,7 +64,7 @@ export const handleSignup = async (formData, setLoading, navigate) => {
         });
 
         toast.success("Signup successful!");
-        setTimeout(() => navigate("/login"), 1500);
+        setTimeout(() => navigate("/login"), 1000);
     } catch (error) {
         console.error("Signup Error:", error);
         toast.error(

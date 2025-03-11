@@ -5,6 +5,7 @@ import HomePage from "../routes/HomePage";
 import Login from "../routes/Login";
 import Onboarding from "../routes/Onboarding";
 import Signup from "../routes/Signup";
+import ChangePassword from "../routes/ChangePassword";
 
 export const routesConfig = [
     { path: "/", element: <HomePage /> },
@@ -14,4 +15,5 @@ export const routesConfig = [
     { path: "/signup", element: <Signup /> },
     { path: "/dashboard", element: <Dashboard /> },
     { path: "/detect", element: <Detection /> },
+    { path: "/change-password", element: <ChangePassword /> },
 ];

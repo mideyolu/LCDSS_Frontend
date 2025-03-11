@@ -21,6 +21,7 @@ const App = () => {
         "/signup",
         "/dashboard",
         "/detect",
+        "/change-password",
     ];
     const showSidebarRoutes = ["/dashboard", "/detect"];
 
