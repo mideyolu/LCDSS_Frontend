@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
 import PasswordValidation from "../components/PasswordValidation";
-import { validatePassword } from "../utils/password";
 import { handleChangePassword } from "../services/auth";
+import { ChangePasswordValidation } from "../utils/password";
 
 
 const { Title } = Typography;
@@ -61,7 +61,7 @@ const ChangePassword = () => {
                         <Input.Password
                             className="w-full"
                             onChange={(e) =>
-                                validatePassword(
+                                ChangePasswordValidation(
                                     e.target.value,
                                     setPasswordValidation,
                                     setAllRequirementsMet,
