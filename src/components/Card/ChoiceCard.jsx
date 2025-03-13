@@ -12,18 +12,13 @@ const ChoiceCard = ({ icon, title, paragraph, onClick, className }) => {
             {icon}
             <Title
                 level={5}
-                style={{
-                    fontFamily: "Robotto",
-                }}
                 className="text-gray-800  text-center"
             >
                 {title}
             </Title>
 
             <Paragraph
-                style={{
-                    fontFamily: "Robotto",
-                }}
+
                 className="text-gray-600 text-center"
             >
                 {paragraph}

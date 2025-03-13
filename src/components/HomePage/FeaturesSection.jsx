@@ -39,17 +39,11 @@ const FeaturesSection = () => {
                 level={5}
                 style={{
                     color: "white",
-                    fontFamily: "Robotto",
                 }}
             >
                 Built for Lung Cancer Detection
             </Title>
-            <Paragraph
-                className="text-[0.9rem] text-center text-white"
-                style={{
-                    fontFamily: "Robotto",
-                }}
-            >
+            <Paragraph className="text-[0.9rem] text-center text-white">
                 <span className=" block">
                     Revolutionize patient management effortlessly. Boost
                     diagnostic accuracy with AI-powered detection and streamline
@@ -73,18 +67,15 @@ const FeaturesSection = () => {
                                 variants={cardVariants}
                             >
                                 <Card
-                                    style={{
-                                        fontFamily: "Robotto",
-                                    }}
                                     title={item.caption}
                                     className="w-[100%] hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
-                                    bordered={false}
+                                    bordered={ false }
                                 >
                                     <div className="flex items-center justify-center">
                                         <Image
                                             width={id === 1 ? 190 : 150} // Increase width for second image
                                             height={id === 1 ? 100 : "auto"} // Increase height for second image
-                                            src={ item.img }
+                                            src={item.img}
                                             preview={false}
                                         />
                                     </div>
@@ -92,7 +83,6 @@ const FeaturesSection = () => {
                                     <Paragraph
                                         style={{
                                             ...getParagraphStyle(id), // Combine margin style with the next style
-                                            fontFamily: "Robotto",
                                         }}
                                         className="text-[0.9rem] md:text-[1.05rem]"
                                     >

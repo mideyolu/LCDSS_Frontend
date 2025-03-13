@@ -81,7 +81,7 @@ export async function predict(file) {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${localStorage.getItem(
                         "access_token",
-                    )}`, 
+                    )}`,
                 },
                 withCredentials: true, // Ensure cookies are sent with the request
             },
@@ -112,5 +112,29 @@ export const logout = async () => {
         );
     }
 };
+
+// Generalized PUT request function
+const putRequest = async (url, data = {}, returnDataOnly = true) => {
+    try {
+        console.log(`PUT Request to ${url} with data:`, data);
+        const response = await api.put(url, data, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+                "Content-Type": "application/json", // ✅ Ensure JSON format
+            },
+        });
+        return returnDataOnly ? response.data : response;
+    } catch (error) {
+        console.error(`Error updating ${url}:`, error.response?.data || error);
+        throw new Error(
+            error.response?.data?.detail || "Failed to process request",
+        );
+    }
+};
+
+
+// Change Password API call
+export const changePassword = (data) => putRequest("/auth/change-password", data);
+
 
 export default api;

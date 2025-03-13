@@ -86,7 +86,6 @@ const PatientTable = ({ data, loading }) => {
             scroll={{ x: 700 }}
             bordered={false}
             loading={loading ? { indicator: <Loader /> } : false}
-            style={{ fontFamily: "Roboto" }}
         />
     );
 };

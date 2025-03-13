@@ -1,4 +1,4 @@
-import { Button, Image, Typography, Skeleton } from "antd";
+import { Button, Image, Skeleton, Typography } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,23 +12,16 @@ const HeroSection = () => {
     };
 
     return (
-        <section className=" min-h-[90vh] md:min-h-screen flex items-center justify-center md:justify-between mx-[1.2rem]">
+        <section className=" mt-[4rem] md:mt-0 min-h-[70vh] md:min-h-screen flex items-center justify-center md:justify-between mx-[1.2rem]">
             <section className="mt-2">
-                <Title
-                    level={1}
-                    className="mb-8"
-                    style={{ fontFamily: "Robotto" }}
-                >
+                <Title level={1} className="mb-8">
                     Seamless AI-Powered
                     <span className="text-blue-800 mb-[1rem] block">
                         Lung Cancer
                     </span>
                     Detection System!{" "}
                 </Title>
-                <Paragraph
-                    className="mt-[1.5rem] text-[0.85rem]"
-                    style={{ fontFamily: "Robotto" }}
-                >
+                <Paragraph className="mt-[1.5rem] text-[0.85rem]">
                     Streamline Lung Cancer Diagnosis with a platform powered by{" "}
                     <span className="text-blue-800">AI!</span>
                 </Paragraph>

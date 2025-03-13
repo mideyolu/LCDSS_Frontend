@@ -45,7 +45,7 @@ const PieChart = () => {
             data={chartData}
             options={options}
             style={{
-                fontFamily: "Robotto",
+                fontFamily: "Robotto, sans-serif",
             }}
             className="h-[150px] md:h-[150px]"
         />

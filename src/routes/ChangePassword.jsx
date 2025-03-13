@@ -1,7 +1,10 @@
-import React from "react";
+import { Button, Form, Input, Typography } from "antd";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, Typography } from "antd";
-import { toast } from "react-toastify";
+import Loader from "../components/Loader/Loader";
+import PasswordValidation from "../components/PasswordValidation";
+import { validatePassword } from "../utils/password";
+import { handleChangePassword } from "../services/auth";
 
 
 const { Title } = Typography;
@@ -9,23 +12,22 @@ const { Title } = Typography;
 const ChangePassword = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+    const [passwordValidation, setPasswordValidation] = useState({
+        hasUppercase: false,
+        hasSpecialChar: false,
+        hasNumber: false,
+        hasMinLength: false,
+    });
+    const [allRequirementsMet, setAllRequirementsMet] = useState(false);
 
-    const onFinish = (values) => {
-        console.log("Password change values: ", values);
-
-
-        toast.success("Password changed successfully!");
-        setTimeout(() => {
-            navigate("/login"); // Redirect to login page after success
-        }, 1000);
-    };
+    const onFinish = (values) =>
+        handleChangePassword(values, setIsLoading, navigate);
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
             <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
-                <Title level={ 2 } className="text-center mb-5" style={ {
-                    fontFamily: "Robotto"
-                }}>
+                <Title level={2} className="text-center mb-5">
                     Change Password
                 </Title>
                 <Form form={form} layout="vertical" onFinish={onFinish}>
@@ -56,7 +58,16 @@ const ChangePassword = () => {
                             },
                         ]}
                     >
-                        <Input.Password className="w-full" />
+                        <Input.Password
+                            className="w-full"
+                            onChange={(e) =>
+                                validatePassword(
+                                    e.target.value,
+                                    setPasswordValidation,
+                                    setAllRequirementsMet,
+                                )
+                            }
+                        />
                     </Form.Item>
 
                     <Form.Item
@@ -88,20 +99,35 @@ const ChangePassword = () => {
                         <Input.Password className="w-full" />
                     </Form.Item>
 
-                    <Form.Item className="">
-                        <Button
-                            type="primary"
-                            htmlType="submit"
+                    <PasswordValidation
+                        validation={passwordValidation}
+                        allRequirementsMet={allRequirementsMet}
+                        showSuccess={allRequirementsMet}
+                    />
 
-                            className="bg-blue-600"
+                    <div className="flex items-center justify-between mt-5">
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="bg-blue-600 flex items-center justify-center gap-2"
+                                disabled={!allRequirementsMet || isLoading}
+                            >
+                                {isLoading ? (
+                                    <Loader size="small" />
+                                ) : (
+                                    "Change Password"
+                                )}
+                            </Button>
+                        </Form.Item>
+
+                        <span
+                            className="cursor-pointer text-blue-800 ml-2 text-[0.8rem]"
+                            onClick={() => navigate("/login")}
                         >
-                            Change Password
-                        </Button>
-
-                        <span className=" cursor-pointer text-blue-800" onClick={()=> navigate("/login")}>
                             Go Back
                         </span>
-                    </Form.Item>
+                    </div>
                 </Form>
             </div>
         </div>

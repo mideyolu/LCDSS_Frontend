@@ -28,9 +28,6 @@ const PasswordValidation = ({
             {!showSuccess && firstUnmetRequirement && (
                 <div className="text-left mt-2">
                     <Paragraph
-                        style={{
-                            fontFamily: "Robotto",
-                        }}
                     >
                         Requirements:
                     </Paragraph>

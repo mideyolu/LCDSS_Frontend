@@ -1,7 +1,7 @@
 // src/services/auth.js
 
 import { toast } from "react-toastify";
-import { login, signup } from "../api/api";
+import { login, signup, changePassword } from "../api/api";
 
 // --------------------
 // Login Functions
@@ -72,5 +72,34 @@ export const handleSignup = async (formData, setLoading, navigate) => {
         );
     } finally {
         setLoading(false);
+    }
+};
+
+
+
+
+// --------------------
+// Change password Functions
+// --------------------
+
+// Function to update user passowrd
+
+export const handleChangePassword = async (values, setIsLoading, navigate) => {
+    try {
+        setIsLoading(true);
+        const payload = {
+            provider_email: values.provider_email,
+            new_password: values.newPassword,
+        };
+
+        await changePassword(payload);
+        toast.success("Password changed successfully!");
+        setTimeout(() => {
+            navigate("/login");
+        }, 1000);
+    } catch (error) {
+        toast.error(error.message || "Failed to change password");
+    } finally {
+        setIsLoading(false);
     }
 };

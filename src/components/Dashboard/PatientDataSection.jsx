@@ -26,7 +26,7 @@ const PatientDataSection = ({
                 <Title
                     level={3}
                     className="mb-2"
-                    style={{ fontFamily: "Robotto" }}
+                  
                 >
                     Information
                 </Title>

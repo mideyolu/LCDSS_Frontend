@@ -16,7 +16,7 @@ const SummarySection = ({ summaryData, dateCellRender }) => (
             ) : (
                 <Empty
                     className="flex flex-col items-center justify-center min-h-[30vh]"
-                    style={{ width: "190px", fontFamily: "Robotto" }}
+                    style={{ width: "190px"}}
                 />
             )}
         </div>

@@ -40,9 +40,6 @@ const Onboarding = () => {
                 <Typography.Title
                     level={4}
                     className="text-gray-800 font-bold mb-6 text-center md:text-left"
-                    style={{
-                        fontFamily: "Robotto",
-                    }}
                 >
                     Choose Your Option
                 </Typography.Title>

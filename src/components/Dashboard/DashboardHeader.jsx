@@ -19,7 +19,7 @@ const DashboardHeader = ({
 
     return (
         <div className="mb-8 text-left block md:flex md:items-center md:justify-between">
-            <Title level={3} style={{ fontFamily: "Robotto" }}>
+            <Title level={3} >
                 {greeting}, {username || "."}
             </Title>
             <div className="flex items-center">

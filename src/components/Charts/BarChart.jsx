@@ -53,7 +53,7 @@ const BarChart = () => {
                 display: true,
                 text: "Distribution of Cases",
                 font: {
-                    family: "Roboto",
+                    family: "Robotto, sans-serif",
                     size: 16,
                 },
             },

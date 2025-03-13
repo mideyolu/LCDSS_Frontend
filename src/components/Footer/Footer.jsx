@@ -16,7 +16,6 @@ const Footer = ({ className }) => {
                 style={{
                     color: "gray",
                     fontSize: "14px",
-                    fontFamily: "Robotto, sans-serif",
                 }}
                 className="flex flex-col text-center md:flex-row items-center justify-between"
             >

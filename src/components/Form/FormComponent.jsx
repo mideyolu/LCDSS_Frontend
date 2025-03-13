@@ -148,7 +148,7 @@ const FormComponent = ({
                         type="primary"
                         className="mt-6 p-[1.3rem] text-center"
                         htmlType="submit"
-                        style={{ fontFamily: "Robotto" }}
+
                         disabled={!areAllRequirementsMet(validation)}
                     >
                         {loading ? <Loader /> : submitButtonText}
@@ -157,7 +157,7 @@ const FormComponent = ({
 
                 {/* Main Redirect Link */}
                 <Typography
-                    style={{ fontFamily: "Robotto" }}
+
                     className="mt-4 text-blue-600 text-center cursor-pointer"
                     onClick={handleRedirect}
                 >
@@ -167,7 +167,7 @@ const FormComponent = ({
                 {/* Change Password Redirect Link (only visible if prop provided) */}
                 {changePasswordRedirect && (
                     <Typography
-                        style={{ fontFamily: "Robotto" }}
+                   
                         className="mt-4 text-blue-600 text-center cursor-pointer"
                         onClick={handleChangePasswordRedirect}
                     >
