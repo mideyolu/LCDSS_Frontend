@@ -65,7 +65,7 @@ const Dashboard = ({ sidebarCollapsed }) => {
             className={`min-h-screen py-2 lg:py-4 p-8 transition-all duration-300 ${
                 sidebarCollapsed
                     ? "ml-[40px] md:ml-[70px]"
-                    : "md:ml-[200px] lg:ml-[150px]"
+                    : "md:ml-[100px] lg:ml-[150px]"
             }`}
         >
             <DashboardHeader
