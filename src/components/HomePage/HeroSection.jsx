@@ -1,12 +1,12 @@
-import { Image } from "antd";
+import { Image, Skeleton } from "antd";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
     CustomButton,
     CustomParagraph,
     CustomSubtitle,
     CustomTitle,
-} from "../Typography/CustomTypography"
-
+} from "../Typography/CustomTypography";
 
 const HeroSection = () => {
     const navigate = useNavigate();
@@ -14,6 +14,7 @@ const HeroSection = () => {
     const reDirect = () => {
         navigate("/onboarding");
     };
+    const [loading, setLoading] = useState(true);
     return (
         <div className=" py-20 min-h-[85vh] md:min-h-[60vh] lg:min-h-[80vh] flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-16 gap-[1rem]">
             {/* Left Section - Text */}
@@ -43,11 +44,18 @@ const HeroSection = () => {
 
             {/* Right Section - Image */}
             <div className="md:w-3/4 flex justify-center">
+                {loading && (
+                    <Skeleton.Image active className="w-[80%] h-[250px]" />
+                )}
+
                 <Image
-                    src={"/home.png"}
-                    alt="Hero Section"
-                    className="w-full p-1 object-contain max-w-[300px] sm:max-w-[350px] md:max-w-[550px] h-auto"
+                    src="/home.png"
+                    alt="Home.jpg"
+                    className={`shadow-sm w-full object-contain max-w-[300px] sm:max-w-[350px] md:max-w-[550px] h-auto ${
+                        loading ? "hidden" : "block"
+                    }`}
                     preview={false}
+                    onLoad={() => setLoading(false)} // Hide Skeleton when image loads
                 />
             </div>
         </div>
