@@ -29,7 +29,7 @@ const FaqSection = ({ faqRef }) => {
                 </CustomTitle>
                 <Collapse
                     accordion
-                    className="max-w-[800px] md:max-w-[400px] lg:max-w-[600px] mx-auto bg-gray-50 border-none"
+                    className="max-w-[800px] md:max-w-[400px] lg:max-w-[800px] mx-auto bg-gray-50 border-none"
                 >
                     {faqData.map((faq, index) => (
                         <CustomPanel
