@@ -83,7 +83,7 @@ export async function predict(file) {
                         "access_token",
                     )}`,
                 },
-                withCredentials: true, // Ensure cookies are sent with the request
+
             },
         );
         return response.data;

@@ -80,7 +80,6 @@
 
 // export default App;
 
-
 import { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -89,6 +88,7 @@ import Navbar from "./components/Navbar/Navbar";
 import SideBar from "./components/Sidebar/SideBar";
 import { RoutesWithRefs } from "./config/routesConfig";
 import { userInfo } from "./hooks/userInfo";
+import Dashboard from "./routes/Dashboard";
 import NotFound from "./routes/NotFound";
 
 const App = () => {
@@ -112,10 +112,13 @@ const App = () => {
     );
 
     return (
-        <div className="container mx-auto px-4 py-2 lg:px-8 lg:py-4">
+        <div className=" mx-auto">
             {!hideNavbarRoutes.includes(location.pathname) &&
                 !isNotFoundPage && (
-                    <Navbar faqRef={routes[0].element.props.faqRef} />
+                    <Navbar
+                        faqRef={routes[0].element.props.faqRef}
+                        featuresRef={routes[0].element.props.featuresRef}
+                    />
                 )}
 
             {showSidebarRoutes.includes(location.pathname) &&
@@ -134,7 +137,15 @@ const App = () => {
                     <Route
                         key={index}
                         path={route.path}
-                        element={route.element}
+                        element={
+                            route.path === "/dashboard" ? (
+                                <Dashboard
+                                    sidebarCollapsed={sidebarCollapsed}
+                                />
+                            ) : (
+                                route.element
+                            )
+                        }
                     />
                 ))}
                 <Route path="*" element={<NotFound />} />
@@ -150,3 +161,11 @@ const App = () => {
 };
 
 export default App;
+
+//                 {routesConfig.map((route, index) => (
+//                     <Route
+//                         key={index}
+//                         path={route.path}
+
+//                     />
+//                 ))}

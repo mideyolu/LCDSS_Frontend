@@ -2,13 +2,13 @@ import FeaturesSection from "../components/HomePage/FeaturesSection";
 import HeroSection from "../components/HomePage/HeroSection";
 import FaqSection from "../components/Faq/FaqSection";
 
-const HomePage = ({ faqRef }) => {
+const HomePage = ({ faqRef, featuresRef }) => {
     return (
-        <div>
+        <>
             <HeroSection />
-            <FeaturesSection />
+            <FeaturesSection featuresRef={featuresRef} />
             <FaqSection faqRef={faqRef} />
-        </div>
+        </>
     );
 };
 

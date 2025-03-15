@@ -14,7 +14,7 @@ const Footer = ({ className }) => {
             style={{
                 background: "#fff",
             }}
-            className={`${className}`}
+            className={`${className} px-6 md:px-16`}
         >
             <Text
                 style={{

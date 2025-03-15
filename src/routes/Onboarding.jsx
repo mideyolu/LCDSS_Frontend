@@ -34,7 +34,7 @@ const Onboarding = () => {
     }
 
     return (
-        <div className="onboarding min-h-screen flex md:flex-row">
+        <div className="onboarding min-h-screen flex md:flex-row px-6 md:px-16">
             {/* Left Section */}
             <div className="left w-full md:w-1/2 flex flex-col justify-center px-8 py-6">
                 <Typography.Title
@@ -44,7 +44,8 @@ const Onboarding = () => {
                     Choose Your Option
                 </Typography.Title>
 
-                <div className="cursor-pointer grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="cursor-pointer flex  py-10 gap-[3rem] ">
+                {/* <div className="cursor-pointer grid grid-cols-1 lg:grid-cols-2 gap-4 "> */}
                     {/* Using ChoiceCard component */}
                     <ChoiceCard
                         icon={

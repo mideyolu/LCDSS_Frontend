@@ -30,8 +30,8 @@ const Login = () => {
     ];
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="lg:flex-[55%]">
+        <div className="flex items-center justify-center min-h-screen px-6 md:px-16">
+            <div className="w-full md:w-[60%] flex flex-col justify-center items-center lg:flex-[55%]">
                 <FormComponent
                     title="Login"
                     fields={formFields}
@@ -57,7 +57,7 @@ const Login = () => {
                 />
             </div>
 
-            <div className="lg:flex-[45%] w-full hidden md:block">
+            <div className="md:flex-[35%] lg:flex-[45%] w-[100%] flex items-center justify-center">
                 {imageLoading && (
                     <Skeleton.Image active className="w-full h-[300px]" />
                 )}

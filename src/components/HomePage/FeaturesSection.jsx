@@ -2,10 +2,10 @@ import { Card, Col, Image, Row, Typography } from "antd";
 import { motion } from "framer-motion";
 import React from "react";
 import { service } from "../../utils/service";
+import { CustomParagraph, CustomTitle } from "../Typography/CustomTypography";
 
-const FeaturesSection = () => {
-    const { Title, Paragraph } = Typography;
-
+const FeaturesSection = ({featuresRef}) => {
+    const {Paragraph}= Typography
     // Helper function to calculate margin based on id
     const getParagraphStyle = (id) => {
         if (id === 1) {
@@ -33,17 +33,14 @@ const FeaturesSection = () => {
     };
 
     return (
-        <section className="px-5 py-3 mb-[3rem]  rounded-2xl mx-[1.2rem]">
-            <Title
-                className="text-center mb-4"
-                level={5}
-                style={{
-                    color: "white",
-                }}
-            >
+        <section
+            ref={featuresRef}
+            className=" py-20 px-6 md:px-16 mb-[3rem]  rounded-2xl mx-[1.2rem]"
+        >
+            <CustomTitle className="text-center " level={5}>
                 Built for Lung Cancer Detection
-            </Title>
-            <Paragraph className="text-[0.9rem] text-center text-white">
+            </CustomTitle>
+            <CustomParagraph className="text-[0.9rem] text-center mb-5">
                 <span className=" block">
                     Revolutionize patient management effortlessly. Boost
                     diagnostic accuracy with AI-powered detection and streamline
@@ -52,8 +49,8 @@ const FeaturesSection = () => {
                 <span className="block">
                     Experience faster, smarter lung cancer care.
                 </span>
-            </Paragraph>
-            <Row gutter={[16, 16]} justify="center">
+            </CustomParagraph>
+            <Row gutter={[16, 16]} justify="center" className="py-10">
                 {service.map((item, id) => {
                     const direction =
                         id === 0 ? "left" : id === 1 ? "right" : "top"; // Determine animation direction
@@ -69,7 +66,7 @@ const FeaturesSection = () => {
                                 <Card
                                     title={item.caption}
                                     className="w-[100%] hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
-                                    bordered={ false }
+                                    bordered={false}
                                 >
                                     <div className="flex items-center justify-center">
                                         <Image
