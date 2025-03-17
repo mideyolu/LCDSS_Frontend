@@ -71,7 +71,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             onCollapse={setCollapsed}
             width={260}
             collapsedWidth={90}
-            className="fixed min-h-[100vh] left-0 top-0 z-[99] transition-all duration-300"
+            className="fixed min-h-[110vh] left-0 top-0 z-[99] transition-all duration-300"
             style={SIDER_STYLE}
         >
             <section className="flex items-center justify-center min-h-[30vh] py-4 px-4">
