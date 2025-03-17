@@ -24,7 +24,6 @@ const Onboarding = () => {
     const signupPage = () => {
         navigate("/signup");
     };
-
     const handleBackToHome = () => {
         navigate("/");
     };
@@ -37,40 +36,55 @@ const Onboarding = () => {
         <div className="onboarding min-h-screen flex md:flex-row px-6 md:px-16">
             {/* Left Section */}
             <div className="left w-full md:w-1/2 flex flex-col justify-center px-8 py-6">
-                <Typography.Title
-                    level={4}
-                    className="text-gray-800 font-bold mb-6 text-center md:text-left"
-                >
-                    Choose Your Option
-                </Typography.Title>
+                {loading ? (
+                    <Skeleton.Input active className="w-40 h-6 mb-6" />
+                ) : (
+                    <Typography.Title
+                        level={4}
+                        className="text-gray-800 font-bold mb-6 text-center md:text-left"
+                    >
+                        Choose Your Option
+                    </Typography.Title>
+                )}
 
-                <div className="cursor-pointer flex  py-10 gap-[3rem] ">
-                {/* <div className="cursor-pointer grid grid-cols-1 lg:grid-cols-2 gap-4 "> */}
-                    {/* Using ChoiceCard component */}
-                    <ChoiceCard
-                        icon={
-                            <FaUser className="text-blue-gray-900 text-2xl" />
-                        }
-                        title="Signup"
-                        paragraph={"Create your account"}
-                        onClick={signupPage}
-                    />
-                    <ChoiceCard
-                        icon={
-                            <FaUserShield className="text-blue-gray-900 text-2xl" />
-                        }
-                        title="Login"
-                        paragraph={"Sign-in to your account"}
-                        onClick={loginPage}
-                    />
+                <div className="cursor-pointer flex py-10 gap-[3rem]">
+                    {loading ? (
+                        <>
+                            <Skeleton.Button active className="w-40 h-16" />
+                            <Skeleton.Button active className="w-40 h-16" />
+                        </>
+                    ) : (
+                        <>
+                            <ChoiceCard
+                                icon={
+                                    <FaUser className="text-blue-gray-900 text-2xl" />
+                                }
+                                title="Signup"
+                                paragraph={"Create your account"}
+                                onClick={signupPage}
+                            />
+                            <ChoiceCard
+                                icon={
+                                    <FaUserShield className="text-blue-gray-900 text-2xl" />
+                                }
+                                title="Login"
+                                paragraph={"Sign-in to your account"}
+                                onClick={loginPage}
+                            />
+                        </>
+                    )}
                 </div>
 
-                <span
-                    className="mt-[2.7rem] md:mt-4 text-sm absolute cursor-pointer left-[55%] top-[80%]"
-                    onClick={handleBackToHome}
-                >
-                    Home
-                </span>
+                {loading ? (
+                    <Skeleton.Input active className="w-20 h-5 mt-6" />
+                ) : (
+                    <span
+                        className="mt-[2.7rem] md:mt-4 text-sm absolute cursor-pointer left-[55%] top-[80%]"
+                        onClick={handleBackToHome}
+                    >
+                        Home
+                    </span>
+                )}
             </div>
 
             {/* Right Section with Skeleton Loader */}

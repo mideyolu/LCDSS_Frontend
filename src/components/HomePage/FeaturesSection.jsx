@@ -37,19 +37,38 @@ const FeaturesSection = ({ featuresRef }) => {
             ref={featuresRef}
             className="py-20 px-6 md:px-16 mb-[3rem] rounded-2xl mx-[1.2rem]"
         >
+            {/* Section Title */}
             <CustomTitle className="text-center" level={5}>
-                Built for Lung Cancer Detection
+                {loading ? (
+                    <Skeleton.Input active className="w-60 h-6" />
+                ) : (
+                    "Built for Lung Cancer Detection"
+                )}
             </CustomTitle>
+
+            {/* Description */}
             <CustomParagraph className="text-[0.9rem] text-center mb-5">
-                <span className="block">
-                    Revolutionize patient management effortlessly. Boost
-                    diagnostic accuracy with AI-powered detection and streamline
-                    workflows with intuitive, user-friendly tools.
-                </span>
-                <span className="block">
-                    Experience faster, smarter lung cancer care.
-                </span>
+                {loading ? (
+                    <>
+                        <Skeleton.Input active className="w-[80%] h-5 my-1" />
+                        <Skeleton.Input active className="w-[60%] h-5 my-1" />
+                    </>
+                ) : (
+                    <>
+                        <span className="block">
+                            Revolutionize patient management effortlessly. Boost
+                            diagnostic accuracy with AI-powered detection and
+                            streamline workflows with intuitive, user-friendly
+                            tools.
+                        </span>
+                        <span className="block">
+                            Experience faster, smarter lung cancer care.
+                        </span>
+                    </>
+                )}
             </CustomParagraph>
+
+            {/* Feature Cards */}
             <Row gutter={[16, 16]} justify="center" className="py-10">
                 {service.map((item, id) => {
                     const direction =
@@ -67,7 +86,10 @@ const FeaturesSection = ({ featuresRef }) => {
                                 <Card
                                     title={
                                         loading ? (
-                                            <Skeleton active />
+                                            <Skeleton.Input
+                                                active
+                                                className="w-40 h-5"
+                                            />
                                         ) : (
                                             item.caption
                                         )
@@ -75,6 +97,7 @@ const FeaturesSection = ({ featuresRef }) => {
                                     className="w-[100%] hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
                                     bordered={false}
                                 >
+                                    {/* Image Loading Placeholder */}
                                     {loading ? (
                                         <Skeleton.Image
                                             style={{ width: 150, height: 100 }}
@@ -90,10 +113,11 @@ const FeaturesSection = ({ featuresRef }) => {
                                         </div>
                                     )}
 
+                                    {/* Description Loading Placeholder */}
                                     {loading ? (
                                         <Skeleton
-                                            active
                                             paragraph={{ rows: 2 }}
+                                            active
                                         />
                                     ) : (
                                         <Paragraph
