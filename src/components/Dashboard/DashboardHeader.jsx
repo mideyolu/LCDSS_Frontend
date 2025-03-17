@@ -1,6 +1,7 @@
-import { Typography } from "antd";
+import { Typography, Skeleton } from "antd";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import NotificationCard from "../Card/Notificationcard";
+import { useState, useEffect } from "react";
 
 const DashboardHeader = ({
     greeting,
@@ -9,6 +10,14 @@ const DashboardHeader = ({
     toggleNotifications,
     log,
 }) => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate data fetching
+        const timer = setTimeout(() => setLoading(false), 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
     const notifications = log.map((item) => ({
         message: item?.action || "No action specified",
         timestamp: item?.created_at || new Date().toISOString(),
@@ -19,17 +28,25 @@ const DashboardHeader = ({
 
     return (
         <div className="mb-8 text-left block md:flex md:items-center md:justify-between">
-            <Title level={3} >
-                {greeting}, {username || "."}
-            </Title>
+            {loading ? (
+                <Skeleton.Input active size="large" className="w-[200px]" />
+            ) : (
+                <Title level={3}>
+                    {greeting}, {username || "."}
+                </Title>
+            )}
             <div className="flex items-center">
-                <IoIosNotificationsOutline
-                    size={20}
-                    className="cursor-pointer absolute top-4 right-6 md:relative md:top-0 md:right-0"
-                    onClick={toggleNotifications}
-                />
+                {loading ? (
+                    <Skeleton.Avatar active size="small" shape="circle" />
+                ) : (
+                    <IoIosNotificationsOutline
+                        size={20}
+                        className="cursor-pointer absolute top-4 right-6 md:relative md:top-0 md:right-0"
+                        onClick={toggleNotifications}
+                    />
+                )}
             </div>
-            {showNotifications && (
+            {showNotifications && !loading && (
                 <NotificationCard
                     notifications={notifications}
                     onClose={toggleNotifications}
