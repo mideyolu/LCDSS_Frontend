@@ -22,10 +22,12 @@
 
 }
 
+body{
+    overflow-x: hidden;
+}
+
 .ant-typography,
 .ant-btn,
 .ant-btn-primary {
     font-family: "Roboto", sans-serif !important;
 }
-
-
