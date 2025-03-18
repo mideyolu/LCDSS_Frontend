@@ -57,7 +57,7 @@ const Login = () => {
                 />
             </div>
 
-            <div className="md:flex-[35%] lg:flex-[45%] w-[100%] flex items-center justify-center">
+            <div className="hidden md:flex-[35%] lg:flex-[45%] w-[100%] flex items-center justify-center">
                 {imageLoading && (
                     <Skeleton.Image active className="w-full h-[300px]" />
                 )}
