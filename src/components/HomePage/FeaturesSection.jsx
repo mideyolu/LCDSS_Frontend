@@ -15,7 +15,8 @@ const FeaturesSection = ({ featuresRef }) => {
     }, []);
 
     const getParagraphStyle = (id) => {
-        return { marginTop: id === 1 || id === 2 ? "50px" : "30px" };
+        // return { marginTop: id === 1 || id === 2 || id ===3 ? "90px" : "30px" };
+        return {marginTop : id ==1 ? "55px": "0px"}
     };
 
     const cardVariants = {
@@ -35,7 +36,7 @@ const FeaturesSection = ({ featuresRef }) => {
     return (
         <section
             ref={featuresRef}
-            className="py-20 px-6 md:px-16 mb-[3rem] rounded-2xl mx-[1.2rem]"
+            className="py-20 px-6 md:px-16 mb-[3rem] rounded-2xl max-w-full"
         >
             {/* Section Title */}
             <CustomTitle className="text-center" level={5}>
@@ -69,13 +70,17 @@ const FeaturesSection = ({ featuresRef }) => {
             </CustomParagraph>
 
             {/* Feature Cards */}
-            <Row gutter={[16, 16]} justify="center" className="py-10">
+            <Row
+                gutter={[16, 16]}
+                justify="center"
+                className="py-10 w-full flex flex-wrap items-center justify-center"
+            >
                 {service.map((item, id) => {
                     const direction =
                         id === 0 ? "left" : id === 1 ? "right" : "top";
 
                     return (
-                        <Col key={id} xs={24} sm={12} md={12} lg={8}>
+                        <Col key={id} xs={24} sm={12} md={8} lg={6} xl={6}>
                             <motion.div
                                 custom={direction}
                                 initial="hidden"
@@ -94,19 +99,23 @@ const FeaturesSection = ({ featuresRef }) => {
                                             item.caption
                                         )
                                     }
-                                    className="w-[100%] hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
+                                    className="w-full hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
                                     bordered={false}
                                 >
                                     {/* Image Loading Placeholder */}
                                     {loading ? (
                                         <Skeleton.Image
-                                            style={{ width: 150, height: 100 }}
+                                            style={{
+                                                width: "100%",
+                                                height: "auto",
+                                            }}
                                         />
                                     ) : (
                                         <div className="flex items-center justify-center">
                                             <Image
-                                                width={id === 1 ? 190 : 150}
-                                                height={id === 1 ? 100 : "auto"}
+                                                width="100%"
+                                                height="auto"
+                                                className="max-w-[150px] md:max-w-[190px]"
                                                 src={item.img}
                                                 preview={false}
                                             />
