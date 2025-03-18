@@ -102,7 +102,7 @@ const FormComponent = ({
                                 <Input.Password
                                     placeholder={field.placeholder}
                                     size="large"
-                                    className="w-[100%] md:w-[90%]"
+                                    className="max-w-[300px] md:max-w-[550px] lg:max-w-[600px] lg:w-[90%] sm:w-3/4 md:w-[80%]"
                                     onChange={(e) =>
                                         field.name === "provider_password"
                                             ? handlePasswordChange(
@@ -120,7 +120,7 @@ const FormComponent = ({
                                     type={field.type}
                                     placeholder={field.placeholder}
                                     size="large"
-                                    className="w-[100%] md:w-[90%]"
+                                    className="max-w-[300px] md:max-w-[550px] lg:max-w-[600px] lg:w-[90%] sm:w-3/4 md:w-[80%]"
                                 />
                             )}
                         </Form.Item>
@@ -165,7 +165,7 @@ const FormComponent = ({
                     ) : (
                         <Button
                             type="primary"
-                            className="mt-6 p-[1.3rem] text-center w-full"
+                            className="mt-6 p-[1.3rem] text-center w-full sm:w-3/4 md:w-[80%] max-w-[300px] md:max-w-[550px] lg:max-w-[600px] lg:w-[90%]"
                             htmlType="submit"
                             disabled={showTermsAndConditions && !termsAccepted}
                         >
@@ -204,7 +204,10 @@ const FormComponent = ({
 
                 {/* Back Button */}
                 {formLoading ? (
-                    <Skeleton.Input active className="w-20 h-5 mt-5 mx-auto block" />
+                    <Skeleton.Input
+                        active
+                        className="w-20 h-5 mt-5 mx-auto block"
+                    />
                 ) : (
                     <span
                         className="mt-4 text-sm absolute cursor-pointer top-[100%] right-[5%] lg:top-[90%] lg:right-[-70%]"
