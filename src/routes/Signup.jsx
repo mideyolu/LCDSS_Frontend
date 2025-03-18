@@ -51,7 +51,7 @@ const Signup = () => {
                 />
             </div>
 
-            <div className="md:flex-[35%] lg:flex-[45%] w-[100%] flex items-center justify-center">
+            <div className="hidden md:flex-[35%] lg:flex-[45%] w-[100%] flex items-center justify-center">
                 {imageLoading && (
                     <Skeleton.Image
                         active
