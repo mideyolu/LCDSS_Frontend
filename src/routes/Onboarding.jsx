@@ -47,7 +47,7 @@ const Onboarding = () => {
                     </Typography.Title>
                 )}
 
-                <div className="cursor-pointer flex py-10 gap-[3rem]">
+                <div className="cursor-pointer flex flex-col md:flex-row py-10 gap-[3rem]">
                     {loading ? (
                         <>
                             <Skeleton.Button active className="w-40 h-16" />
