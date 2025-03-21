@@ -9,7 +9,6 @@ const SummaryBox = ({ title, value, color }) => {
             className="flex flex-col w-full h-[150px] md:h-[180px] px-6 py-5 shadow-xl border-l-4 rounded-xl transition-all duration-300 hover:scale-[1.07] hover:shadow-2xl relative overflow-hidden"
             style={{
                 borderColor: color,
-                background: "rgba(30, 41, 59, 0.9)", // Deeper glass effect
                 backdropFilter: "blur(15px)", // Smoother blur
             }}
         >
