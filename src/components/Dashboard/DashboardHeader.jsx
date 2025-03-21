@@ -27,7 +27,7 @@ const DashboardHeader = ({
     const { Title } = Typography;
 
     return (
-        <div className="mb-8 text-left block md:flex md:items-center md:justify-between">
+        <div className=" mt-[10%] md:mt-0 mb-8 text-left block md:flex md:items-center md:justify-between relative">
             {loading ? (
                 <Skeleton.Input active size="large" className="w-[200px]" />
             ) : (
@@ -35,7 +35,7 @@ const DashboardHeader = ({
                     {greeting}, {username || "."}
                 </Title>
             )}
-            <div className="flex items-center">
+            <div className="absolute top-[-100%] right-[-30%] md:flex md:relative md:items-center md:top-0 md:right-0  ">
                 {loading ? (
                     <Skeleton.Avatar active size="small" shape="circle" />
                 ) : (

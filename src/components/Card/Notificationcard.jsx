@@ -13,7 +13,7 @@ const NotificationCard = ({ notifications, onClose }) => {
                 boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                 fontFamily: "Robtto",
             }}
-            className="w-[55%] top-[5%] right-4 sm:w-[35%] md:w-[30%] lg:w-[25%] md:right-[9%] lg:right-[5%] lg:top-[10%]"
+            className="w-[95%] top-[30%] md:top-[100%] right-[-25%] sm:w-[35%] md:w-[50%] lg:w-[25%] md:right-[-2%] lg:right-[0%] lg:top-[70%]"
             title="Notifications"
             extra={
                 <a onClick={onClose}>
