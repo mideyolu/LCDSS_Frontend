@@ -13,7 +13,7 @@ const SummarySection = ({ summaryData, dateCellRender }) => {
 
     return (
         <div className="md:flex text-black md:items-center md:justify-between">
-            <div className="mb-8 w-[80%] text-black md:w-[85%] lg:w-[50%] grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="mb-8 mx-[40px] md-mx-0 w-[80%] text-black md:w-[85%] lg:w-[50%] grid grid-cols-1 md:grid-cols-2 gap-8">
                 {loading ? (
                     <Skeleton active paragraph={{ rows: 4 }} />
                 ) : summaryData.some((item) => item.value > 0) ? (

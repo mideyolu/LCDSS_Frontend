@@ -70,7 +70,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             collapsed={collapsed}
             onCollapse={setCollapsed}
             width={260}
-            collapsedWidth={90}
+            collapsedWidth={70}
             className="fixed min-h-[110vh] left-0 top-0 z-[99] transition-all duration-300"
             style={SIDER_STYLE}
         >
