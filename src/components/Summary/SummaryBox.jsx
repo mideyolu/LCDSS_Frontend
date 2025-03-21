@@ -6,29 +6,20 @@ const { Title, Paragraph } = Typography;
 const SummaryBox = ({ title, value, color }) => {
     return (
         <Card
-            className="flex flex-col w-full h-[150px] md:h-[180px] px-6 py-5 shadow-xl border-l-4 rounded-xl transition-all duration-300 hover:scale-[1.07] hover:shadow-2xl relative overflow-hidden"
+            className="flex flex-col w-full h-[130px] md:h-[160px] px-6 py-4 shadow-md border-l-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
             style={{
                 borderColor: color,
-                backdropFilter: "blur(15px)", // Smoother blur
             }}
         >
-            {/* Background Gradient Overlay for Depth */}
-            <div
-                className="absolute inset-0 opacity-30"
-                style={{
-                    background: `linear-gradient(135deg, ${color}33, transparent)`,
-                }}
-            />
-
-            {/* Content Wrapper */}
-            <div className="relative z-10">
-                <Title level={5} className="mb-1 text-lg font-semibold text-white">
-                    {title}
-                </Title>
-                <Paragraph className="text-4xl font-bold text-gray-100">
-                    {value}
-                </Paragraph>
-            </div>
+            <Title
+                level={5}
+                className="text-lg font-medium text-gray-800"
+            >
+                {title}
+            </Title>
+            <Paragraph className="text-2xl font-semibold text-gray-900">
+                {value}
+            </Paragraph>
         </Card>
     );
 };
