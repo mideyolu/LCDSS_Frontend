@@ -9,12 +9,13 @@ import Signup from "../routes/Signup";
 
 export const RoutesWithRefs = () => {
     const faqRef = useRef(null);
-    const featuresRef = useRef(null);
+    const featuresRef = useRef( null );
+    const teamRef = useRef(null);
 
     return [
         {
             path: "/",
-            element: <HomePage faqRef={faqRef} featuresRef={featuresRef} />,
+            element: <HomePage faqRef={faqRef} featuresRef={featuresRef} teamRef={teamRef} />,
         },
         { path: "/onboarding", element: <Onboarding /> },
         { path: "/login", element: <Login /> },

@@ -9,15 +9,14 @@ const FeaturesSection = ({ featuresRef }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulate a loading state (e.g., fetching data)
+        // Simulate a loading state
         const timer = setTimeout(() => setLoading(false), 2000);
         return () => clearTimeout(timer);
     }, []);
 
-    const getParagraphStyle = (id) => {
-        // return { marginTop: id === 1 || id === 2 || id ===3 ? "90px" : "30px" };
-        return {marginTop : id ==1 ? "55px": "0px"}
-    };
+    const getParagraphStyle = (id) => ({
+        marginTop: id === 1 ? "55px" : "0px",
+    });
 
     const cardVariants = {
         hidden: (direction) => ({
@@ -36,7 +35,7 @@ const FeaturesSection = ({ featuresRef }) => {
     return (
         <section
             ref={featuresRef}
-            className="py-20 px-6 md:px-16 mb-[3rem] rounded-2xl max-w-full"
+            className="pt-20 px-6 md:px-16 mb-[3rem] rounded-2xl max-w-full w-full overflow-hidden"
         >
             {/* Section Title */}
             <CustomTitle className="text-center" level={5}>
@@ -80,36 +79,27 @@ const FeaturesSection = ({ featuresRef }) => {
                         id === 0 ? "left" : id === 1 ? "right" : "top";
 
                     return (
-                        <Col key={id} xs={24} sm={12} md={8} lg={6} xl={6}>
+                        <Col key={id} xs={24} sm={12} md={6} lg={6} className="flex justify-center">
                             <motion.div
                                 custom={direction}
                                 initial="hidden"
                                 whileInView="visible"
                                 viewport={{ amount: 0.3 }}
                                 variants={cardVariants}
+                                className="w-full flex justify-center"
                             >
                                 <Card
-                                    title={
-                                        loading ? (
-                                            <Skeleton.Input
-                                                active
-                                                className="w-40 h-5"
-                                            />
-                                        ) : (
-                                            item.caption
-                                        )
-                                    }
-                                    className="w-full hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
+                                    title={loading ? (
+                                        <Skeleton.Input active className="w-40 h-5" />
+                                    ) : (
+                                        item.caption
+                                    )}
+                                    className="max-w-sm w-full mx-auto hover:scale-105 cursor-pointer duration-300 ease-in-out flex flex-col items-center justify-center"
                                     bordered={false}
                                 >
                                     {/* Image Loading Placeholder */}
                                     {loading ? (
-                                        <Skeleton.Image
-                                            style={{
-                                                width: "100%",
-                                                height: "auto",
-                                            }}
-                                        />
+                                        <Skeleton.Image style={{ width: "100%", height: "auto" }} />
                                     ) : (
                                         <div className="flex items-center justify-center">
                                             <Image
@@ -124,10 +114,7 @@ const FeaturesSection = ({ featuresRef }) => {
 
                                     {/* Description Loading Placeholder */}
                                     {loading ? (
-                                        <Skeleton
-                                            paragraph={{ rows: 2 }}
-                                            active
-                                        />
+                                        <Skeleton paragraph={{ rows: 2 }} active />
                                     ) : (
                                         <Paragraph
                                             style={getParagraphStyle(id)}

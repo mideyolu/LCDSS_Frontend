@@ -118,6 +118,7 @@ const App = () => {
                     <Navbar
                         faqRef={routes[0].element.props.faqRef}
                         featuresRef={routes[0].element.props.featuresRef}
+                        teamRef={routes[0].element.props.teamRef}
                     />
                 )}
 

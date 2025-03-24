@@ -85,6 +85,7 @@ const PatientTable = ({ data, loading }) => {
             pagination={{ pageSize: 5 }}
             scroll={{ x: 700 }}
             bordered={false}
+
             loading={loading ? { indicator: <Loader /> } : false}
         />
     );

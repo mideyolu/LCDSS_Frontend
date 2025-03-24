@@ -23,7 +23,7 @@ const HeroSection = () => {
     const reDirect = () => navigate("/onboarding");
 
     return (
-        <div className="py-20 min-h-[85vh] md:min-h-[60vh] lg:min-h-[80vh] flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-16 gap-[1rem]">
+        <div className="pt-20 min-h-[85vh] md:min-h-[60vh] lg:min-h-[80vh] flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-16 gap-[1rem]">
             {/* Left Section - Text */}
             <div className="text-center mt-[3rem] md:mt-0 md:text-left md:w-1/2">
                 {loading ? (

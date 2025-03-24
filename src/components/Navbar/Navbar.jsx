@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CustomParagraph } from "../Typography/CustomTypography";
 
-const Navbar = ({ faqRef, featuresRef }) => {
+const Navbar = ({ faqRef, featuresRef, teamRef }) => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(true); // Skeleton state
@@ -78,6 +78,16 @@ const Navbar = ({ faqRef, featuresRef }) => {
                         FAQ
                     </button>
                 )}
+                {loading ? (
+                    <Skeleton.Input active className="w-16" size="small" />
+                ) : (
+                    <button
+                        onClick={(e) => scrollToSection(teamRef, e)}
+                        className="cursor-pointer"
+                    >
+                        Team
+                    </button>
+                )}
             </section>
 
             {/* Try It Now Button (Desktop) */}
@@ -124,6 +134,12 @@ const Navbar = ({ faqRef, featuresRef }) => {
                         className="cursor-pointer"
                     >
                         FAQ
+                    </button>
+                    <button
+                        onClick={(e) => scrollToSection(teamRef, e)}
+                        className="cursor-pointer"
+                    >
+                        Team
                     </button>
                     <Button
                         onClick={reDirect}
