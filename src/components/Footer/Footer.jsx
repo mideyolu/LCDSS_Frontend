@@ -177,7 +177,7 @@ const Footer = ({ className, faqRef, featuresRef, teamRef }) => {
                     )}
 
                     {/* Bottom Section - Copyright */}
-                    <div className="mt-6 text-center border-t pt-4">
+                    <div className="mt-6 text-center border-t pt-4 bg-white text-black flex py-4 justify-between">
                         <Text className="text-sm">
                             © {new Date().getFullYear()} Respirix Healthcare.
                             All rights reserved.
