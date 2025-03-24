@@ -26,7 +26,7 @@ const teamMembers = [
         name: "Alice Johnson",
         role: "UI/UX Designer",
         description: "Designing intuitive and user-friendly interfaces.",
-        image: "/AI.png",
+        image: "/icon.png",
     },
 ];
 
