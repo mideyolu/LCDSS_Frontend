@@ -26,7 +26,7 @@ const MeetOurTeam = ({ teamRef }) => {
     return (
         <section
             ref={teamRef}
-            className="pt-20 pb-10 px-6 md:px-16 mb-[3rem] text-center w-full"
+            className="pt-20 pb-10 px-6 md:px-16 mb-[1rem] text-center w-full"
         >
             {/* Title with Skeleton */}
             <Skeleton loading={loading} active paragraph={{ rows: 0 }}>

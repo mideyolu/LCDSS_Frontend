@@ -35,7 +35,7 @@ const FeaturesSection = ({ featuresRef }) => {
     return (
         <section
             ref={featuresRef}
-            className="pt-20 pb-5 px-6 md:px-16 mb-[3rem] rounded-2xl max-w-full w-full overflow-hidden"
+            className="pt-20 lg:pb-5 px-6 md:px-16 mb-[1.6rem] md:mb-[1.3rem] rounded-2xl max-w-full w-full overflow-hidden"
         >
             {/* Section Title */}
             <CustomTitle className="text-center" level={5}>
@@ -79,7 +79,7 @@ const FeaturesSection = ({ featuresRef }) => {
                         id === 0 ? "left" : id === 1 ? "right" : "top";
 
                     return (
-                        <Col key={id} xs={24} sm={12} md={6} lg={6} className="flex justify-center">
+                        <Col key={id} xs={24} sm={12} md={12} lg={6} className="flex justify-center">
                             <motion.div
                                 custom={direction}
                                 initial="hidden"

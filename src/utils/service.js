@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 export const service = [
     {
@@ -21,7 +21,6 @@ export const service = [
     },
 ];
 
-
 export const csvHeaders = [
     { label: "S/N", key: "sn" },
     { label: "Name", key: "name" },
@@ -32,21 +31,20 @@ export const csvHeaders = [
     { label: "Status", key: "status" },
 ];
 
-
-
 export const teamMembers = [
     {
         name: "Oluwuyi Olumide",
         role: "Lead Developer (CTO)",
         description:
-            "Building solutions using cutting-edge technologies with strong expertise in backend development and machine learning.",
+            "Building solutions using cutting-edge technologies with strong expertise in backend development and Ds/ML.",
         image: "/ismail.jpg",
     },
     {
-        name: "John Smith",
-        role: "Full-Stack Engineer",
-        description: "Developing robust and scalable AI solutions.",
-        image: "/AI.png",
+        name: "NJOKU MCKENZIE",
+        role: "Machine Learning & Data Analyst",
+        description:
+            "Specializing in data-driven solutions with expertise in machine learning, data analysis",
+        image: "/12.png",
     },
     {
         name: "Achumnu Akachukwu",
@@ -56,11 +54,7 @@ export const teamMembers = [
     },
 ];
 
-
-
-    // Social media links array
+// Social media links array
 export const socialLinks = [
-        { icon: FaGithub, url: "https://github.com/mideyolu/LCDSS" },
-        { icon: FaLinkedin, url: "https://linkedin.com" },
-        { icon: FaTwitter, url: "https://twitter.com" },
-    ];
+    { icon: FaGithub, url: "https://github.com/mideyolu/LCDSS" },
+];

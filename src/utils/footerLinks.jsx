@@ -5,7 +5,7 @@ import { socialLinks } from "./service";
 
 // Navigation Links Component
 export const NavLinks = ({ navLinks, scrollToSection }) => (
-    <ul className="space-y-3 text-white text-sm">
+    <ul className="space-y-3  text-sm">
         {navLinks.map((link, index) =>
             link.to ? (
                 <li key={index}>
