@@ -155,7 +155,12 @@ const App = () => {
             <ToastContainer position="top-right" autoClose={1500} />
             {!hideNavbarRoutes.includes(location.pathname) &&
                 !isNotFoundPage && (
-                    <Footer sidebarCollapsed={sidebarCollapsed} />
+                    <Footer
+                        sidebarCollapsed={sidebarCollapsed}
+                        faqRef={routes[0].element.props.faqRef}
+                        featuresRef={routes[0].element.props.featuresRef}
+                        teamRef={routes[0].element.props.teamRef}
+                    />
                 )}
         </div>
     );

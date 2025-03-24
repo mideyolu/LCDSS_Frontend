@@ -1,34 +1,10 @@
-import { Card, Image } from "antd";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css"; // Import carousel styles
-import {
-    CustomParagraph,
-    CustomSubtitle,
-    CustomTitle,
-} from "../Typography/CustomTypography";
-
-const teamMembers = [
-    {
-        name: "Oluwuyi Olumide",
-        role: "Lead Developer (CTO)",
-        description:
-            "Building solutions using cutting-edge technologies with strong expertise in backend development and machine learning.",
-        image: "/ismail.jpg",
-    },
-    {
-        name: "John Smith",
-        role: "Full-Stack Engineer",
-        description: "Developing robust and scalable AI solutions.",
-        image: "/AI.png",
-    },
-    {
-        name: "Alice Johnson",
-        role: "UI/UX Designer",
-        description: "Designing intuitive and user-friendly interfaces.",
-        image: "/icon.png",
-    },
-];
+import "react-multi-carousel/lib/styles.css";
+import { Skeleton } from "antd";
+import { teamMembers } from "../../utils/service";
+import TeamMemberCard from "../Card/TeamMemberCard";
+import { CustomParagraph, CustomTitle } from "../Typography/CustomTypography";
 
 // Responsive breakpoints
 const responsive = {
@@ -38,65 +14,67 @@ const responsive = {
     mobile: { breakpoint: { max: 480, min: 0 }, items: 1 },
 };
 
+// 🟣 Main Component
 const MeetOurTeam = ({ teamRef }) => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <section
             ref={teamRef}
             className="pt-20 pb-10 px-6 md:px-16 mb-[3rem] text-center w-full"
         >
-            <CustomTitle className="mb-4">Meet Our Team</CustomTitle>
-            <CustomParagraph className="mb-6 text-sm md:text-base">
-                A passionate group of experts dedicated to AI-powered healthcare
-                solutions.
-            </CustomParagraph>
+            {/* Title with Skeleton */}
+            <Skeleton loading={loading} active paragraph={{ rows: 0 }}>
+                <CustomTitle className="mb-4">Meet Our Team</CustomTitle>
+            </Skeleton>
+
+            {/* Description with Skeleton */}
+            <Skeleton loading={loading} active paragraph={{ rows: 2 }}>
+                <CustomParagraph className="mb-6 text-sm md:text-base">
+                    A passionate group of experts dedicated to AI-powered
+                    healthcare solutions.
+                </CustomParagraph>
+            </Skeleton>
 
             {/* Responsive Carousel */}
             <div className="max-w-5xl mx-auto w-full">
-                <Carousel
-                    responsive={responsive}
-                    infinite
-                    autoPlay
-                    autoPlaySpeed={2000}
-                    showDots
-                    arrows={false}
-                    containerClass="w-full"
-                >
-                    {teamMembers.map((member, index) => (
-                        <div key={index} className="flex justify-center w-full">
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.3, ease: "easeOut" }}
-                                className="w-full flex justify-center"
+                {loading ? (
+                    <div className="flex justify-center gap-4">
+                        {[...Array(3)].map((_, index) => (
+                            <Skeleton.Button
+                                key={index}
+                                active
+                                shape="round"
+                                size="large"
+                                style={{ width: "250px", height: "180px" }}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <Carousel
+                        responsive={responsive}
+                        infinite
+                        autoPlay
+                        autoPlaySpeed={2000}
+                        showDots
+                        arrows={false}
+                        containerClass="w-full"
+                    >
+                        {teamMembers.map((member, index) => (
+                            <div
+                                key={index}
+                                className="flex justify-center w-full px-2 hover:scale-105 transition-all duration-100"
                             >
-                                <Card
-                                    hoverable
-                                    className="shadow-md rounded-xl overflow-hidden p-4 my-6 bg-white w-full max-w-sm mx-auto"
-                                >
-                                    <Image
-                                        src={member.image}
-                                        alt={member.name}
-                                        className="rounded-full w-24 h-24 mx-auto object-cover mb-3"
-                                        preview={false}
-                                    />
-                                    <CustomSubtitle
-                                        level={5}
-                                        className="text-sm"
-                                    >
-                                        {member.name}
-                                    </CustomSubtitle>
-                                    <CustomParagraph className="text-xs font-semibold text-blue-600">
-                                        {member.role}
-                                    </CustomParagraph>
-                                    <CustomParagraph className="text-xs leading-tight">
-                                        {member.description}
-                                    </CustomParagraph>
-                                </Card>
-                            </motion.div>
-                        </div>
-                    ))}
-                </Carousel>
+                                <TeamMemberCard member={member} />
+                            </div>
+                        ))}
+                    </Carousel>
+                )}
             </div>
         </section>
     );

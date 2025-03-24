@@ -1,3 +1,5 @@
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+
 export const service = [
     {
         id: 1,
@@ -29,3 +31,36 @@ export const csvHeaders = [
     { label: "Notes", key: "notes" },
     { label: "Status", key: "status" },
 ];
+
+
+
+export const teamMembers = [
+    {
+        name: "Oluwuyi Olumide",
+        role: "Lead Developer (CTO)",
+        description:
+            "Building solutions using cutting-edge technologies with strong expertise in backend development and machine learning.",
+        image: "/ismail.jpg",
+    },
+    {
+        name: "John Smith",
+        role: "Full-Stack Engineer",
+        description: "Developing robust and scalable AI solutions.",
+        image: "/AI.png",
+    },
+    {
+        name: "Achumnu Akachukwu",
+        role: "UI/UX Designer",
+        description: "Designing intuitive and user-friendly interfaces.",
+        image: "/akachukwu.jpg",
+    },
+];
+
+
+
+    // Social media links array
+export const socialLinks = [
+        { icon: FaGithub, url: "https://github.com/mideyolu/LCDSS" },
+        { icon: FaLinkedin, url: "https://linkedin.com" },
+        { icon: FaTwitter, url: "https://twitter.com" },
+    ];

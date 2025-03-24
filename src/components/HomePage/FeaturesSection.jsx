@@ -35,7 +35,7 @@ const FeaturesSection = ({ featuresRef }) => {
     return (
         <section
             ref={featuresRef}
-            className="pt-20 px-6 md:px-16 mb-[3rem] rounded-2xl max-w-full w-full overflow-hidden"
+            className="pt-20 pb-5 px-6 md:px-16 mb-[3rem] rounded-2xl max-w-full w-full overflow-hidden"
         >
             {/* Section Title */}
             <CustomTitle className="text-center" level={5}>

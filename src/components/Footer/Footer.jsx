@@ -1,40 +1,97 @@
-import { Layout, Typography } from "antd";
-import React from "react";
-import { FaGithub } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Layout, Typography, Skeleton } from "antd";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { NavLinks, SocialLinks } from "../../utils/footerLinks";
 
-const Footer = ({ className }) => {
+
+const Footer = ({ className, faqRef, featuresRef, teamRef }) => {
     const { Text } = Typography;
-    const location = useLocation(); // Get current route
+    const location = useLocation();
+    const isDashboard = location.pathname === "/dashboard";
 
-    const isDashboard = location.pathname === "/dashboard"; // Check if user is on dashboard
+    // Loading State
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 1500); // Simulate loading
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Navigation Links Array
+    const navLinks = [
+        { label: "Home", to: "/" },
+        { label: "Features", ref: featuresRef },
+        { label: "FAQ", ref: faqRef },
+        { label: "Team", ref: teamRef },
+    ];
+
+    // Smooth Scroll Handler
+    const scrollToSection = (ref, e) => {
+        e.preventDefault();
+        ref?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
 
     return (
-        <Layout
-            style={{
-                background: "#fff",
-            }}
-            className={`${className} px-6 md:px-16`}
+        <Skeleton
+            loading={loading}
+            active
+            paragraph={{ rows: 4 }}
+            className="w-full"
         >
-            <Text
-                style={{
-                    color: "gray",
-                    fontSize: "14px",
-                }}
-                className="flex flex-col text-center md:flex-row items-center justify-between"
+            <Layout.Footer
+                className={`bg-[#1677FF] text-white py-8 px-6 md:px-16 ${className}`}
             >
-                © {new Date().getFullYear()} Respirix Healthcare. All rights
-                reserved. <br />
-                {isDashboard && ( // Conditionally render if on /dashboard
-                    <strong className="flex mt-3 md:mt-0 items-center gap-5">
-                        Dashboard | Made by Project Group 9{" "}
-                        <Link to={"https://github.com/mideyolu/LCDSS"}>
-                            <FaGithub size={18} style={{ color: "#000" }} />
-                        </Link>
-                    </strong>
-                )}
-            </Text>
-        </Layout>
+                <div className="max-w-6xl mx-auto text-center md:text-left">
+                    {/* Top Section */}
+                    <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
+                        {/* Left - Brand & Description */}
+                        <div>
+                            <h3 className="text-lg font-semibold">
+                                Respirix Healthcare
+                            </h3>
+                            <Text className="text-white text-sm">
+                                Innovating AI-powered healthcare solutions.
+                            </Text>
+                        </div>
+
+                        {/* Center - Quick Links */}
+                        <div>
+                            <h4 className="text-md font-semibold mb-2">
+                                Quick Links
+                            </h4>
+                            <NavLinks
+                                navLinks={navLinks}
+                                scrollToSection={scrollToSection}
+                            />
+                        </div>
+
+                        {/* Right - Social Links */}
+                        <div className="flex flex-col items-center md:items-start">
+                            <h4 className="text-md font-semibold mb-2">
+                                Follow Us
+                            </h4>
+                            <SocialLinks />
+                        </div>
+                    </div>
+
+                    {/* Bottom Section - Copyright */}
+                    <div className="mt-6 text-center border-t text-white pt-4">
+                        <Text className="text-white text-sm">
+                            © {new Date().getFullYear()} Respirix Healthcare.
+                            All rights reserved.
+                        </Text>
+
+                        {isDashboard && (
+                            <div className="mt-3 text-sm">
+                                <strong>
+                                    Dashboard | Made by Project Group 9
+                                </strong>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </Layout.Footer>
+        </Skeleton>
     );
 };
 

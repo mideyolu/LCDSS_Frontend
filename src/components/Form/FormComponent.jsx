@@ -4,16 +4,13 @@ import {
     Checkbox,
     Form,
     Input,
-    Typography,
     Skeleton,
+    Typography,
 } from "antd";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { handlePasswordChange, handleSubmit } from "../../utils/formhandlers";
-import {
-    areAllRequirementsMet,
-    initialValidationState,
-} from "../../utils/password";
+import { initialValidationState } from "../../utils/password";
 import Loader from "../Loader/Loader";
 import PasswordValidation from "../PasswordValidation";
 
@@ -127,15 +124,18 @@ const FormComponent = ({
                     ))}
 
                     {/* Password Validation */}
-                    {fields.some(
-                        (field) => field.name === "provider_password",
-                    ) && (
+
+                    {formLoading ? (
+                        <Skeleton.Input active className="w-full h-10" />
+                    ) : fields.some(
+                          (field) => field.name === "provider_password",
+                      ) ? (
                         <PasswordValidation
                             validation={validation}
                             allRequirementsMet={allRequirementsMet}
                             showSuccess={showSuccess}
                         />
-                    )}
+                    ) : null}
                 </div>
 
                 {/* Terms and Conditions */}
