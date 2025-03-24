@@ -40,7 +40,7 @@ export const teamMembers = [
         image: "/ismail.jpg",
     },
     {
-        name: "NJOKU MCKENZIE",
+        name: "Njoku Mckenzie",
         role: "Machine Learning & Data Analyst",
         description:
             "Specializing in data-driven solutions with expertise in machine learning, data analysis",
