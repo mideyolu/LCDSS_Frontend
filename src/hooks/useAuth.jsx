@@ -47,7 +47,7 @@ const useAuth = () => {
                     localStorage.removeItem("username");
                     toast.error("You have been logged out due to inactivity.");
                     navigate("/login");
-                }, 5 * 60 * 1000); // 5 minutes of inactivity
+                }, 15 * 60 * 1000); // 15 minutes of inactivity
             };
 
             // Event listeners to detect user activity
